@@ -46,10 +46,7 @@ export function WebsiteFooter({ columns, copyrightYear, presentation }: WebsiteF
       <div className="container mx-auto px-6 md:px-10 lg:px-[100px] md:px-10 lg:px-[100px]">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 mb-12">
           <div className="lg:col-span-3 flex flex-col items-start">
-            <img src="/assets/footer/logo.svg" alt="Earn logo" className="" />
-            <p className="text-[10px] text-[#7A7E70] font-normal font-inter text-right ml-16 mt-1">
-              A member of the Earn Ecosystem
-            </p>
+            <p className="font-mokoko text-xl text-white">Earn</p>
           </div>
           <div className="lg:col-span-6 grid grid-cols-2 md:grid-cols-3 gap-8 font-mokoko text-[16px] font-medium text-[#7A7E70]">
             <div className="flex flex-col space-y-4">

@@ -42,13 +42,6 @@ function ModalDocumentHeader() {
   return (
     <div className="flex px-6 items-center justify-between">
       <div className="flex items-center gap-3">
-        <div>
-          <img
-            src="/assets/images/earn-logo.svg"
-            alt="Earn logo"
-            className="mx-auto h-10 aspect-square"
-          />
-        </div>
         <div className="flex flex-col">
           <h3 className="text-xl font-mokoko text-[#142d21]">Document Preview</h3>
           <p className="font-inter text-base text-[#6a7282]">Limited preview available</p>

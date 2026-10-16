@@ -104,19 +104,8 @@ export function WebsiteNavbar({
         onMouseLeave={() => setActiveIdx(null)}
       >
         <div className="flex justify-between items-center md:items-end mt-4 md:mt-0 mb-2 md:mb-0 md:pt-[25px] md:pb-[11px] md:px-10 lg:px-[100px] max-w-content mx-auto relative bg-white">
-          <Link href="/" className="hidden md:block">
-            <img
-              src="/assets/images/logo.svg"
-              alt="Earn logo"
-              className="navbar__logo mb-3"
-            />
-          </Link>
-          <Link href="/" className="block md:hidden">
-            <img
-              src="/assets/icons/logo-mobile.svg"
-              alt="Earn logo"
-              className="navbar__logo-mobile"
-            />
+          <Link href="/" className="font-mokoko text-xl text-brand-dark mb-3">
+            Earn
           </Link>
 
           <nav className="hidden md:block lg:pr-[20px] self-end">
