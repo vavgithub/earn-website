@@ -3,7 +3,8 @@
  * Its uc.js logs "Ignoring Unsecure message event origin" repeatedly; Next.js dev
  * forwards those [browser] lines to the terminal. Harmless on production (HTTPS).
  */
-export function sanitizeGlobalHeadForLocalDev(html: string): string {
+export function sanitizeGlobalHeadForLocalDev(html: string | null | undefined): string {
+  if (!html) return ''
   if (process.env.NODE_ENV !== 'development') return html
 
   return html
