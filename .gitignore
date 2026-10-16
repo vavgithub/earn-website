@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+yarn.lock
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+.env*.local
+
+# Editor directories
+.vscode/
+.idea/
+
+# Next.js build output
+.next/
+out/
+build/
+
+# TypeScript incremental build cache (regenerated locally)
+*.tsbuildinfo
+
+# Cursor IDE, project agent, rules, and markdown docs — local only, do not commit
+.cursor/
+AGENTS.md
+docs/
+*.md

@@ -1,0 +1,232 @@
+/**
+ * Section heading row: heading 100%; tag + color 50% / 50% on row 2.
+ * Eyebrow / short rows: 75% / 25%.
+ * Rich text rows: editor; then size | color | link; then open in new tab on its own row.
+ * Padding row (`blockPaddingRow`): 50% / 50%.
+ */
+
+fieldset[data-testid='fieldset-sectionHeadingRow'] > [class*='Content-'] > [data-ui='Grid'] {
+  display: grid !important;
+  grid-template-columns: minmax(0, 50%) minmax(0, 50%) !important;
+  width: 100% !important;
+  align-items: start !important;
+}
+
+fieldset[data-testid='fieldset-sectionHeadingRow'] > [class*='Content-'] > [data-ui='Grid'] > * {
+  min-width: 0 !important;
+  max-width: 100% !important;
+}
+
+fieldset[data-testid='fieldset-sectionHeadingRow'] > [class*='Content-'] > [data-ui='Grid'] > *:nth-child(1) {
+  grid-column: 1 / -1;
+}
+
+fieldset[data-testid='fieldset-sectionHeadingRow'] > [class*='Content-'] > [data-ui='Grid'] > *:nth-child(2) {
+  grid-column: 1;
+}
+
+fieldset[data-testid='fieldset-sectionHeadingRow'] > [class*='Content-'] > [data-ui='Grid'] > *:nth-child(3) {
+  grid-column: 2;
+}
+
+fieldset[data-testid='fieldset-sectionHeadingRow'] [data-testid^='field-'] [class*='Content-'] > [data-ui='Grid'],
+fieldset[data-testid='fieldset-sectionHeadingRow'] [data-testid^='field-'] [data-ui='Grid'] {
+  display: revert !important;
+  grid-template-columns: revert !important;
+  width: revert !important;
+  align-items: revert !important;
+}
+
+fieldset[data-testid='fieldset-headingRow'] > [class*='Content-'] > [data-ui='Grid'],
+fieldset[data-testid='fieldset-eyebrowRow'] > [class*='Content-'] > [data-ui='Grid'],
+fieldset[data-testid='fieldset-labelRow'] > [class*='Content-'] > [data-ui='Grid'],
+fieldset[data-testid='fieldset-descriptionRow'] > [class*='Content-'] > [data-ui='Grid'] {
+  display: grid !important;
+  grid-template-columns: minmax(0, 75%) minmax(0, 25%) !important;
+  width: 100% !important;
+  align-items: start !important;
+}
+
+fieldset[data-testid='fieldset-headingRow'] > [class*='Content-'] > [data-ui='Grid'] > *,
+fieldset[data-testid='fieldset-eyebrowRow'] > [class*='Content-'] > [data-ui='Grid'] > *,
+fieldset[data-testid='fieldset-labelRow'] > [class*='Content-'] > [data-ui='Grid'] > *,
+fieldset[data-testid='fieldset-descriptionRow'] > [class*='Content-'] > [data-ui='Grid'] > * {
+  min-width: 0 !important;
+  max-width: 100% !important;
+}
+
+fieldset[data-testid='fieldset-headingRow'] [data-testid^='field-'] [class*='Content-'] > [data-ui='Grid'],
+fieldset[data-testid='fieldset-eyebrowRow'] [data-testid^='field-'] [class*='Content-'] > [data-ui='Grid'],
+fieldset[data-testid='fieldset-labelRow'] [data-testid^='field-'] [data-ui='Grid'],
+fieldset[data-testid='fieldset-descriptionRow'] [data-testid^='field-'] [data-ui='Grid'] {
+  display: revert !important;
+  grid-template-columns: revert !important;
+  width: revert !important;
+  align-items: revert !important;
+}
+
+/* Plain-text description rows: text full width; size + color stacked right. */
+fieldset[data-testid='fieldset-descriptionRow'] > [class*='Content-'] > [data-ui='Grid'] > *:nth-child(1) {
+  grid-row: 1 / span 2;
+}
+
+fieldset[data-testid='fieldset-descriptionRow'] > [class*='Content-'] > [data-ui='Grid'] > *:nth-child(2),
+fieldset[data-testid='fieldset-descriptionRow'] > [class*='Content-'] > [data-ui='Grid'] > *:nth-child(3) {
+  grid-column: 2;
+}
+
+fieldset[data-testid='fieldset-descriptionRow'] > [class*='Content-'] > [data-ui='Grid'] > *:nth-child(2) {
+  grid-row: 1;
+}
+
+fieldset[data-testid='fieldset-descriptionRow'] > [class*='Content-'] > [data-ui='Grid'] > *:nth-child(3) {
+  grid-row: 2;
+}
+
+/* Rich text rows — editor full width; controls on row 2 (size | color | link). */
+fieldset[data-testid='fieldset-contentRow'] > [class*='Content-'] > [data-ui='Grid'],
+fieldset[data-testid='fieldset-sectionIntroRow'] > [class*='Content-'] > [data-ui='Grid'],
+fieldset[data-testid='fieldset-introRow'] > [class*='Content-'] > [data-ui='Grid'],
+fieldset[data-testid='fieldset-bodyRow'] > [class*='Content-'] > [data-ui='Grid'],
+fieldset[data-testid='fieldset-modalHeroIntroRow'] > [class*='Content-'] > [data-ui='Grid'] {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  width: 100% !important;
+  align-items: start !important;
+  gap: 0.75rem 1rem !important;
+  grid-auto-flow: row !important;
+}
+
+fieldset[data-testid='fieldset-contentRow'] > [class*='Content-'] > [data-ui='Grid'] > *,
+fieldset[data-testid='fieldset-sectionIntroRow'] > [class*='Content-'] > [data-ui='Grid'] > *,
+fieldset[data-testid='fieldset-introRow'] > [class*='Content-'] > [data-ui='Grid'] > *,
+fieldset[data-testid='fieldset-bodyRow'] > [class*='Content-'] > [data-ui='Grid'] > *,
+fieldset[data-testid='fieldset-modalHeroIntroRow'] > [class*='Content-'] > [data-ui='Grid'] > * {
+  min-width: 0 !important;
+  max-width: 100% !important;
+}
+
+fieldset[data-testid='fieldset-contentRow'] [data-testid^='field-'] [class*='Content-'] > [data-ui='Grid'],
+fieldset[data-testid='fieldset-sectionIntroRow'] [data-testid^='field-'] [class*='Content-'] > [data-ui='Grid'],
+fieldset[data-testid='fieldset-introRow'] [data-testid^='field-'] [data-ui='Grid'],
+fieldset[data-testid='fieldset-bodyRow'] [data-testid^='field-'] [data-ui='Grid'],
+fieldset[data-testid='fieldset-contentRow'] [data-testid^='field-'] [data-ui='Grid'],
+fieldset[data-testid='fieldset-sectionIntroRow'] [data-testid^='field-'] [data-ui='Grid'],
+fieldset[data-testid='fieldset-introRow'] [data-testid^='field-'] [data-ui='Grid'],
+fieldset[data-testid='fieldset-bodyRow'] [data-testid^='field-'] [data-ui='Grid'],
+fieldset[data-testid='fieldset-modalHeroIntroRow'] [data-testid^='field-'] [class*='Content-'] > [data-ui='Grid'],
+fieldset[data-testid='fieldset-modalHeroIntroRow'] [data-testid^='field-'] [data-ui='Grid'] {
+  display: revert !important;
+  grid-template-columns: revert !important;
+  width: revert !important;
+  align-items: revert !important;
+}
+
+/* Field order: editor, text size, text color, link color — nth-child + data-testid. */
+fieldset[data-testid='fieldset-contentRow'] > [class*='Content-'] > [data-ui='Grid'] > *:nth-child(1),
+fieldset[data-testid='fieldset-contentRow'] > [class*='Content-'] > [data-ui='Grid'] > [data-testid='field-content'],
+fieldset[data-testid='fieldset-sectionIntroRow'] > [class*='Content-'] > [data-ui='Grid'] > *:nth-child(1),
+fieldset[data-testid='fieldset-sectionIntroRow'] > [class*='Content-'] > [data-ui='Grid'] > [data-testid='field-sectionIntro'],
+fieldset[data-testid='fieldset-introRow'] > [class*='Content-'] > [data-ui='Grid'] > *:nth-child(1),
+fieldset[data-testid='fieldset-introRow'] > [class*='Content-'] > [data-ui='Grid'] > [data-testid='field-intro'],
+fieldset[data-testid='fieldset-bodyRow'] > [class*='Content-'] > [data-ui='Grid'] > *:nth-child(1),
+fieldset[data-testid='fieldset-bodyRow'] > [class*='Content-'] > [data-ui='Grid'] > [data-testid='field-body'],
+fieldset[data-testid='fieldset-modalHeroIntroRow'] > [class*='Content-'] > [data-ui='Grid'] > *:nth-child(1),
+fieldset[data-testid='fieldset-modalHeroIntroRow'] > [class*='Content-'] > [data-ui='Grid'] > [data-testid='field-modalHeroIntro'] {
+  grid-column: 1 / -1 !important;
+  grid-row: 1 !important;
+}
+
+fieldset[data-testid='fieldset-contentRow'] > [class*='Content-'] > [data-ui='Grid'] > *:nth-child(2),
+fieldset[data-testid='fieldset-contentRow'] > [class*='Content-'] > [data-ui='Grid'] > [data-testid='field-contentTextSize'],
+fieldset[data-testid='fieldset-sectionIntroRow'] > [class*='Content-'] > [data-ui='Grid'] > *:nth-child(2),
+fieldset[data-testid='fieldset-sectionIntroRow'] > [class*='Content-'] > [data-ui='Grid'] > [data-testid='field-sectionIntroTextSize'],
+fieldset[data-testid='fieldset-introRow'] > [class*='Content-'] > [data-ui='Grid'] > *:nth-child(2),
+fieldset[data-testid='fieldset-introRow'] > [class*='Content-'] > [data-ui='Grid'] > [data-testid='field-introTextSize'],
+fieldset[data-testid='fieldset-bodyRow'] > [class*='Content-'] > [data-ui='Grid'] > *:nth-child(2),
+fieldset[data-testid='fieldset-bodyRow'] > [class*='Content-'] > [data-ui='Grid'] > [data-testid='field-bodyTextSize'],
+fieldset[data-testid='fieldset-modalHeroIntroRow'] > [class*='Content-'] > [data-ui='Grid'] > *:nth-child(2),
+fieldset[data-testid='fieldset-modalHeroIntroRow'] > [class*='Content-'] > [data-ui='Grid'] > [data-testid='field-modalHeroIntroTextSize'] {
+  grid-column: 1 !important;
+  grid-row: 2 !important;
+}
+
+fieldset[data-testid='fieldset-contentRow'] > [class*='Content-'] > [data-ui='Grid'] > *:nth-child(3),
+fieldset[data-testid='fieldset-contentRow'] > [class*='Content-'] > [data-ui='Grid'] > [data-testid='field-contentTextColor'],
+fieldset[data-testid='fieldset-sectionIntroRow'] > [class*='Content-'] > [data-ui='Grid'] > *:nth-child(3),
+fieldset[data-testid='fieldset-sectionIntroRow'] > [class*='Content-'] > [data-ui='Grid'] > [data-testid='field-sectionIntroColor'],
+fieldset[data-testid='fieldset-introRow'] > [class*='Content-'] > [data-ui='Grid'] > *:nth-child(3),
+fieldset[data-testid='fieldset-introRow'] > [class*='Content-'] > [data-ui='Grid'] > [data-testid='field-introColor'],
+fieldset[data-testid='fieldset-bodyRow'] > [class*='Content-'] > [data-ui='Grid'] > *:nth-child(3),
+fieldset[data-testid='fieldset-bodyRow'] > [class*='Content-'] > [data-ui='Grid'] > [data-testid='field-bodyTextColor'],
+fieldset[data-testid='fieldset-modalHeroIntroRow'] > [class*='Content-'] > [data-ui='Grid'] > *:nth-child(3),
+fieldset[data-testid='fieldset-modalHeroIntroRow'] > [class*='Content-'] > [data-ui='Grid'] > [data-testid='field-modalHeroIntroTextColor'] {
+  grid-column: 2 !important;
+  grid-row: 2 !important;
+}
+
+fieldset[data-testid='fieldset-contentRow'] > [class*='Content-'] > [data-ui='Grid'] > *:nth-child(4),
+fieldset[data-testid='fieldset-contentRow'] > [class*='Content-'] > [data-ui='Grid'] > [data-testid='field-contentLinkColor'],
+fieldset[data-testid='fieldset-sectionIntroRow'] > [class*='Content-'] > [data-ui='Grid'] > *:nth-child(4),
+fieldset[data-testid='fieldset-sectionIntroRow'] > [class*='Content-'] > [data-ui='Grid'] > [data-testid='field-sectionIntroLinkColor'],
+fieldset[data-testid='fieldset-introRow'] > [class*='Content-'] > [data-ui='Grid'] > *:nth-child(4),
+fieldset[data-testid='fieldset-introRow'] > [class*='Content-'] > [data-ui='Grid'] > [data-testid='field-introLinkColor'],
+fieldset[data-testid='fieldset-bodyRow'] > [class*='Content-'] > [data-ui='Grid'] > *:nth-child(4),
+fieldset[data-testid='fieldset-bodyRow'] > [class*='Content-'] > [data-ui='Grid'] > [data-testid='field-bodyLinkColor'],
+fieldset[data-testid='fieldset-modalHeroIntroRow'] > [class*='Content-'] > [data-ui='Grid'] > *:nth-child(4),
+fieldset[data-testid='fieldset-modalHeroIntroRow'] > [class*='Content-'] > [data-ui='Grid'] > [data-testid='field-modalHeroIntroLinkColor'] {
+  grid-column: 3 !important;
+  grid-row: 2 !important;
+}
+
+fieldset[data-testid='fieldset-contentRow'] > [class*='Content-'] > [data-ui='Grid'] > *:nth-child(5),
+fieldset[data-testid='fieldset-contentRow'] > [class*='Content-'] > [data-ui='Grid'] > [data-testid='field-contentLinksOpenInNewTab'],
+fieldset[data-testid='fieldset-sectionIntroRow'] > [class*='Content-'] > [data-ui='Grid'] > *:nth-child(5),
+fieldset[data-testid='fieldset-sectionIntroRow'] > [class*='Content-'] > [data-ui='Grid'] > [data-testid='field-sectionIntroLinksOpenInNewTab'],
+fieldset[data-testid='fieldset-introRow'] > [class*='Content-'] > [data-ui='Grid'] > *:nth-child(5),
+fieldset[data-testid='fieldset-introRow'] > [class*='Content-'] > [data-ui='Grid'] > [data-testid='field-introLinksOpenInNewTab'],
+fieldset[data-testid='fieldset-bodyRow'] > [class*='Content-'] > [data-ui='Grid'] > *:nth-child(5),
+fieldset[data-testid='fieldset-bodyRow'] > [class*='Content-'] > [data-ui='Grid'] > [data-testid='field-bodyLinksOpenInNewTab'],
+fieldset[data-testid='fieldset-modalHeroIntroRow'] > [class*='Content-'] > [data-ui='Grid'] > *:nth-child(5),
+fieldset[data-testid='fieldset-modalHeroIntroRow'] > [class*='Content-'] > [data-ui='Grid'] > [data-testid='field-modalHeroIntroLinksOpenInNewTab'] {
+  grid-column: 1 / -1 !important;
+  grid-row: 3 !important;
+}
+
+/* Section padding: padding top + padding bottom — 50% / 50% */
+fieldset[data-testid='fieldset-blockPaddingRow'] > [class*='Content-'] > [data-ui='Grid'] {
+  display: grid !important;
+  grid-template-columns: minmax(0, 50%) minmax(0, 50%) !important;
+  width: 100% !important;
+  align-items: start !important;
+}
+
+fieldset[data-testid='fieldset-blockPaddingRow'] > [class*='Content-'] > [data-ui='Grid'] > * {
+  min-width: 0 !important;
+  max-width: 100% !important;
+}
+
+/* Table typography — text size | text color (50% / 50%) */
+fieldset[data-testid='fieldset-columnHeadingTypographyRow'] > [class*='Content-'] > [data-ui='Grid'],
+fieldset[data-testid='fieldset-cellTypographyRow'] > [class*='Content-'] > [data-ui='Grid'] {
+  display: grid !important;
+  grid-template-columns: minmax(0, 50%) minmax(0, 50%) !important;
+  width: 100% !important;
+  align-items: start !important;
+}
+
+fieldset[data-testid='fieldset-columnHeadingTypographyRow'] > [class*='Content-'] > [data-ui='Grid'] > *,
+fieldset[data-testid='fieldset-cellTypographyRow'] > [class*='Content-'] > [data-ui='Grid'] > * {
+  min-width: 0 !important;
+  max-width: 100% !important;
+}
+
+fieldset[data-testid='fieldset-columnHeadingTypographyRow'] [data-testid^='field-'] [class*='Content-'] > [data-ui='Grid'],
+fieldset[data-testid='fieldset-columnHeadingTypographyRow'] [data-testid^='field-'] [data-ui='Grid'],
+fieldset[data-testid='fieldset-cellTypographyRow'] [data-testid^='field-'] [class*='Content-'] > [data-ui='Grid'],
+fieldset[data-testid='fieldset-cellTypographyRow'] [data-testid^='field-'] [data-ui='Grid'] {
+  display: revert !important;
+  grid-template-columns: revert !important;
+  width: revert !important;
+  align-items: revert !important;
+}

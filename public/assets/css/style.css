@@ -1,0 +1,487 @@
+@charset "UTF-8";
+
+/* Fixed navbar: height used for body padding and mobile menu so content does not shift.
+   Mobile (< md): smaller header. md and up: full header with nav padding. */
+:root {
+  --navbar-height: 80px;
+  --notification-bar-height: 0px;
+}
+@media (min-width: 768px) {
+  :root {
+    --navbar-height: 104px;
+  }
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* When navbar is pinned, reserve space so layout is unchanged.
+   Applied to the marketing-shell wrapper (`WebsiteChrome`) only — not the body —
+   so admin routes like `/studio` aren't pushed down. */
+.navbar-pinned-page {
+  padding-top: calc(var(--navbar-height) + var(--notification-bar-height));
+}
+
+/* Pinned navbar stays at top on scroll */
+.navbar-pinned {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+}
+
+/* Pinned site notification — directly under the navbar */
+.notification-bar-pinned {
+  position: fixed;
+  top: var(--navbar-height);
+  left: 0;
+  right: 0;
+  z-index: 49;
+}
+
+/* Mobile menu starts below the header; use same variable so one place controls height */
+#mobile-menu {
+  top: calc(var(--navbar-height) + var(--notification-bar-height));
+}
+
+.font-mokoko {
+  font-family: "Mokoko", sans-serif;
+}
+
+.font-mokoko-normal {
+  font-family: "Mokoko", sans-serif;
+  font-weight: 400 !important;
+}
+
+.font-inter {
+  font-family: "Inter", sans-serif;
+}
+
+.complex-text {
+  color: #e66547;
+}
+
+.simple-text {
+  color: #333;
+}
+
+/* added by Ru */
+.bg-offwhite {
+  background-color: #fdfdfb;
+}
+
+.bg-darkgreen {
+  background-color: #01140b;
+}
+
+.bg-offblack {
+  background-color: #1a1a1a;
+}
+
+.footer-text {
+  color: #808080;
+}
+
+/* Tab states */
+.tab-btn {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1;
+  padding: 12px 24px;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+.active-overview {
+  background: #f5f5ed;
+  color: #e66547; /* brand-red */
+  border-top: 1px solid #000;
+  border-right: 1px solid #000;
+}
+.inactive-overview {
+  background: #fff;
+  color: #333;
+  border-bottom: 1px solid #000;
+}
+.active-middle {
+  background: #f5f5ed;
+  color: #e66547; /* brand-red */
+  border-top: 1px solid #000;
+  border-left: 1px solid #000;
+  border-right: 1px solid #000;
+}
+.inactive-middle {
+  background: #fff;
+  color: #333;
+  border-bottom: 1px solid #000;
+}
+.active-last {
+  background: #f5f5ed;
+  color: #e66547; /* brand-red */
+  border-top: 1px solid #000;
+  border-left: 1px solid #000;
+}
+.inactive-last {
+  background: #fff;
+  color: #333;
+  border-bottom: 1px solid #000;
+}
+
+.accordion-header.is-open .accordion-icon svg {
+  transform: rotate(180deg);
+}
+
+/* Ensure the icon is only visible on screens smaller than 'md' */
+.accordion-icon {
+  display: none;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.hide-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.inset-shadow-effect {
+  box-shadow: inset 10px 20px 40px 0 rgba(0, 0, 0, 0.7);
+}
+
+.tooltip-arrow {
+  position: absolute;
+  z-index: 0;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 80px;
+  height: 80px;
+  background-color: #142d21;
+  border-radius: 2px;
+}
+
+/* Default link styles */
+.nav-link {
+  color: #000; /* or text-brand-dark */
+  opacity: 0.7;
+}
+.nav-link:hover {
+  opacity: 1;
+}
+
+/* When an anchor is targeted from URL hash */
+.nav-link:target {
+  color: #142d21;
+  opacity: 1;
+  font-weight: 600;
+}
+
+/* Dot before the active link */
+.nav-link:target::before {
+  content: "";
+  position: absolute;
+  left: -12px;
+  top: 6px;
+  width: 6px;
+  height: 6px;
+  background-color: #f15b29;
+  border-radius: 50%;
+}
+
+.nav-link.active {
+  opacity: 1;
+  color: #e66547;
+  font-weight: 600;
+}
+.nav-link.active::before {
+  content: "";
+  position: absolute;
+  left: -15px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  background-color: #e66547;
+  border-radius: 50%;
+}
+/* =========================================
+   Proof in Action Tab Logic (Clean Version)
+   ========================================= */
+
+#proof-tabs-container .tab-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 12px 16px;
+  background: #fff;
+  transition:
+    background 0.2s,
+    color 0.2s;
+  position: relative;
+
+  /* Reset default borders */
+  border: 0;
+  outline: none;
+}
+
+#proof-tabs-container .tab-btn img {
+  max-height: 24px;
+  width: auto;
+  filter: grayscale(100%);
+  opacity: 0.6;
+  transition:
+    filter 0.2s,
+    opacity 0.2s;
+}
+
+/* Active State for Tab Buttons */
+#proof-tabs-container .tab-btn.active {
+  background: #f5f5ed;
+  /* Brand-red top border if desired, or handle via classes */
+}
+#proof-tabs-container .tab-btn.active img {
+  filter: grayscale(0%);
+  opacity: 1;
+}
+
+/* Content visibility */
+.proof-content {
+  display: none; /* hidden by default */
+}
+
+/* TAB BORDERS logic mirrors the HTML approach:
+   .tab-border-r, .tab-border-b, etc.
+   We can enforce them here or rely on Tailwind utility classes in HTML.
+   Existing logic in HTML seems to use:
+   border-b border-black (inactive)
+   border-t border-black bg-[#F5F5ED] (active)
+*/
+
+/* Helper classes to match the 'active-overview' style logic from before, 
+   but applied more generically if needed. 
+*/
+.tab-active-style {
+  background: #f5f5ed !important;
+  border-top: 1px solid #000;
+}
+
+/* Specifically for the borders between tabs */
+.tab-border-r {
+  border-right: 1px solid #000;
+}
+.tab-border-l {
+  border-left: 1px solid #000;
+}
+.tab-border-b {
+  border-bottom: 1px solid #000;
+}
+
+/* Only style the block state for animation */
+.proof-content.block {
+  display: block;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-in-out forwards;
+}
+
+/* =========================================
+   Contact Form Styles
+   ========================================= */
+
+/* Clean on load; show errors only after submit attempt (no JS) */
+.error-text {
+  display: none;
+}
+.input-field:user-invalid {
+  border-color: #e66547 !important;
+  box-shadow: 0 0 0 1px #e66547;
+}
+.input-field:user-invalid ~ .error-text {
+  display: block;
+}
+/* Consent message */
+.consent-wrap:has(#consent:user-invalid) + #error-consent {
+  display: block;
+}
+/* CSS-only success: show panel when URL fragment is #form-success */
+#form-success {
+  display: none;
+}
+#form-success:target {
+  display: block;
+}
+body:has(#form-success:target) #contact-form {
+  display: none;
+}
+
+/* =========================================
+   Media Queries
+   ========================================= */
+
+@media (max-width: 767px) {
+  .accordion-icon {
+    display: block;
+  }
+}
+
+/* Mint tab positions */
+@media (min-width: 1024px) {
+  #hexagon-bg-2.mint-active {
+    top: 31%;
+    transition: top 0.2s linear;
+  }
+  #hexagon-bg-2.acquire-active {
+    top: 44%;
+    transition: top 0.2s linear;
+  }
+}
+
+@media (min-width: 1130px) {
+  #hexagon-bg-2.acquire-active {
+    top: 40%;
+    transition: top 0.2s linear;
+  }
+}
+
+/* Update Mint for 1280px */
+@media (min-width: 1280px) {
+  #hexagon-bg-1.mint-active {
+    top: 24%;
+    transition: top 0.2s linear;
+  }
+  #hexagon-bg-1.acquire-active {
+    top: 34%;
+    transition: top 0.2s linear;
+  }
+  .tooltip-arrow {
+    bottom: -40px;
+    width: 100px;
+    height: 100px;
+  }
+
+  #hexagon-bg-2.mint-active {
+    top: 26%;
+    transition: top 0.2s linear;
+  }
+
+  #hexagon-bg-2.acquire-active {
+    top: 36%;
+    transition: top 0.2s linear;
+  }
+}
+
+@media (min-width: 1900px) {
+  .hero-nav {
+    display: none;
+  }
+}
+
+/* M-RETS accordion (mobile only): content hidden unless .open; no borders */
+.mrets-accordion-item,
+.mrets-accordion-item .mrets-accordion-trigger {
+  border: none !important;
+}
+
+/* Hero circle CTA (mrets): circle is a span; link hover changes circle bg */
+.mrets-hero-circle {
+  background-color: rgba(255, 126, 108, 0.6);
+}
+.mrets-hero-circle-cta:hover .mrets-hero-circle {
+  background-color: #ff7e6c;
+}
+@media (max-width: 767px) {
+  .mrets-accordion-content {
+    display: none;
+  }
+  .mrets-accordion-item.open .mrets-accordion-content {
+    display: block;
+  }
+}
+@media (min-width: 768px) {
+  .mrets-accordion-content {
+    display: block;
+  }
+}
+
+html {
+  scrollbar-gutter: stable;
+}
+
+/* Prevent tab switch from scrolling the page: only scroll the stepper strip */
+#registry-carousel .registry-stepper-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Dialogs with HubSpot forms: custom backdrop. Modal uses z-index 10000 in modal.js — reCAPTCHA must sit above both. */
+.dialog-form-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 9999;
+  cursor: pointer;
+}
+
+/* When these dialogs use show() instead of showModal(), ensure content is contained and scrolls inside the dialog */
+.dialog-with-form {
+  max-height: 80vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+/*
+ * reCAPTCHA (HubSpot): badge + challenge iframes are injected on the host document and must stack
+ * above .dialog-form-backdrop (9999) and .dialog-with-form (10000 in JS).
+ * JS in modal.js also bumps z-index when nodes appear (MutationObserver).
+ */
+.grecaptcha-badge {
+  z-index: 10050 !important;
+}
+
+iframe[title*="reCAPTCHA"],
+iframe[title*="recaptcha"],
+iframe[src*="recaptcha"],
+iframe[src*="google.com/recaptcha"] {
+  z-index: 10050 !important;
+}
+
+/* Cost of Standing Still: above 1440px, push circle row right so Step 1 starts inside content margin; green circle can stay outside right */
+@media (min-width: 1440px) {
+  #cost-standing-still-circles {
+    margin-left: 46px;
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
+
+/* Typing animation cursor */
+.typing-cursor {
+  animation: typing-blink 0.7s step-end infinite;
+}
+@keyframes typing-blink {
+  50% {
+    opacity: 0;
+  }
+}

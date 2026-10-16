@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+/* Scan App Router + components — directory-only @source can fail to pick up files on some setups;
+   explicit globs ensure utilities are generated into `tailwind.css`. */
+@source "../../../app/**/*.{js,ts,jsx,tsx,mdx}";
+@source "../../../components/**/*.{js,ts,jsx,tsx,mdx}";
+@source "../../../lib/**/*.{js,ts,jsx,tsx}";
+
+@theme {
+  --color-brand-green: #378457;
+  --color-brand-darkgreen: #142D21;
+  --color-brand-red: #E66547;
+  --color-brand-dark: #333;
+
+  --font-mokoko: Mokoko, sans-serif;
+  --font-inter: Inter, sans-serif;
+  --font-outfit: Outfit, sans-serif;
+
+  --max-width-content: 1280px;
+
+  /* 1400px breakpoint for 4-col card layout */
+  --breakpoint-xxl: 87.5rem;
+}

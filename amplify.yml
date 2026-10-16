@@ -1,0 +1,22 @@
+# AWS Amplify — Next.js App Router (SSR). Do not use `dist` (legacy static site).
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - npm install
+    build:
+      commands:
+        # Console env vars must be copied for Next.js SSR Lambda runtime (draft mode, etc.).
+        # https://docs.aws.amazon.com/amplify/latest/userguide/ssr-environment-variables.html
+        - env | grep -e SANITY_API_READ_TOKEN >> .env.production
+        - env | grep -e NEXT_PUBLIC_ >> .env.production
+        - npm run build
+  artifacts:
+    baseDirectory: .next
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*
+      - .next/cache/**/*

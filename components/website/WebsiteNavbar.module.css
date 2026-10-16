@@ -1,0 +1,49 @@
+/* Desktop mega-menu: overlays page below the white nav bar (does not grow the header). */
+@media (min-width: 768px) {
+  .panel {
+    overflow: hidden;
+    background-color: #f2f2f2;
+    max-height: 0;
+    pointer-events: none;
+    visibility: hidden;
+  }
+
+  .panelOpen {
+    pointer-events: auto;
+    visibility: visible;
+    animation: megaMenuPanelExpand 0.28s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .panelInner {
+    transform: translateY(-8px);
+  }
+
+  .panelOpen .panelInner {
+    animation: megaMenuPanelContentIn 0.28s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  @keyframes megaMenuPanelExpand {
+    to {
+      max-height: min(70vh, 560px);
+    }
+  }
+
+  @keyframes megaMenuPanelContentIn {
+    to {
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .panel {
+      max-height: min(70vh, 560px);
+    }
+
+    .panelOpen,
+    .panelInner,
+    .panelOpen .panelInner {
+      animation: none;
+      transform: none;
+    }
+  }
+}
