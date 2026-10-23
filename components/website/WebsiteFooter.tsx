@@ -1,36 +1,100 @@
 import Link from 'next/link'
-import type { FooterLink } from '@/components/website/footerData'
-import type { Path } from '@sanity/client/csm'
+import type {
+  FooterColumn,
+  FooterLink,
+  FooterSocialPlatform,
+  ResolvedFooter,
+} from '@/components/website/footerData'
+import type { Path, PathSegment } from '@sanity/client/csm'
 import { createDataAttribute } from 'next-sanity'
 
 export type WebsiteFooterProps = {
-  columns: [FooterLink[], FooterLink[], FooterLink[]]
-  copyrightYear: number
+  footer: ResolvedFooter
   presentation?: { documentId: string; documentType: string; studioBaseUrl?: string }
 }
 
-function FooterAnchor({ label, href }: FooterLink) {
-  const external = /^https?:\/\//i.test(href)
-  const className = 'hover:text-white transition-colors duration-200'
-  if (external) {
+type PresentationProps = (path: Path) => Record<string, string>
+
+const SOCIAL_ICONS: Record<FooterSocialPlatform, { src: string; alt: string }> = {
+  linkedin: { src: '/assets/footer/linkedin-icon.svg', alt: 'LinkedIn' },
+  x: { src: '/assets/footer/x-icon.svg', alt: 'X' },
+}
+
+/** Array member path segment: Sanity `_key` when present, else the index. */
+const seg = (key: string | undefined, index: number): PathSegment => (key ? { _key: key } : index)
+
+const isExternal = (href: string) => /^https?:\/\//i.test(href)
+
+/**
+ * Column heading and group sub-heading share one text style. Measured from the Figma footer:
+ * 12px Plex Mono at its default 1.3 line height, 10.8px between rows, ~13px from an underline to the next row.
+ * The column heading underline spans the column; the sub-heading underline spans its text.
+ */
+const footerHeadingText = 'text-xs leading-plex font-medium text-earn-gray-200 pb-0.75 border-b border-earn-gray-550'
+
+function FooterAnchor({ link, attrs }: { link: FooterLink; attrs: Record<string, string> }) {
+  const className =
+    'block whitespace-pre-line text-xs leading-plex font-medium text-earn-orange hover:text-earn-white transition-colors'
+  if (isExternal(link.href)) {
     return (
-      <a href={href} target="_blank" rel="noopener noreferrer" className={className}>
-        {label}
+      <a href={link.href} target="_blank" rel="noopener noreferrer" className={className} {...attrs}>
+        {link.label}
       </a>
     )
   }
   return (
-    <Link href={href} className={className}>
-      {label}
+    <Link href={link.href} className={className} {...attrs}>
+      {link.label}
     </Link>
   )
 }
 
-export function WebsiteFooter({ columns, copyrightYear, presentation }: WebsiteFooterProps) {
-  const [col1, col2, col3] = columns
+function FooterColumnBlock({
+  column,
+  path,
+  presentationProps,
+}: {
+  column: FooterColumn
+  path: Path
+  presentationProps: PresentationProps
+}) {
+  return (
+    <div className="min-w-0">
+      <p className={`m-0 ${footerHeadingText}`} {...presentationProps([...path, 'heading'])}>
+        {column.heading}
+      </p>
+      <div className="mt-3.25 flex flex-col gap-footer-row">
+        {column.groups.map((group, g) => {
+          const groupPath: Path = [...path, 'groups', seg(group._key, g)]
+          return (
+            <div key={group._key ?? g} className="flex flex-col gap-footer-row">
+              {group.heading ? (
+                <span
+                  className={`self-start mb-0.5 ${footerHeadingText}`}
+                  {...presentationProps([...groupPath, 'heading'])}
+                >
+                  {group.heading}
+                </span>
+              ) : null}
+              {group.links.map((link, l) => (
+                <FooterAnchor
+                  key={link._key ?? l}
+                  link={link}
+                  attrs={presentationProps([...groupPath, 'links', seg(link._key, l)])}
+                />
+              ))}
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+export function WebsiteFooter({ footer, presentation }: WebsiteFooterProps) {
   const studioBaseUrl = presentation?.studioBaseUrl
 
-  const presentationProps = (path: Path): Record<string, string> => {
+  const presentationProps: PresentationProps = (path) => {
     if (!presentation?.documentId || !presentation?.documentType || !studioBaseUrl) return {}
     const attr = createDataAttribute({
       id: presentation.documentId,
@@ -42,122 +106,62 @@ export function WebsiteFooter({ columns, copyrightYear, presentation }: WebsiteF
   }
 
   return (
-    <footer className="bg-[#141d19] py-12">
-      <div className="container mx-auto px-6 md:px-10 lg:px-[100px] md:px-10 lg:px-[100px]">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 mb-12">
-          <div className="lg:col-span-3 flex flex-col items-start">
-            <p className="font-mokoko text-xl text-white">Earn</p>
-          </div>
-          <div className="lg:col-span-6 grid grid-cols-2 md:grid-cols-3 gap-8 font-mokoko text-[16px] font-medium text-[#7A7E70]">
-            <div className="flex flex-col space-y-4">
-              {col1.map((item, i) => {
-                const external = /^https?:\/\//i.test(item.href)
-                const className = 'hover:text-white transition-colors duration-200'
-                return external ? (
+    <footer className="bg-earn-ink-deep font-plex-mono pt-15 pb-5">
+      <div className="max-w-270 mx-auto px-5 md:px-10 xl:px-0">
+        <div className="flex flex-col lg:flex-row lg:justify-between gap-12">
+          <div className="flex flex-col items-start lg:items-end lg:w-37.5 shrink-0">
+            <Link href="/">
+              <img src="/assets/images/earn-logo.svg" alt="Earn" className="block h-9 w-auto" />
+            </Link>
+            {footer.socialLinks.length ? (
+              <div className="flex gap-4.5 mt-11.25" {...presentationProps(['socialLinks'])}>
+                {footer.socialLinks.map((social, i) => (
                   <a
-                    key={`footer-c1-${i}`}
-                    href={item.href}
+                    key={social._key ?? i}
+                    href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={className}
-                    {...presentationProps(['column1', i])}
+                    className="hover:opacity-80 transition-opacity"
+                    {...presentationProps(['socialLinks', seg(social._key, i)])}
                   >
-                    {item.label}
+                    <img
+                      src={SOCIAL_ICONS[social.platform].src}
+                      alt={SOCIAL_ICONS[social.platform].alt}
+                      className="block size-6"
+                    />
                   </a>
-                ) : (
-                  <Link
-                    key={`footer-c1-${i}`}
-                    href={item.href}
-                    className={className}
-                    {...presentationProps(['column1', i])}
-                  >
-                    {item.label}
-                  </Link>
-                )
-              })}
-            </div>
-
-            <div className="flex flex-col space-y-4">
-              {col2.map((item, i) => {
-                const external = /^https?:\/\//i.test(item.href)
-                const className = 'hover:text-white transition-colors duration-200'
-                return external ? (
-                  <a
-                    key={`footer-c2-${i}`}
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={className}
-                    {...presentationProps(['column2', i])}
-                  >
-                    {item.label}
-                  </a>
-                ) : (
-                  <Link
-                    key={`footer-c2-${i}`}
-                    href={item.href}
-                    className={className}
-                    {...presentationProps(['column2', i])}
-                  >
-                    {item.label}
-                  </Link>
-                )
-              })}
-            </div>
-
-            <div className="flex flex-col space-y-4">
-              {col3.map((item, i) => {
-                const external = /^https?:\/\//i.test(item.href)
-                const className = 'hover:text-white transition-colors duration-200'
-                return external ? (
-                  <a
-                    key={`footer-c3-${i}`}
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={className}
-                    {...presentationProps(['column3', i])}
-                  >
-                    {item.label}
-                  </a>
-                ) : (
-                  <Link
-                    key={`footer-c3-${i}`}
-                    href={item.href}
-                    className={className}
-                    {...presentationProps(['column3', i])}
-                  >
-                    {item.label}
-                  </Link>
-                )
-              })}
-            </div>
-          </div>
-
-          <div className="lg:col-span-3 flex flex-col lg:items-end">
-            <div className="flex space-x-4 mb-4">
-              <a
-                href="https://www.linkedin.com/company/earndlt/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className=""
+                ))}
+              </div>
+            ) : null}
+            {footer.phone ? (
+              <p
+                className="m-0 mt-2 font-inter text-2xs leading-4 whitespace-nowrap text-earn-gray-600"
+                {...presentationProps(['phone'])}
               >
-                <img src="/assets/footer/linkedin-icon.svg" alt="Linkedin" />
-              </a>
-              <a href="https://x.com/earndlt/" className="" target="_blank" rel="noopener noreferrer">
-                <img src="/assets/footer/x-icon.svg" alt="X" />
-              </a>
-            </div>
-            <p className="text-sm text-[#7A7E70] font-normal font-inter">(+1) 877-905-EARN (3276)</p>
+                {footer.phone}
+              </p>
+            ) : null}
+          </div>
+
+          <div className="grid grid-cols-2 gap-x-8 gap-y-10 md:flex md:gap-15 lg:mt-1.75">
+            {footer.columns.map((column, c) => (
+              <FooterColumnBlock
+                key={column._key ?? c}
+                column={column}
+                path={['columns', seg(column._key, c)]}
+                presentationProps={presentationProps}
+              />
+            ))}
           </div>
         </div>
-        <div className="border-t border-[#204734] my-8"></div>
-        <div
-          className="text-center text-[12px] text-[#606060] font-normal font-inter"
+
+        <div className="mt-10.75 border-t border-earn-gray-800" />
+        <p
+          className="m-0 pt-3.5 text-center font-inter text-3xs leading-4 text-earn-gray-700"
           {...presentationProps(['copyrightYear'])}
         >
-          &copy; {copyrightYear} EarnDLT®. All Rights Reserved
-        </div>
+          &copy; {footer.copyrightYear} {footer.copyrightHolder}. All Rights Reserved
+        </p>
       </div>
     </footer>
   )

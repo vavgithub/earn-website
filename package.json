@@ -13,7 +13,9 @@
     "lint": "next lint",
     "seed:blog-categories": "node scripts/seed-blog-categories.cjs",
     "restore:resource-toc": "node scripts/restore-resource-toc.cjs",
-    "seed:hubspot-settings": "node scripts/seed-hubspot-settings.cjs"
+    "seed:hubspot-settings": "node scripts/seed-hubspot-settings.cjs",
+    "seed:site-navigation": "node scripts/seed-site-navigation.cjs",
+    "seed:site-footer": "node scripts/seed-site-footer.cjs"
   },
   "keywords": [],
   "author": "",

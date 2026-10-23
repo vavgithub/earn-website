@@ -1,15 +1,10 @@
 @charset "UTF-8";
 
-/* Fixed navbar: height used for body padding and mobile menu so content does not shift.
-   Mobile (< md): smaller header. md and up: full header with nav padding. */
+/* Fixed navbar: height used for page offset and the mobile menu so content does not shift.
+   Figma shell is 24 top + 46 content + 16 bottom at every width. */
 :root {
-  --navbar-height: 80px;
+  --navbar-height: 86px;
   --notification-bar-height: 0px;
-}
-@media (min-width: 768px) {
-  :root {
-    --navbar-height: 104px;
-  }
 }
 
 body {

@@ -52,10 +52,11 @@ export async function WebsiteChrome({ children }: WebsiteChromeProps) {
   const footerQuery = `*[_type == "siteFooter"] | order(_updatedAt desc)[0]{
     _id,
     _type,
-    copyrightYear,
-    column1[]{label, href},
-    column2[]{label, href},
-    column3[]{label, href}
+    columns[]{_key, heading, groups[]{_key, heading, links[]{_key, label, href}}},
+    socialLinks[]{_key, platform, url},
+    phone,
+    copyrightHolder,
+    copyrightYear
   }`
 
   const footerDoc = await sanityClient.fetch(
@@ -83,8 +84,7 @@ export async function WebsiteChrome({ children }: WebsiteChromeProps) {
   )
 
   const navItems = normalizeNavigation(navDoc?.items)
-  const { columns: footerColumns, copyrightYear: footerCopyrightYear } =
-    resolveFooterFromSanity(footerDoc)
+  const footer = resolveFooterFromSanity(footerDoc)
 
   return (
     <>
@@ -107,10 +107,9 @@ export async function WebsiteChrome({ children }: WebsiteChromeProps) {
         paddingBottom={notificationBarDoc?.paddingBottom}
         background={notificationBarDoc?.sectionBackground}
       />
-      <main className="navbar-pinned-page">{children}</main>
+      <main className="navbar-pinned-page flex-1">{children}</main>
       <WebsiteFooter
-        columns={footerColumns}
-        copyrightYear={footerCopyrightYear}
+        footer={footer}
         presentation={
           isDraft && footerDoc?._id && footerDoc?._type
             ? { documentId: footerDoc._id, documentType: footerDoc._type, studioBaseUrl }

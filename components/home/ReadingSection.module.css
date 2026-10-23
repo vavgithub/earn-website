@@ -1,0 +1,280 @@
+.section {
+  background: var(--color-earn-work);
+  color: var(--color-earn-white);
+  padding: var(--spacing-hero-block) var(--spacing-hero-inline);
+}
+
+.stage,
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 3.75rem;
+  width: 100%;
+  margin-inline: auto;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.eyebrow,
+.heading,
+.kicker,
+.title,
+.body,
+.more {
+  margin: 0;
+}
+
+.eyebrow {
+  font-family: var(--font-inter);
+  font-weight: 400;
+  font-size: var(--text-eyebrow-mobile);
+  letter-spacing: var(--tracking-eyebrow);
+  line-height: normal;
+  text-transform: uppercase;
+  color: var(--color-earn-white);
+}
+
+.heading {
+  font-family: var(--font-plex-sans);
+  font-weight: 600;
+  font-size: var(--text-hero-mobile);
+  line-height: var(--text-ecosystem--line-height);
+  color: var(--color-earn-paper);
+}
+
+.grid {
+  display: flex;
+  flex-direction: column;
+  gap: 6.25rem;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  min-width: 0;
+}
+
+.media {
+  position: relative;
+  width: 100%;
+  height: 12.5rem;
+  overflow: hidden;
+}
+
+.media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.6;
+}
+
+.rounded {
+  border-radius: 0.25rem;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.kicker {
+  font-family: var(--font-plex-mono);
+  font-weight: 400;
+  font-size: var(--text-eyebrow);
+  line-height: normal;
+  text-transform: uppercase;
+  color: var(--color-earn-white);
+}
+
+.title {
+  font-family: var(--font-inter);
+  font-weight: 400;
+  font-size: var(--text-products-lead);
+  line-height: normal;
+  color: var(--color-earn-white);
+}
+
+.break {
+  display: none;
+}
+
+.foot {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.body {
+  font-family: var(--font-inter);
+  font-weight: 400;
+  font-size: var(--text-slide-body-compact);
+  line-height: var(--text-slide-body-compact--line-height);
+  color: var(--color-earn-white);
+}
+
+.action {
+  align-self: flex-start;
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  height: 1.75rem;
+  padding: 0 1rem;
+  border: 1px solid var(--color-earn-gray-400);
+  border-radius: 1.25rem;
+  color: var(--color-earn-orange);
+  font-family: var(--font-inter);
+  font-size: var(--text-card-link);
+  font-weight: 400;
+  line-height: normal;
+  text-decoration: none;
+}
+
+.action:hover {
+  border-color: var(--color-earn-gold);
+  color: var(--color-earn-gold);
+}
+
+.action:focus-visible {
+  outline: 1px solid var(--color-earn-gold);
+  outline-offset: 2px;
+}
+
+.actionCompact {
+  display: none;
+}
+
+.more {
+  align-self: flex-end;
+  color: var(--color-earn-white);
+  font-family: var(--font-inter);
+  font-size: var(--text-slide-body-compact);
+  font-weight: 400;
+  line-height: normal;
+  text-decoration: none;
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding: 7.5rem var(--spacing-hero-pad);
+  }
+
+  .stage,
+  .content {
+    gap: 6.25rem;
+  }
+
+  .heading {
+    font-size: var(--text-ecosystem-mobile);
+  }
+
+  .title {
+    font-size: 1.75rem;
+  }
+
+  .body {
+    font-size: var(--text-slide-body);
+    line-height: normal;
+  }
+
+  .action {
+    height: 2.75rem;
+    padding-inline: 1.25rem;
+    font-size: var(--text-slide-body);
+  }
+}
+
+@media (min-width: 1024px) {
+  .stage,
+  .content {
+    gap: 3.75rem;
+  }
+
+  .eyebrow {
+    font-size: var(--text-eyebrow);
+  }
+
+  .heading {
+    font-size: var(--text-ecosystem);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6.25rem 3.75rem;
+  }
+
+  .card:first-child {
+    grid-column: 1 / -1;
+  }
+
+  .media {
+    height: auto;
+    aspect-ratio: 16 / 9;
+  }
+
+  .body {
+    line-height: var(--text-slide-body--line-height);
+  }
+
+  .actionFull {
+    display: none;
+  }
+
+  .actionCompact {
+    display: inline;
+  }
+}
+
+@media (min-width: 1440px) {
+  .stage {
+    max-width: 67.5rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 3.75rem;
+  }
+
+  .card:first-child {
+    grid-column: auto;
+  }
+
+  .actionFull {
+    display: inline;
+  }
+
+  .actionCompact {
+    display: none;
+  }
+}
+
+@media (min-width: 1920px) {
+  .stage {
+    max-width: 90rem;
+  }
+
+  .media {
+    height: 12.5rem;
+    aspect-ratio: auto;
+  }
+
+  .break {
+    display: initial;
+  }
+}
+
+@media (min-width: 2560px) {
+  .stage,
+  .content {
+    gap: 6.25rem;
+  }
+}

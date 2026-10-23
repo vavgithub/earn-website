@@ -21,13 +21,59 @@ import {
 } from "./navigationData";
 import { navKeyFromLabel } from "@/lib/navKeyFromLabel";
 
-const appRegisterUrl = process.env.NEXT_PUBLIC_APP_REGISTER_URL?.trim() ?? "";
 const appLoginUrl = process.env.NEXT_PUBLIC_APP_LOGIN_URL?.trim() ?? "";
 
+/** Top-level item: orange by default, white semibold while hovered or its panel is open. */
+function topLinkClass(isActive: boolean) {
+  return isActive
+    ? "font-semibold text-earn-white"
+    : "font-medium text-earn-orange hover:text-earn-white";
+}
+
+function NavTopLink({
+  href,
+  label,
+  onFocus,
+  hasDropdown,
+  isActive,
+}: {
+  href: string;
+  label: string;
+  onFocus: () => void;
+  hasDropdown: boolean;
+  isActive: boolean;
+}) {
+  const className = `font-plex-mono text-base leading-5 transition-colors ${topLinkClass(isActive)}`;
+  if (/^https?:\/\//.test(href)) {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        onFocus={onFocus}
+        className={className}
+      >
+        {label}
+      </a>
+    );
+  }
+  return (
+    <Link
+      href={href}
+      onFocus={onFocus}
+      aria-haspopup={hasDropdown ? "true" : undefined}
+      aria-expanded={hasDropdown ? isActive : undefined}
+      className={className}
+    >
+      {label}
+    </Link>
+  );
+}
+
 /**
- * Top navigation. Layout above the dropdown panel is the legacy layout:
- *   - desktop logo bottom-left, nav items bottom-row, CTAs absolute-positioned top-right
- *   - mobile: logo left, hamburger right, full-screen accordion drawer below
+ * Top navigation.
+ *   - From 1024: logo bottom-left, nav links centered on the lower row, Login gold on the upper right.
+ *   - Below 1024: logo left, menu button right. The drawer stays the existing accordion.
  *
  * On top of that legacy chrome we add a hover-driven mega-menu:
  *   - Hover a top-level item → grey panel slides down under the navbar (open animation only;
@@ -39,8 +85,8 @@ const appLoginUrl = process.env.NEXT_PUBLIC_APP_LOGIN_URL?.trim() ?? "";
  *   - Dropdown content is configured per-item in `navigationData.ts` (Phase 2: from Sanity).
  *   - `single-with-intro`: opening the panel shows the top-level default intro on the right (Sanity
  *     `introHeading` / `introBody` on that nav item); no left row is highlighted until hover.
- *     Hovering a row shows that row’s intro (`introHeading` / `introBody` on the row); leaving the
- *     two-column panel resets to the default intro.
+ *     Hovering a row shows that row’s intro (`introHeading` / `introBody` on the row) when it has
+ *     one, otherwise the default intro stays; leaving the two-column panel resets to the default.
  *
  * Mobile mega-menu = accordion: tap a row to expand its sub-items inline. If the item has both
  * `href` and a dropdown, an "Overview" link appears at the top of the expanded panel. For
@@ -100,16 +146,36 @@ export function WebsiteNavbar({
   return (
     <>
       <header
-        className="navbar-pinned bg-white px-5 md:px-0 w-full md:relative"
+        className="navbar-pinned bg-earn-ink font-plex-mono w-full"
         onMouseLeave={() => setActiveIdx(null)}
       >
-        <div className="flex justify-between items-center md:items-end mt-4 md:mt-0 mb-2 md:mb-0 md:pt-[25px] md:pb-[11px] md:px-10 lg:px-[100px] max-w-content mx-auto relative bg-white">
-          <Link href="/" className="font-mokoko text-xl text-brand-dark mb-3">
-            Earn
+        <div className={styles.bar}>
+          <Link href="/" className={styles.logoLink}>
+            <img src="/assets/images/earn-logo.svg" alt="Earn" className={styles.logo} />
           </Link>
 
-          <nav className="hidden md:block lg:pr-[20px] self-end">
-            <ul className="flex gap-[20px] lg:gap-[30px] list-none md:pb-5 m-0">
+          <div className={styles.desktop}>
+            <div className={styles.loginRow}>
+              <a
+                id="login-button"
+                href={appLoginUrl || "#"}
+                className={`login ${styles.loginLink}`}
+                {...(appLoginUrl
+                  ? { target: "_blank", rel: "noopener noreferrer" }
+                  : {})}
+              >
+                Login
+              </a>
+              <button
+                id="logout-button"
+                type="button"
+                className={`hidden ${styles.logoutLink}`}
+              >
+                Logout
+              </button>
+            </div>
+            <nav>
+            <ul className={styles.menu}>
               {navItems.map((item, idx) => (
                 <li
                   key={item.key ?? navKeyFromLabel(item.label)}
@@ -122,95 +188,39 @@ export function WebsiteNavbar({
                       onFocus={() => setActiveIdx(idx)}
                       aria-haspopup="true"
                       aria-expanded={activeIdx === idx}
-                      className={`text-base font-medium transition-colors bg-transparent border-0 cursor-pointer p-0 ${
-                        activeIdx === idx
-                          ? "text-brand-red"
-                          : "text-[#142D21] hover:text-brand-red"
-                      }`}
+                      className={`font-plex-mono text-base leading-5 transition-colors bg-transparent border-0 cursor-pointer p-0 ${topLinkClass(activeIdx === idx)}`}
                     >
                       {item.label}
                     </button>
                   ) : (
-                    <Link
+                    <NavTopLink
                       href={item.href ?? "#"}
+                      label={item.label}
                       onFocus={() => setActiveIdx(idx)}
-                      aria-haspopup={item.dropdown ? "true" : undefined}
-                      aria-expanded={
-                        item.dropdown ? activeIdx === idx : undefined
-                      }
-                      className={`text-base font-medium transition-colors ${
-                        activeIdx === idx
-                          ? "text-brand-red"
-                          : "text-[#142D21] hover:text-brand-red"
-                      }`}
-                    >
-                      {item.label}
-                    </Link>
+                      hasDropdown={!!item.dropdown}
+                      isActive={activeIdx === idx}
+                    />
                   )}
                 </li>
               ))}
             </ul>
-          </nav>
+            </nav>
+          </div>
 
-          <div className="flex items-center md:items-start md:self-start gap-5 md:gap-8 md:absolute md:right-[clamp(1.25rem,9vw,4%)] md:top-[13%] lg:right-[clamp(1.25rem,10vw,10%)] xl:right-0 xl:relative">
-            {appRegisterUrl ? (
-              <a
-                id="get-started-button"
-                href={appRegisterUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm font-medium text-brand-red whitespace-nowrap hover:opacity-80 transition-opacity"
-              >
-                Get Started
-              </a>
-            ) : null}
-            {appLoginUrl ? (
-              <a
-                id="login-button"
-                href={appLoginUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm font-medium text-brand-red whitespace-nowrap hover:opacity-80 transition-opacity"
-              >
-                Login
-              </a>
-            ) : null}
-            <button
-              id="logout-button"
-              type="button"
-              className="hidden text-sm font-medium text-brand-red whitespace-nowrap hover:opacity-80 transition-opacity"
-            >
-              Logout
-            </button>
+          <div className={styles.menuControls}>
             <button
               id="menu-button"
               type="button"
-              className={`md:hidden border-0 bg-transparent text-2xl cursor-pointer text-brand-dark p-0 ml-0 ${mobileOpen ? "hidden" : ""}`}
-              aria-label="Toggle navigation"
-              onClick={() => setMobileOpen(true)}
+              className={`${styles.menuButton} ${mobileOpen ? styles.menuOpen : ""}`}
+              aria-label={mobileOpen ? "Close navigation" : "Toggle navigation"}
+              aria-expanded={mobileOpen}
+              onClick={() => (mobileOpen ? closeMobile() : setMobileOpen(true))}
             >
-              <img src="/assets/icons/menu-icon.svg" alt="Menu Icon" />
-            </button>
-            <button
-              id="close-menu"
-              type="button"
-              className={`md:hidden border-0 bg-transparent text-2xl cursor-pointer text-brand-dark p-0 ml-0 ${mobileOpen ? "" : "hidden"}`}
-              aria-label="Close navigation"
-              onClick={closeMobile}
-            >
-              <svg
-                width="32"
-                height="32"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-              </svg>
+              <span className={styles.menuIcon} aria-hidden="true">
+                <span />
+                <span />
+                <span />
+              </span>
             </button>
           </div>
         </div>
@@ -235,7 +245,7 @@ export function WebsiteNavbar({
       <div
         id="mobile-menu"
         data-next-managed="true"
-        className={`${mobileOpen ? "flex" : "hidden"} md:hidden fixed inset-x-0 top-[var(--navbar-height)] bottom-0 z-40 bg-white flex-col overflow-y-auto`}
+        className={`${mobileOpen ? "flex" : "hidden"} lg:hidden fixed inset-x-0 top-[var(--navbar-height)] bottom-0 z-40 bg-earn-ink font-plex-mono flex-col overflow-y-auto`}
       >
         <nav className="flex flex-col">
           {navItems.map((item, idx) => (
@@ -286,11 +296,11 @@ function MegaMenuPanel({
 
   return (
     <div
-      className={`${styles.panel} ${open && isOpen ? styles.panelOpen : ""} max-md:hidden absolute left-0 right-0 top-full z-[51]`}
+      className={`${styles.panel} ${open && isOpen ? styles.panelOpen : ""} bg-earn-ink-raised max-lg:hidden absolute left-0 right-0 top-full z-[51]`}
       aria-hidden={!isOpen}
     >
       <div
-        className={`${styles.panelInner} max-w-content mx-auto px-5 md:px-10 lg:px-[100px] py-12`}
+        className={`${styles.panelInner} max-w-content mx-auto px-5 md:px-10 xl:px-0 py-12`}
       >
         {dropdown.kind === "multi-column" ? (
           <MultiColumnContent
@@ -324,7 +334,8 @@ function MultiColumnContent({
 }) {
   return (
     <div
-      className="grid gap-x-8 gap-y-8 lg:gap-x-12"
+      className="grid gap-x-6 gap-y-7"
+      // Column count comes from Sanity at runtime.
       style={{
         gridTemplateColumns: `repeat(${columns.length}, minmax(0, 1fr))`,
       }}
@@ -371,19 +382,23 @@ function SingleWithIntroContent({
     setHoveredIdx(null);
   }, [itemsResetKey]);
 
+  /** Row index whose own intro is showing; null when the menu's default intro is showing. */
+  const introRowIdx =
+    hoveredIdx !== null && rowHasIntro(items[hoveredIdx]) ? hoveredIdx : null;
+
   const panelCopy = useMemo(() => {
-    if (hoveredIdx === null) return intro;
-    return introForHoveredRow(items, hoveredIdx);
-  }, [items, intro, hoveredIdx]);
+    if (introRowIdx === null) return intro;
+    return introForHoveredRow(items, introRowIdx);
+  }, [items, intro, introRowIdx]);
 
   const headingSanityPath =
-    hoveredIdx === null
+    introRowIdx === null
       ? parentIntroHeadingPath
-      : ([...itemsPath, hoveredIdx, "introHeading"] as Path);
+      : ([...itemsPath, introRowIdx, "introHeading"] as Path);
   const bodySanityPath =
-    hoveredIdx === null
+    introRowIdx === null
       ? parentIntroBodyPath
-      : ([...itemsPath, hoveredIdx, "introBody"] as Path);
+      : ([...itemsPath, introRowIdx, "introBody"] as Path);
 
   const handlePanelPointerLeave = (e: ReactPointerEvent<HTMLDivElement>) => {
     const next = e.relatedTarget as Node | null;
@@ -393,33 +408,35 @@ function SingleWithIntroContent({
 
   return (
     <div
-      className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16"
+      className="grid grid-cols-1 lg:grid-cols-10 gap-10 lg:gap-0"
       onPointerLeave={handlePanelPointerLeave}
     >
-      <ul
-        className="flex flex-col gap-7 list-none m-0 p-0"
-        {...(presentationProps ? presentationProps(itemsPath) : {})}
-      >
-        {items.map((item, i) => (
-          <DesktopColumnItem
-            key={i}
-            item={item}
-            presentationProps={presentationProps}
-            itemPath={[...itemsPath, i] as Path}
-            onActivate={() => setHoveredIdx(i)}
-            isHighlighted={hoveredIdx !== null && hoveredIdx === i}
-          />
-        ))}
-      </ul>
-      <div className="self-start max-w-[480px] min-h-[8rem]">
+      <div className="lg:col-span-3 lg:pr-15">
+        <ul
+          className="flex flex-col gap-7 list-none m-0 p-0 lg:pr-6 lg:border-r lg:border-earn-gray-500"
+          {...(presentationProps ? presentationProps(itemsPath) : {})}
+        >
+          {items.map((item, i) => (
+            <DesktopColumnItem
+              key={i}
+              item={item}
+              presentationProps={presentationProps}
+              itemPath={[...itemsPath, i] as Path}
+              onActivate={() => setHoveredIdx(i)}
+              isHighlighted={hoveredIdx !== null && hoveredIdx === i}
+            />
+          ))}
+        </ul>
+      </div>
+      <div className="self-start lg:col-span-7 lg:pl-15 lg:pt-7 min-h-32 max-w-195">
         <h3
-          className="text-[20px] md:text-[22px] leading-snug text-[#142D21] font-normal mb-3"
+          className="font-plex-mono font-semibold text-2xl leading-6.5 text-earn-gray-100 m-0 mb-6"
           {...(presentationProps ? presentationProps(headingSanityPath) : {})}
         >
           {panelCopy.heading}
         </h3>
         <p
-          className="text-[15px] md:text-[16px] leading-relaxed text-[#142D21]/80"
+          className="font-inter font-medium text-xl leading-8 text-earn-gray-100 m-0"
           {...(presentationProps ? presentationProps(bodySanityPath) : {})}
         >
           {panelCopy.body}
@@ -430,15 +447,17 @@ function SingleWithIntroContent({
 }
 
 /** Right-hand copy when a specific left row is hovered (does not fall back to parent intro). */
+function rowHasIntro(row: ColumnItem | undefined): boolean {
+  return !!((row?.intro?.heading ?? "").trim() || (row?.intro?.body ?? "").trim());
+}
+
+/** Right-hand copy for a hovered row that has its own intro (see `rowHasIntro`). */
 function introForHoveredRow(items: ColumnItem[], idx: number): { heading: string; body: string } {
   const row = items[idx];
   if (!row) return { heading: "", body: "" };
   const rh = (row.intro?.heading ?? "").trim();
   const rb = (row.intro?.body ?? "").trim();
-  if (rh || rb) {
-    return { heading: rh || row.label, body: rb };
-  }
-  return { heading: row.label, body: "" };
+  return { heading: rh || row.label, body: rb };
 }
 
 function DesktopColumnItem({
@@ -462,7 +481,7 @@ function DesktopColumnItem({
     >
       <DropdownRow item={item} isActive={isHighlighted} />
       {item.subitems && item.subitems.length > 0 && (
-        <ul className="flex flex-col gap-7 mt-7 ml-12 list-none m-0 p-0">
+        <ul className="flex flex-col gap-7 mt-7 ml-10 list-none p-0">
           {item.subitems.map((sub, i) => (
             <li
               key={i}
@@ -480,10 +499,11 @@ function DesktopColumnItem({
 }
 
 /**
- * One row in the dropdown. Matches the Figma screenshot:
- *   - a thin full-width underline across the column
- *   - a thick underline segment only under the text, overlaid on top of the thin line
- * Subitems are indented by the parent list (`ml-12`), so both lines start 48px in.
+ * One row in the dropdown (Earn Figma):
+ *   - a thin full-width grey line across the column
+ *   - a thick orange bar only under the text, on top of the thin line (links only)
+ * Rows without a URL render grey with no bar (e.g. "Developers").
+ * Subitems are indented by the parent list (`ml-10`), so both lines start 40px in.
  */
 function DropdownRow({
   item,
@@ -493,13 +513,13 @@ function DropdownRow({
   isActive?: boolean;
 }) {
   return (
-    <div className="relative w-full after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-0 after:h-px after:bg-[#AEAEAE]">
+    <div className="relative w-full after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-0 after:h-px after:bg-earn-gray-500">
       {item.href ? (
         <DropdownLink href={item.href} label={item.label} isActive={isActive} />
       ) : (
         <span
-          className={`inline-block text-[15px] font-medium pb-2 transition-colors ${
-            isActive ? "text-brand-red" : "text-[#142D21]"
+          className={`inline-block font-plex-mono text-base leading-5 font-medium pb-4 transition-colors ${
+            isActive ? "text-earn-white" : "text-earn-gray-400"
           }`}
         >
           {item.label}
@@ -519,9 +539,9 @@ function DropdownLink({
   isActive?: boolean;
 }) {
   const isExternal = /^https?:\/\//.test(href);
-  const className = isActive
-    ? "relative inline-block text-[15px] text-brand-red pb-2 after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-0 after:h-[6px] after:bg-brand-red"
-    : "relative inline-block text-[15px] text-[#142D21] hover:text-brand-red transition-colors pb-2 after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-0 after:h-[6px] after:bg-[#AEAEAE] hover:after:bg-brand-red";
+  const className = `relative z-1 inline-block font-plex-mono text-base leading-5 font-medium pb-4 transition-colors after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-0 after:h-1 after:bg-earn-orange ${
+    isActive ? "text-earn-white" : "text-earn-peach hover:text-earn-white"
+  }`;
 
   if (isExternal) {
     return (
@@ -560,14 +580,14 @@ function MobileNavRow({
   const hasDropdown = !!item.dropdown;
 
   return (
-    <div className="border-b border-[#E5E5E5]">
+    <div className="border-b border-earn-gray-500">
       <div className="flex items-stretch">
         {hasDropdown ? (
           <button
             type="button"
             onClick={onToggle}
             aria-expanded={isOpen}
-            className="flex-1 flex items-center justify-between text-left p-5 text-lg font-medium text-[#142D21] bg-transparent border-0 cursor-pointer"
+            className="flex-1 flex items-center justify-between text-left p-5 text-lg font-medium text-earn-orange bg-transparent border-0 cursor-pointer"
           >
             <span>{item.label}</span>
             <svg
@@ -589,7 +609,7 @@ function MobileNavRow({
           <Link
             href={item.href ?? "#"}
             onClick={onNavigate}
-            className="flex-1 p-5 text-lg font-medium text-[#142D21]"
+            className="flex-1 p-5 text-lg font-medium text-earn-orange"
           >
             {item.label}
           </Link>
@@ -598,14 +618,14 @@ function MobileNavRow({
 
       {item.dropdown && (
         <div
-          className={`bg-[#F2F2F2] px-5 pb-5 pt-2 ${isOpen ? "" : "hidden"}`}
+          className={`bg-earn-ink-raised px-5 pb-5 pt-2 ${isOpen ? "" : "hidden"}`}
           aria-hidden={!isOpen}
         >
           {item.href && item.href !== "#" && (
             <Link
               href={item.href}
               onClick={onNavigate}
-              className="block text-[15px] font-medium text-brand-red mb-4"
+              className="block text-base font-medium text-earn-orange mb-4"
             >
               View {item.label} overview →
             </Link>
@@ -667,14 +687,14 @@ function MobileDropdownRow({
   onNavigate: () => void
   isSubitem?: boolean
 }) {
-  const fontClass = isSubitem ? 'text-[14px]' : 'text-[15px] font-medium'
+  const fontClass = isSubitem ? 'text-sm font-medium' : 'text-base font-medium'
   const wrapperClass =
-    "relative w-full after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-0 after:h-px after:bg-[#AEAEAE]"
+    "relative w-full after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-0 after:h-px after:bg-earn-gray-500"
 
   if (!item.href) {
     return (
       <div className={wrapperClass}>
-        <span className={`inline-block ${fontClass} text-[#142D21] pb-2`}>{item.label}</span>
+        <span className={`inline-block ${fontClass} text-earn-gray-400 pb-3`}>{item.label}</span>
       </div>
     )
   }
@@ -684,7 +704,7 @@ function MobileDropdownRow({
       <Link
         href={item.href}
         onClick={onNavigate}
-        className={`relative inline-block ${fontClass} text-[#142D21] hover:text-brand-red transition-colors pb-2 after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-0 after:h-[6px] after:bg-[#AEAEAE] hover:after:bg-brand-red`}
+        className={`relative z-1 inline-block ${fontClass} text-earn-peach hover:text-earn-white transition-colors pb-3 after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-0 after:h-1 after:bg-earn-orange`}
       >
         {item.label}
       </Link>
