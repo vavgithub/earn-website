@@ -1,68 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg id="Layer_11" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 277.61 277.61">
-  <!-- Generator: Adobe Illustrator 30.1.0, SVG Export Plug-In . SVG Version: 2.1.1 Build 136)  -->
-  <defs>
-    <style>
-      .st0 {
-        fill: #155c3a;
-      }
-
-      .st1 {
-        fill: #178b53;
-      }
-
-      .st2 {
-        fill: #1aac66;
-      }
-
-      .st3 {
-        fill: #142d21;
-      }
-    </style>
-  </defs>
-  <circle class="st2" cx="138.88" cy="138.81" r="20.97"/>
-  <circle class="st1" cx="98.93" cy="138.81" r="18.74"/>
-  <circle class="st0" cx="58.99" cy="138.81" r="14.1"/>
-  <circle class="st3" cx="19.04" cy="138.81" r="9.46"/>
-  <circle class="st1" cx="178.68" cy="138.81" r="18.74"/>
-  <circle class="st0" cx="218.62" cy="138.81" r="14.1"/>
-  <circle class="st3" cx="258.57" cy="138.81" r="9.46"/>
-  <circle class="st0" cx="138.81" cy="58.91" r="14.1"/>
-  <circle class="st0" cx="98.86" cy="58.91" r="10.75"/>
-  <circle class="st3" cx="58.91" cy="58.91" r="7.41"/>
-  <circle class="st3" cx="138.81" cy="18.96" r="9.46"/>
-  <circle class="st1" cx="138.81" cy="98.86" r="18.74"/>
-  <circle class="st0" cx="98.86" cy="98.86" r="14.96"/>
-  <circle class="st0" cx="58.91" cy="98.85" r="11.18"/>
-  <circle class="st3" cx="19.04" cy="98.85" r="7.41"/>
-  <circle class="st3" cx="19.04" cy="58.91" r="3.83"/>
-  <circle class="st3" cx="98.86" cy="18.96" r="7.41"/>
-  <circle class="st3" cx="58.99" cy="18.96" r="3.83"/>
-  <circle class="st0" cx="178.75" cy="58.91" r="10.75"/>
-  <circle class="st3" cx="218.7" cy="58.91" r="7.41"/>
-  <circle class="st0" cx="178.75" cy="98.86" r="14.96"/>
-  <circle class="st0" cx="218.7" cy="98.85" r="11.18"/>
-  <circle class="st3" cx="258.65" cy="98.85" r="7.41"/>
-  <circle class="st3" cx="258.65" cy="58.91" r="3.83"/>
-  <circle class="st3" cx="178.75" cy="18.96" r="7.41"/>
-  <circle class="st3" cx="218.62" cy="18.96" r="3.83"/>
-  <circle class="st0" cx="138.81" cy="218.7" r="14.1"/>
-  <circle class="st0" cx="178.75" cy="218.7" r="10.75"/>
-  <circle class="st3" cx="218.7" cy="218.7" r="7.41"/>
-  <circle class="st3" cx="138.81" cy="258.65" r="9.46"/>
-  <circle class="st1" cx="138.81" cy="178.76" r="18.74"/>
-  <circle class="st0" cx="178.75" cy="178.76" r="14.96"/>
-  <circle class="st0" cx="218.7" cy="178.76" r="11.18"/>
-  <circle class="st3" cx="258.65" cy="178.76" r="7.41"/>
-  <circle class="st3" cx="258.65" cy="218.7" r="3.83"/>
-  <circle class="st3" cx="178.75" cy="258.66" r="7.41"/>
-  <circle class="st3" cx="218.7" cy="258.66" r="3.83"/>
-  <circle class="st0" cx="98.86" cy="218.7" r="10.75"/>
-  <circle class="st3" cx="58.91" cy="218.7" r="7.41"/>
-  <circle class="st3" cx="58.91" cy="258.65" r="3.83"/>
-  <circle class="st0" cx="98.86" cy="178.76" r="14.96"/>
-  <circle class="st0" cx="58.91" cy="178.76" r="11.18"/>
-  <circle class="st3" cx="19.04" cy="178.76" r="7.41"/>
-  <circle class="st3" cx="19.04" cy="218.7" r="3.83"/>
-  <circle class="st3" cx="98.86" cy="258.66" r="7.41"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+  <rect width="48" height="48" fill="#252930"/>
+  <g fill="#ffffff" transform="translate(24 24) scale(0.84) translate(-20.86 -24)">
+    <path fill-rule="evenodd" d="M34.7673 7.99902L24.3437 14.0006L27.82 16.0003L38.2461 9.99871L34.7698 7.99902H34.7673Z"/>
+    <path fill-rule="evenodd" d="M20.8675 0L0.0127563 12.0006L3.48897 14.0003L24.3412 1.99968L20.8675 0Z"/>
+    <path fill-rule="evenodd" d="M27.8174 3.99902L6.96519 15.9997L10.4414 17.9993L31.2911 5.99871L27.8174 3.99902Z"/>
+    <path fill-rule="evenodd" d="M31.2936 17.9997V41.9984L34.7673 39.9987V16L31.2936 17.9997Z"/>
+    <path fill-rule="evenodd" d="M38.2435 14.0007V37.9994L41.7172 35.9997V12.001L38.2435 14.0007Z"/>
+    <path fill-rule="evenodd" d="M24.3412 34.0022V46.0003L27.8174 44.0006V32L24.3412 34.0022Z"/>
+    <path d="M20.8675 29.9339C24.1727 29.9339 26.8526 27.2626 26.8526 23.9679C26.8526 20.6733 24.1727 18.002 20.8675 18.002C17.5623 18.002 14.8824 20.6733 14.8824 23.9679C14.8824 27.2626 17.5623 29.9339 20.8675 29.9339Z"/>
+    <path fill-rule="evenodd" d="M20.8522 35.9997L0 23.999V27.9984L20.8522 39.999V35.9997Z"/>
+    <path fill-rule="evenodd" d="M20.8522 44.0006L0 32V35.9994L20.8522 48V44.0006Z"/>
+    <path fill-rule="evenodd" d="M10.4261 21.999L0 16V20.0019L10.4261 26.0035V22.0016V21.999Z"/>
+  </g>
 </svg>
