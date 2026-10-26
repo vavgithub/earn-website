@@ -46,7 +46,7 @@ export default defineType({
     }),
     textColorField({
       name: 'eyebrowColor',
-      initialValue: 'green',
+      initialValue: 'brightYellow',
       fieldset: 'eyebrowRow',
       hidden: gridCellHidden,
     }),

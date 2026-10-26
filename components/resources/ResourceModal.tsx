@@ -189,12 +189,12 @@ function StandardFormFooter({ item }: { item: ResourceItemRecord }) {
 
 function modalHeroIntroOptions(item: ResourceItemRecord) {
   return parseNestedRichTextRow(item as Record<string, unknown>, 'modalHeroIntro', {
-    linkColor: 'coral',
+    linkColor: 'yellow',
   })
 }
 
 function modalSectionIntroOptions(section: Record<string, unknown>) {
-  return parseNestedRichTextRow(section, 'content', { linkColor: 'coral' })
+  return parseNestedRichTextRow(section, 'content', { linkColor: 'yellow' })
 }
 
 export function ResourceModal({ item }: { item: ResourceItemRecord }) {
@@ -232,7 +232,7 @@ export function ResourceModal({ item }: { item: ResourceItemRecord }) {
               {item.modalHeroIntro?.length ? (
                 <div
                   className="font-inter text-[20px] font-normal leading-[28px] mt-4"
-                  style={textColorStyle(modalHeroIntroOptions(item).textColor, 'blackGreen')}
+                  style={textColorStyle(modalHeroIntroOptions(item).textColor, 'darkSlate')}
                 >
                   <ResourceModalPortableText
                     value={item.modalHeroIntro}
@@ -294,7 +294,7 @@ export function ResourceModal({ item }: { item: ResourceItemRecord }) {
               {item.modalHeroIntro?.length ? (
                 <div
                   className="font-inter mt-6"
-                  style={textColorStyle(modalHeroIntroOptions(item).textColor, 'blackGreen')}
+                  style={textColorStyle(modalHeroIntroOptions(item).textColor, 'darkSlate')}
                 >
                   <ResourceModalPortableText
                     value={item.modalHeroIntro}

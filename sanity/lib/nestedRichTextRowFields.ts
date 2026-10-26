@@ -32,8 +32,8 @@ export function nestedRichTextRowFields({
   blockTitle = 'Content',
   blockDescription,
   required = false,
-  linkColorInitialValue = 'green',
-  bodyColorInitialValue = 'blackGreen',
+  linkColorInitialValue = 'brightYellow',
+  bodyColorInitialValue = 'darkSlate',
 }: NestedRichTextRowFieldsOptions) {
   return [
     defineField({

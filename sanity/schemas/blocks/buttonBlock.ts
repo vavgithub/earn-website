@@ -106,14 +106,14 @@ export default defineType({
       name: 'fillColor',
       title: 'Fill color',
       description: 'Background color for fill buttons.',
-      initialValue: 'darkGreen',
+      initialValue: 'medSlate',
       hidden: ({ parent }) => !isFill({ parent }),
     }),
     textColorField({
       name: 'outlineColor',
       title: 'Outline color',
       description: 'Border color for ghost buttons.',
-      initialValue: 'darkGreen',
+      initialValue: 'medSlate',
       hidden: ({ parent }) => !isGhost({ parent }),
     }),
     defineField({
@@ -127,7 +127,7 @@ export default defineType({
       name: 'lineColor',
       title: 'Line color',
       description: 'Color of the line above the control.',
-      initialValue: 'coral',
+      initialValue: 'yellow',
       hidden: ({ parent }) => !showLineColor({ parent }),
     }),
     defineField({

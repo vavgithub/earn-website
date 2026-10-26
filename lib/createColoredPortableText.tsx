@@ -45,10 +45,10 @@ type ColoredPortableOptions = {
 
 /** Portable Text for section intros and rich text blocks with a shared body color. */
 export function createColoredPortableComponents({
-  bodyColor = 'blackGreen',
+  bodyColor = 'darkSlate',
   headingColor,
   bodySize = 'md',
-  linkColor = 'green',
+  linkColor = 'brightYellow',
   linkClassName,
   linksOpenInNewTab = false,
 }: ColoredPortableOptions): PortableTextComponents {

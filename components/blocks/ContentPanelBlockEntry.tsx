@@ -88,13 +88,13 @@ export default function ContentPanelBlockEntry({
         <ContentPanelBlock
           variant={variant}
           heading={heading}
-          headingColor={parseTextColor(block.headingColor, "coral")}
+          headingColor={parseTextColor(block.headingColor, "yellow")}
           eyebrow={eyebrow}
           eyebrowColor={eyebrowRow.color}
           body={body}
           bodyTextColor={parseTextColor(
             block.bodyTextColor,
-            variant === "mediaTextDark" ? "offWhite" : "blackGreen",
+            variant === "mediaTextDark" ? "offWhite" : "darkSlate",
           )}
           bodyTextSize={parseTextSize(block.bodyTextSize, "md")}
           bodyLinkColor={parseTextColor(block.bodyLinkColor, "green")}

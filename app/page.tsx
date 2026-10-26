@@ -20,10 +20,10 @@ export default function Page() {
       <EcosystemSection />
       <ProductsSection />
       <PrincipleSection />
-      {/* <ArchitectureSection />
+      <ArchitectureSection />
       <ProofSection />
       <WorkSection />
-      <ReadingSection /> */}
+      <ReadingSection />
     </WebsiteChrome>
   );
 }

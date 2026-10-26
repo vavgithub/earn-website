@@ -34,7 +34,7 @@ type HowItWorksStepsBlockProps = {
 
 export function HowItWorksStepsBlock({
   heading,
-  headingColor = 'coral',
+  headingColor = 'yellow',
   intro,
   introColor = 'offWhite',
   introTextSize = 'md',
@@ -49,7 +49,7 @@ export function HowItWorksStepsBlock({
     <div>
       <h2
         className={`m-0 pb-12 font-mokoko text-[32px] font-medium leading-10 ${headingAlign}`}
-        style={textColorStyle(headingColor, 'coral')}
+        style={textColorStyle(headingColor, 'yellow')}
       >
         {heading}
       </h2>

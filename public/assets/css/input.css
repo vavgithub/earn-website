@@ -7,12 +7,12 @@
 @source "../../../lib/**/*.{js,ts,jsx,tsx}";
 
 @theme {
-  --color-brand-green: #378457;
-  --color-brand-darkgreen: #142D21;
-  --color-brand-red: #E66547;
-  --color-brand-dark: #333;
+  --color-brand-green: #eda51c;
+  --color-brand-darkgreen: #141924;
+  --color-brand-red: #f6bf8a;
+  --color-brand-dark: #0f0f0f;
 
-  /* Earn palette (Figma: nav single + multi column). Legacy brand-* above stays until components move off it. */
+  /* Earn palette. brand-* above now points at these colors so older blocks follow the rebrand. */
   --color-earn-ink: #252930;          /* nav bar background */
   --color-earn-ink-raised: #2a2d30;   /* dropdown panel background */
   --color-earn-orange: #f6bf8a;       /* nav links */
@@ -41,6 +41,8 @@
   --color-earn-gray-400: #b3b3b3;     /* inactive heading (e.g. Developers) */
   --color-earn-gray-500: #aeaeae;     /* divider */
   /* Footer (sampled from the Figma footer screenshot) */
+  --color-earn-off-black: #0f0f0f;     /* font color: Off Black */
+  --color-earn-dark-gray: #1c1e24;    /* Dark Gray */
   --color-earn-ink-deep: #202124;     /* footer background */
   --color-earn-gray-200: #cccccc;     /* footer column headings */
   --color-earn-gray-550: #78797b;     /* footer heading and sub-heading underlines */
@@ -48,7 +50,7 @@
   --color-earn-gray-700: #606060;     /* copyright */
   --color-earn-gray-800: #56575a;     /* footer bottom divider */
 
-  --font-mokoko: Mokoko, sans-serif;
+  --font-mokoko: "IBM Plex Sans", sans-serif;
   --font-inter: Inter, sans-serif;
   --font-plex-mono: "IBM Plex Mono", monospace; /* Earn: loaded in app/layout.tsx, weights 100–700 + italics */
   --font-plex-sans: "IBM Plex Sans", sans-serif; /* Earn hero heading: loaded in app/layout.tsx, weight 600 */

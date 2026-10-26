@@ -188,7 +188,7 @@ export default defineType({
       fieldset: 'modalHeroIntroRow',
       prefix: 'modalHeroIntro',
       blockTitle: 'Modal intro',
-      linkColorInitialValue: 'coral',
+      linkColorInitialValue: 'yellow',
     }),
     defineField({
       name: 'modalHeroImage',
@@ -217,7 +217,7 @@ export default defineType({
               fieldset: 'contentRow',
               prefix: 'content',
               blockTitle: 'Content',
-              linkColorInitialValue: 'coral',
+              linkColorInitialValue: 'yellow',
             }),
           ],
           preview: {

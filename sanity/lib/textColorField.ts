@@ -1,53 +1,68 @@
 import { defineField } from 'sanity'
 
+/** Font colors from the Earn Figma list. */
 export const TEXT_COLOR_VALUES = [
-  'blackGreen',
-  'darkGreen',
-  'green',
-  'lightGreen',
-  'darkBeige',
-  'beige',
-  'lightBeige',
-  'cream',
+  'darkSlate',
+  'medSlate',
+  'slate',
+  'graySlate',
+  'offBlack',
+  'darkGray',
+  'medWarmGray',
+  'medCoolGrey',
+  'grey',
+  'lightGrey',
   'offWhite',
-  'coral',
+  'brightYellow',
+  'yellow',
 ] as const
 
 export type TextColorValue = (typeof TEXT_COLOR_VALUES)[number]
 
 /** Brand hex values — single source for Studio labels and frontend. */
 export const TEXT_COLOR_HEX: Record<TextColorValue, `#${string}`> = {
-  blackGreen: '#141D19',
-  darkGreen: '#142D21',
-  green: '#378457',
-  lightGreen: '#A4DEC2',
-  darkBeige: '#5B5F53',
-  beige: '#A0A691',
-  lightBeige: '#E9E9D7',
-  cream: '#F7FBEB',
-  offWhite: '#FDFDFB',
-  coral: '#E66547',
+  darkSlate: '#141924',
+  medSlate: '#171E30',
+  slate: '#1F2942',
+  graySlate: '#2C3242',
+  offBlack: '#0F0F0F',
+  darkGray: '#1C1E24',
+  medWarmGray: '#202124',
+  medCoolGrey: '#252930',
+  grey: '#606060',
+  lightGrey: '#B3B3B3',
+  offWhite: '#FCFCFA',
+  brightYellow: '#EDA51C',
+  yellow: '#F6BF8A',
 }
 
 export const TEXT_COLOR_LABELS: Record<TextColorValue, string> = {
-  blackGreen: 'Black-green',
-  darkGreen: 'Dark green',
-  green: 'Green',
-  lightGreen: 'Light green',
-  darkBeige: 'Dark beige',
-  beige: 'Beige',
-  lightBeige: 'Light beige',
-  cream: 'Cream',
-  offWhite: 'Off-white',
-  coral: 'Coral',
+  darkSlate: 'Dark Slate',
+  medSlate: 'Med Slate',
+  slate: 'Slate',
+  graySlate: 'Gray Slate',
+  offBlack: 'Off Black',
+  darkGray: 'Dark Gray',
+  medWarmGray: 'Med Warm Gray',
+  medCoolGrey: 'Med Cool Grey',
+  grey: 'Grey',
+  lightGrey: 'Light Grey',
+  offWhite: 'Off White',
+  brightYellow: 'Bright Yellow',
+  yellow: 'Yellow',
 }
 
-/** Pre-rename Sanity values still stored in documents. */
+/** Pre-rebrand Sanity values still stored in documents. */
 export const TEXT_COLOR_LEGACY_ALIASES: Record<string, TextColorValue> = {
-  offBlack: 'blackGreen',
-  stoneGray: 'darkBeige',
-  softBeige: 'lightBeige',
-  mintCream: 'cream',
+  blackGreen: 'darkSlate',
+  darkGreen: 'medSlate',
+  green: 'brightYellow',
+  lightGreen: 'yellow',
+  darkBeige: 'grey',
+  beige: 'lightGrey',
+  lightBeige: 'lightGrey',
+  cream: 'offWhite',
+  coral: 'yellow',
 }
 
 export const TEXT_COLOR_OPTIONS = TEXT_COLOR_VALUES.map((value) => ({
@@ -99,7 +114,7 @@ export function linkColorField({
   name,
   title = 'Link color',
   description = 'Links in this content.',
-  initialValue = 'green',
+  initialValue = 'brightYellow',
   hidden,
   fieldset,
 }: Omit<TextColorFieldOptions, 'initialValue'> & {
@@ -118,7 +133,7 @@ export function linkColorField({
 /** Body text color on rich-text rows (below the editor). */
 export function bodyTextColorField({
   name,
-  initialValue = 'blackGreen',
+  initialValue = 'darkSlate',
   hidden,
   fieldset,
 }: Omit<TextColorFieldOptions, 'title' | 'description'>) {
@@ -137,7 +152,7 @@ export function textColorField({
   name,
   title = 'Color',
   description = 'Text color',
-  initialValue = 'blackGreen',
+  initialValue = 'darkSlate',
   hidden,
   fieldset,
 }: TextColorFieldOptions) {

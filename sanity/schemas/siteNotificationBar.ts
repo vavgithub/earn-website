@@ -68,7 +68,7 @@ export default defineType({
       fieldset: styleFieldset.name,
     }),
     ...blockPaddingFields(),
-    sectionBackgroundField({ initialValue: 'coral' }),
+    sectionBackgroundField({ initialValue: 'yellow' }),
   ],
   preview: {
     select: { enabled: 'enabled', message: 'message' },

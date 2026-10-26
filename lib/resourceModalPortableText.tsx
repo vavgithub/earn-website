@@ -13,7 +13,7 @@ export function getResourceModalPortableTextComponents(
 ): PortableTextComponents {
   const {
     textSize = 'md',
-    linkColor = 'coral',
+    linkColor = 'yellow',
     linksOpenInNewTab = false,
   } = options
 

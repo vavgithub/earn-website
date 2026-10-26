@@ -28,7 +28,7 @@ export default function HubSpotFormBlockEntry({ block }: { block: Record<string,
     <PageBlockSection
       block={block}
       blockType="hubspotFormBlock"
-      defaultBackground="coral"
+      defaultBackground="yellow"
     >
       <PageBlockLayout
         layoutWidth={block.layoutWidth ?? 'content'}
@@ -36,7 +36,7 @@ export default function HubSpotFormBlockEntry({ block }: { block: Record<string,
       >
         <HubSpotFormBlock
           eyebrow={eyebrow}
-          eyebrowColor={parseTextColor(block.eyebrowColor, 'coral')}
+          eyebrowColor={parseTextColor(block.eyebrowColor, 'yellow')}
           heading={heading}
           headingColor={parseTextColor(block.headingColor, 'offWhite')}
           description={description}

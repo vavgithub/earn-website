@@ -51,19 +51,19 @@ function FaqChevron({ open, colorStyle }: { open: boolean; colorStyle: CSSProper
 export function AccordionBlock({
   heading,
   intro,
-  headingColor = 'coral',
+  headingColor = 'yellow',
   introColor = 'offWhite',
   introTextSize = 'md',
   introLinkColor = 'offWhite',
   introOnDark = true,
-  questionColor = 'lightGreen',
+  questionColor = 'yellow',
   alignment = 'left',
   items,
   className = '',
 }: AccordionBlockProps) {
   const baseId = useId()
   const [openIndex, setOpenIndex] = useState<number | null>(items.length > 0 ? 0 : null)
-  const questionStyle = textColorStyle(questionColor, 'lightGreen')
+  const questionStyle = textColorStyle(questionColor, 'yellow')
   const isCenter = parseBlockContentAlignment(alignment) === 'center'
   const questionRowClass = isCenter
     ? 'inline-flex w-full cursor-pointer items-center justify-center gap-1 border-0 bg-transparent p-0 text-center'

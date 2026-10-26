@@ -48,64 +48,64 @@ function migrateFromLegacyVariant(variant: LegacyVariant): Omit<ResolvedButtonBl
       return {
         buttonType: 'fill',
         textColor: 'offWhite',
-        fillColor: 'darkGreen',
-        outlineColor: 'darkGreen',
+        fillColor: 'medSlate',
+        outlineColor: 'medSlate',
         showTopLine: false,
-        lineColor: 'coral',
+        lineColor: 'yellow',
       }
     case 'primaryRule':
       return {
         buttonType: 'fill',
         textColor: 'offWhite',
-        fillColor: 'darkGreen',
-        outlineColor: 'darkGreen',
+        fillColor: 'medSlate',
+        outlineColor: 'medSlate',
         showTopLine: true,
-        lineColor: 'coral',
+        lineColor: 'yellow',
       }
     case 'outline':
       return {
         buttonType: 'ghost',
-        textColor: 'darkGreen',
-        fillColor: 'darkGreen',
-        outlineColor: 'darkGreen',
+        textColor: 'medSlate',
+        fillColor: 'medSlate',
+        outlineColor: 'medSlate',
         showTopLine: false,
-        lineColor: 'coral',
+        lineColor: 'yellow',
       }
     case 'brand':
       return {
         buttonType: 'fill',
         textColor: 'offWhite',
-        fillColor: 'coral',
-        outlineColor: 'darkGreen',
+        fillColor: 'yellow',
+        outlineColor: 'medSlate',
         showTopLine: false,
-        lineColor: 'coral',
+        lineColor: 'yellow',
       }
     case 'textLink':
       return {
         buttonType: 'textLink',
-        textColor: 'darkGreen',
-        fillColor: 'darkGreen',
-        outlineColor: 'darkGreen',
+        textColor: 'medSlate',
+        fillColor: 'medSlate',
+        outlineColor: 'medSlate',
         showTopLine: false,
-        lineColor: 'coral',
+        lineColor: 'yellow',
       }
     case 'textRule':
       return {
         buttonType: 'textLink',
-        textColor: 'darkGreen',
-        fillColor: 'darkGreen',
-        outlineColor: 'darkGreen',
+        textColor: 'medSlate',
+        fillColor: 'medSlate',
+        outlineColor: 'medSlate',
         showTopLine: true,
-        lineColor: 'coral',
+        lineColor: 'yellow',
       }
     default:
       return {
         buttonType: 'fill',
         textColor: 'offWhite',
-        fillColor: 'darkGreen',
-        outlineColor: 'darkGreen',
+        fillColor: 'medSlate',
+        outlineColor: 'medSlate',
         showTopLine: false,
-        lineColor: 'coral',
+        lineColor: 'yellow',
       }
   }
 }
@@ -137,11 +137,11 @@ export function resolveButtonBlock(block: Record<string, unknown>): ResolvedButt
     textColor:
       explicitType === 'fill'
         ? ('offWhite' as TextColorValue)
-        : ('darkGreen' as TextColorValue),
-    fillColor: 'darkGreen' as TextColorValue,
-    outlineColor: 'darkGreen' as TextColorValue,
+        : ('medSlate' as TextColorValue),
+    fillColor: 'medSlate' as TextColorValue,
+    outlineColor: 'medSlate' as TextColorValue,
     showTopLine: false,
-    lineColor: 'coral' as TextColorValue,
+    lineColor: 'yellow' as TextColorValue,
   }
 
   const labelColorFallback = block.labelColor
@@ -169,7 +169,7 @@ export function linkRuleWrapperProps(lineColor: TextColorValue): {
   return {
     className: 'inline-flex flex-col items-start border-t-[3px] pt-6',
     style: {
-      borderTopColor: TEXT_COLOR_HEX[parseTextColor(lineColor, 'coral')],
+      borderTopColor: TEXT_COLOR_HEX[parseTextColor(lineColor, 'yellow')],
     },
   }
 }

@@ -26,14 +26,14 @@ export default function AccordionBlockEntry({ block }: { block: any }) {
 
   if (items.length === 0) return null
 
-  const introOnDark = isSectionBackgroundDark(block?.sectionBackground, 'darkBeige')
+  const introOnDark = isSectionBackgroundDark(block?.sectionBackground, 'grey')
   const alignClass = blockContentAlignmentClass(block?.alignment)
 
   return (
     <PageBlockSection
       block={block}
       blockType="accordionBlock"
-      defaultBackground="darkBeige"
+      defaultBackground="grey"
     >
       <PageBlockLayout
         layoutWidth={block.layoutWidth ?? 'content'}
@@ -47,7 +47,7 @@ export default function AccordionBlockEntry({ block }: { block: any }) {
           introTextSize={section.introTextSize}
           introLinkColor={section.introLinkColor}
           introOnDark={introOnDark}
-          questionColor={parseTextColor(block.questionColor, 'lightGreen')}
+          questionColor={parseTextColor(block.questionColor, 'yellow')}
           alignment={parseBlockContentAlignment(block?.alignment)}
           items={items}
         />

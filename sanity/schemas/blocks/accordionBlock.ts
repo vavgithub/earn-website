@@ -21,11 +21,11 @@ export default defineType({
   fieldsets: [...gridAccordionHeaderFieldsets, blockPaddingRowFieldset],
   fields: [
     ...gridAccordionHeaderFields('offWhite'),
-    sectionBackgroundField({ initialValue: 'darkBeige' }),
+    sectionBackgroundField({ initialValue: 'grey' }),
     textColorField({
       name: 'questionColor',
       title: 'Question color',
-      initialValue: 'lightGreen',
+      initialValue: 'yellow',
       description: 'Accordion question titles and chevrons.',
     }),
     ...blockLayoutFields({

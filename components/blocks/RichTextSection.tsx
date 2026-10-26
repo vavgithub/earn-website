@@ -16,7 +16,7 @@ import PageBlockSection from '@/components/blocks/PageBlockSection'
 function createRichTextPortableComponents(
   contentColor: TextColorValue,
   contentSize: TextSizeValue = 'md',
-  linkColor: TextColorValue = 'green',
+  linkColor: TextColorValue = 'brightYellow',
   linksOpenInNewTab = false,
 ): PortableTextComponents {
   return {
@@ -73,9 +73,9 @@ export default function RichTextSection({
   gridCellSurface?: GridCellSurface
 }) {
   const section = getBlockSectionHeader(block)
-  const contentColor = parseTextColor(block.contentTextColor, 'blackGreen')
+  const contentColor = parseTextColor(block.contentTextColor, 'darkSlate')
   const contentTextSize = parseTextSize(block.contentTextSize, 'md')
-  const contentLinkColor = parseTextColor(block.contentLinkColor, 'green')
+  const contentLinkColor = parseTextColor(block.contentLinkColor, 'brightYellow')
   const contentLinksOpenInNewTab = parseLinksOpenInNewTab(block.contentLinksOpenInNewTab)
 
   const isGridCell = slotVariant === 'gridCell'
@@ -83,7 +83,7 @@ export default function RichTextSection({
   const eyebrow = resolveTextWithColor(
     block.eyebrow,
     block.eyebrowColor,
-    onDarkGrid ? 'offWhite' : 'green',
+    onDarkGrid ? 'offWhite' : 'brightYellow',
   )
 
   if (!block?.content && !section.heading && (!isGridCell && eyebrow.text)) return null

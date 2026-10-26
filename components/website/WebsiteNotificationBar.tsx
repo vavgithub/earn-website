@@ -104,7 +104,7 @@ export function WebsiteNotificationBar({
     <div
       ref={barRef}
       className="notification-bar-pinned w-full"
-      style={sectionBackgroundStyle(background, 'coral')}
+      style={sectionBackgroundStyle(background, 'yellow')}
       role="region"
       aria-label="Site notification"
     >

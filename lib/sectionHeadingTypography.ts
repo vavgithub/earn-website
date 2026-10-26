@@ -18,7 +18,7 @@ export function sectionHeadingClassName(level: SectionHeadingLevel): string {
 
 export function sectionHeadingStyle(
   color: TextColorValue,
-  colorFallback: TextColorValue = 'coral',
+  colorFallback: TextColorValue = 'yellow',
 ): CSSProperties {
   return textColorStyle(color, colorFallback)
 }

@@ -144,11 +144,11 @@ const panelShell: Record<ContentPanelVariant, string> = {
 function MediaTextPanel({
   variant,
   heading,
-  headingColor = 'coral',
+  headingColor = 'yellow',
   body,
-  bodyTextColor = 'blackGreen',
+  bodyTextColor = 'darkSlate',
   bodyTextSize = 'md',
-  bodyLinkColor = 'green',
+  bodyLinkColor = 'brightYellow',
   bodyLinksOpenInNewTab = false,
   imageUrl,
   imageAlt,
@@ -170,12 +170,12 @@ function MediaTextPanel({
   const headingClass = isLight
     ? 'm-0 pb-12 text-left font-mokoko text-[32px] font-medium leading-10'
     : 'm-0 pb-12 text-left font-mokoko text-[26px] font-medium leading-8'
-  const headingStyle = textColorStyle(headingColor, 'coral')
+  const headingStyle = textColorStyle(headingColor, 'yellow')
   const bodyComponents = getContentPanelBodyComponents(
     isLight ? 'light' : 'dark',
     bodyTextColor,
     bodyTextSize,
-    bodyLinkColor ?? 'green',
+    bodyLinkColor ?? 'brightYellow',
     bodyLinksOpenInNewTab,
   )
 
@@ -290,7 +290,7 @@ export function ContentPanelBlock({
   body,
   bodyTextColor,
   bodyTextSize = 'md',
-  bodyLinkColor = 'green',
+  bodyLinkColor = 'brightYellow',
   bodyLinksOpenInNewTab = false,
   description,
   descriptionColor,

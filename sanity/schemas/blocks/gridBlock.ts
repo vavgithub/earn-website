@@ -20,7 +20,7 @@ export default defineType({
     'Responsive grid of cells. Each cell can contain Image, Text & headings, and Button blocks. Optional heading and intro above the grid.',
   fieldsets: [...gridAccordionHeaderFieldsets, blockPaddingRowFieldset],
   fields: [
-    ...gridAccordionHeaderFields('blackGreen'),
+    ...gridAccordionHeaderFields('darkSlate'),
     defineField({
       name: 'items',
       title: 'Grid cells',

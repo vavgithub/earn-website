@@ -9,7 +9,7 @@ const heading = 'm-0 font-mokoko text-xl font-bold leading-8 text-inherit [&+p]:
 /** Step body copy — inherits section text color from CMS background. */
 export function getHowItWorksStepsPortableComponents(
   bodySize: TextSizeValue = 'md',
-  linkColor: TextColorValue = 'green',
+  linkColor: TextColorValue = 'brightYellow',
   linksOpenInNewTab = false,
 ): PortableTextComponents {
   const linkMark = linkMarkProps(linkColor)

@@ -14,7 +14,7 @@ export function textWithColorField({
   name,
   title,
   textDescription,
-  colorInitialValue = 'blackGreen',
+  colorInitialValue = 'darkSlate',
   hidden,
 }: TextWithColorFieldOptions) {
   return defineField({

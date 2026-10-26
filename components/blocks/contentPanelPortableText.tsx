@@ -26,7 +26,7 @@ export function getContentPanelBodyComponents(
   theme: 'light' | 'dark',
   bodyColor: TextColorValue,
   bodySize: TextSizeValue = 'md',
-  linkColor: TextColorValue = 'green',
+  linkColor: TextColorValue = 'brightYellow',
   linksOpenInNewTab = false,
 ): PortableTextComponents {
   const bodyStyle = textColorStyle(bodyColor, bodyColor)
@@ -35,7 +35,7 @@ export function getContentPanelBodyComponents(
   const StrongMark = portableTextStrongMark(bodyStyle)
   const EmMark = portableTextEmMark(bodyStyle)
   const link =
-    theme === 'dark' && linkColor === 'green'
+    theme === 'dark' && linkColor === 'brightYellow'
       ? { className: 'underline underline-offset-2', style: { color: '#A4DEC2', textDecorationColor: '#A4DEC2' } }
       : linkMarkProps(linkColor)
 

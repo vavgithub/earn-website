@@ -38,7 +38,7 @@ export default defineType({
     }),
     textColorField({
       name: "headingColor",
-      initialValue: "coral",
+      initialValue: "yellow",
       fieldset: "headingRow",
     }),
     defineField({
@@ -119,7 +119,7 @@ export default defineType({
         }),
       ],
     }),
-    sectionBackgroundField({ initialValue: "darkGreen" }),
+    sectionBackgroundField({ initialValue: "medSlate" }),
     ...blockLayoutFields({
       withAlignment: true,
       layoutWidthOverrides: {

@@ -16,7 +16,7 @@ export default defineType({
   type: 'object',
   icon: EnvelopeIcon,
   description:
-    'Two-column panel: copy on the left, HubSpot embed on the right. Section background defaults to coral. Enter portal ID and form ID for the live form.',
+    'Two-column panel: copy on the left, HubSpot embed on the right. Section background defaults to yellow. Enter portal ID and form ID for the live form.',
   fieldsets: [
     textColorPairFieldset('eyebrowRow', 'Eyebrow'),
     textColorPairFieldset('headingRow', 'Heading'),
@@ -33,7 +33,7 @@ export default defineType({
     }),
     textColorField({
       name: 'eyebrowColor',
-      initialValue: 'coral',
+      initialValue: 'yellow',
       fieldset: 'eyebrowRow',
     }),
     defineField({
@@ -84,7 +84,7 @@ export default defineType({
       description: 'Defaults to na1. Use eu1 for EU portals if needed.',
       initialValue: 'na1',
     }),
-    sectionBackgroundField({ initialValue: 'coral' }),
+    sectionBackgroundField({ initialValue: 'yellow' }),
     ...blockLayoutFields({
       withAlignment: true,
       layoutWidthOverrides: {

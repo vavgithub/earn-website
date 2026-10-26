@@ -55,14 +55,14 @@ export default function HowItWorksStepsBlockEntry({ block }: { block: any }) {
     if (label && href) footerLink = { label, href };
   }
 
-  const headingColor = parseTextColor(block.headingColor, "coral");
+  const headingColor = parseTextColor(block.headingColor, "yellow");
   const introColor = parseTextColor(block.introColor, "offWhite");
 
   return (
     <PageBlockSection
       block={block}
       blockType="howItWorksStepsBlock"
-      defaultBackground="darkGreen"
+      defaultBackground="medSlate"
     >
       <PageBlockLayout
         layoutWidth={block.layoutWidth ?? "content"}

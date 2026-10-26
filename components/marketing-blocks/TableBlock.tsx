@@ -43,9 +43,9 @@ export function TableBlock({
   columns,
   rows,
   columnHeadingTextSize = 'md',
-  columnHeadingColor = 'blackGreen',
+  columnHeadingColor = 'darkSlate',
   cellTextSize = 'md',
-  cellTextColor = 'blackGreen',
+  cellTextColor = 'darkSlate',
   className = '',
 }: TableBlockProps) {
   if (!columns.length || !rows.length) return null
@@ -54,11 +54,11 @@ export function TableBlock({
 
   const thSizeClass = textSizeBodyClass(columnHeadingTextSize, 'md')
   const thStyle: CSSProperties = {
-    ...textColorStyle(columnHeadingColor, 'blackGreen'),
+    ...textColorStyle(columnHeadingColor, 'darkSlate'),
     fontWeight: 700,
   }
   const tdSizeClass = textSizeBodyClass(cellTextSize, 'md')
-  const tdStyle = textColorStyle(cellTextColor, 'blackGreen')
+  const tdStyle = textColorStyle(cellTextColor, 'darkSlate')
   const thType = `font-inter font-bold ${thSizeClass}`
   const tdType = `font-inter font-normal ${tdSizeClass}`
 

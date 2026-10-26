@@ -93,9 +93,9 @@ export default function TableBlockEntry({ block }: { block: any }) {
           columns={columns}
           rows={rows}
           columnHeadingTextSize={parseTextSize(block.columnHeadingTextSize, "md")}
-          columnHeadingColor={parseTextColor(block.columnHeadingColor, "blackGreen")}
+          columnHeadingColor={parseTextColor(block.columnHeadingColor, "darkSlate")}
           cellTextSize={parseTextSize(block.cellTextSize, "md")}
-          cellTextColor={parseTextColor(block.cellTextColor, "blackGreen")}
+          cellTextColor={parseTextColor(block.cellTextColor, "darkSlate")}
         />
       </PageBlockLayout>
     </PageBlockSection>

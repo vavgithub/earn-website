@@ -11,11 +11,19 @@ export { DEFAULT_SECTION_BACKGROUND } from '@/lib/sectionBackgroundTokens'
 
 const LEGACY_ALIASES: Record<string, SectionBackgroundValue> = {
   transparent: 'offWhite',
-  warmStone: 'lightBeige',
-  offBlack: 'blackGreen',
-  stoneGray: 'darkBeige',
-  softBeige: 'lightBeige',
+  warmStone: 'whiteGrey',
+  offBlack: 'darkSlate',
+  stoneGray: 'grey',
+  softBeige: 'whiteGrey',
   mintCream: 'cream',
+  blackGreen: 'darkSlate',
+  darkGreen: 'medSlate',
+  green: 'yellow',
+  lightGreen: 'yellow',
+  darkBeige: 'grey',
+  beige: 'lightGrey',
+  lightBeige: 'whiteGrey',
+  coral: 'yellow',
 }
 
 export function parseSectionBackground(value: unknown): SectionBackgroundValue {
@@ -65,7 +73,7 @@ export function sectionBackgroundTextClassName(
   blockDefault?: SectionBackgroundValue,
 ): string {
   const key = resolveBackgroundKey(value, blockDefault)
-  return SECTION_BACKGROUND_TOKENS[key].lightText ? 'text-[#FDFDFB]' : 'text-[#141D19]'
+  return SECTION_BACKGROUND_TOKENS[key].lightText ? 'text-[#FCFCFA]' : 'text-[#141924]'
 }
 
 export function isSectionBackgroundDark(

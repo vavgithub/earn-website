@@ -36,7 +36,7 @@ export function sectionHeadingRowFields({ hidden }: SectionHeadingRowFieldsOptio
       name: 'sectionHeadingColor',
       title: 'Color',
       description: 'Text color',
-      initialValue: 'coral',
+      initialValue: 'yellow',
       fieldset: 'sectionHeadingRow',
       hidden,
     }),

@@ -12,22 +12,25 @@ export { TEXT_COLOR_HEX }
 export type { TextColorValue }
 
 export const TEXT_COLOR_CLASS: Record<TextColorValue, string> = {
-  blackGreen: 'text-[#141D19]',
-  darkGreen: 'text-brand-darkgreen',
-  green: 'text-brand-green',
-  lightGreen: 'text-[#A4DEC2]',
-  darkBeige: 'text-[#5B5F53]',
-  beige: 'text-[#A0A691]',
-  lightBeige: 'text-[#E9E9D7]',
-  cream: 'text-[#F7FBEB]',
-  offWhite: 'text-[#FDFDFB]',
-  coral: 'text-brand-red',
+  darkSlate: 'text-[#141924]',
+  medSlate: 'text-[#171E30]',
+  slate: 'text-[#1F2942]',
+  graySlate: 'text-[#2C3242]',
+  offBlack: 'text-[#0F0F0F]',
+  darkGray: 'text-[#1C1E24]',
+  medWarmGray: 'text-[#202124]',
+  medCoolGrey: 'text-[#252930]',
+  grey: 'text-[#606060]',
+  lightGrey: 'text-[#B3B3B3]',
+  offWhite: 'text-[#FCFCFA]',
+  brightYellow: 'text-[#EDA51C]',
+  yellow: 'text-[#F6BF8A]',
 }
 
 /** Inline color from CMS palette (do not rely on Tailwind for runtime token picks). */
 export function textColorStyle(
   raw: unknown,
-  fallback: TextColorValue = 'blackGreen',
+  fallback: TextColorValue = 'darkSlate',
 ): CSSProperties {
   const token = parseTextColor(raw, fallback)
   return { color: TEXT_COLOR_HEX[token] }
@@ -59,6 +62,6 @@ export function parseTextColor(raw: unknown, fallback: TextColorValue): TextColo
   return fallback
 }
 
-export function textColorClass(raw: unknown, fallback: TextColorValue = 'blackGreen'): string {
+export function textColorClass(raw: unknown, fallback: TextColorValue = 'darkSlate'): string {
   return TEXT_COLOR_CLASS[parseTextColor(raw, fallback)]
 }

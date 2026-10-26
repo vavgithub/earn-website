@@ -18,7 +18,7 @@ export function gridAccordionHeaderFields(introColorDefault: TextColorValue) {
     }),
     textColorField({
       name: 'headingColor',
-      initialValue: 'coral',
+      initialValue: 'yellow',
       fieldset: 'headingRow',
     }),
     defineField({

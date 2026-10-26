@@ -28,11 +28,11 @@ export function parseNestedRichTextRow(
     ),
     textColor: parseTextColor(
       (row?.[textColorKey] as string | undefined) ?? fallback?.textColor,
-      fallback?.textColor ?? 'blackGreen',
+      fallback?.textColor ?? 'darkSlate',
     ),
     linkColor: parseTextColor(
       (row?.[linkColorKey] as string | undefined) ?? fallback?.linkColor,
-      fallback?.linkColor ?? 'green',
+      fallback?.linkColor ?? 'brightYellow',
     ),
     linksOpenInNewTab: Boolean(
       row?.[openTabKey] ?? fallback?.linksOpenInNewTab ?? false,

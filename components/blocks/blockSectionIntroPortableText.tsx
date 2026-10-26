@@ -4,13 +4,13 @@ import type { TextSizeValue } from '@/lib/cmsTextSize'
 
 /** Intro below section heading on light page backgrounds. */
 export const blockSectionIntroPortableComponents = createColoredPortableComponents({
-  bodyColor: 'blackGreen',
+  bodyColor: 'darkSlate',
 })
 
 export function getBlockSectionIntroPortableComponents(
-  color: TextColorValue = 'blackGreen',
+  color: TextColorValue = 'darkSlate',
   size: TextSizeValue = 'md',
-  linkColor: TextColorValue = 'green',
+  linkColor: TextColorValue = 'brightYellow',
   linksOpenInNewTab = false,
 ) {
   return createColoredPortableComponents({

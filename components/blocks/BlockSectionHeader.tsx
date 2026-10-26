@@ -23,10 +23,10 @@ export function getBlockSectionHeader(block: Record<string, unknown> | null | un
       heading: undefined as string | undefined,
       headingLevel: 'h2' as SectionHeadingLevel,
       intro: undefined as PortableTextBlock[] | undefined,
-      headingColor: 'coral' as TextColorValue,
-      introColor: 'blackGreen' as TextColorValue,
+      headingColor: 'yellow' as TextColorValue,
+      introColor: 'darkSlate' as TextColorValue,
       introTextSize: 'md' as TextSizeValue,
-      introLinkColor: 'green' as TextColorValue,
+      introLinkColor: 'brightYellow' as TextColorValue,
       introLinksOpenInNewTab: false,
     }
   }
@@ -49,11 +49,11 @@ export function getBlockSectionHeader(block: Record<string, unknown> | null | un
   )
   const headingColor = parseTextColor(
     usesGridNames ? block.headingColor : block.sectionHeadingColor,
-    'coral',
+    'yellow',
   )
   const introColor = parseTextColor(
     usesGridNames ? block.introColor : block.sectionIntroColor,
-    type === 'accordionBlock' ? 'offWhite' : 'blackGreen',
+    type === 'accordionBlock' ? 'offWhite' : 'darkSlate',
   )
   const introTextSize = parseTextSize(
     usesGridNames ? block.introTextSize : block.sectionIntroTextSize,
@@ -61,7 +61,7 @@ export function getBlockSectionHeader(block: Record<string, unknown> | null | un
   )
   const introLinkColor = parseTextColor(
     usesGridNames ? block.introLinkColor : block.sectionIntroLinkColor,
-    usesGridNames && type === 'accordionBlock' ? 'offWhite' : 'green',
+    usesGridNames && type === 'accordionBlock' ? 'offWhite' : 'brightYellow',
   )
   const introLinksOpenInNewTab = parseLinksOpenInNewTab(
     usesGridNames ? block.introLinksOpenInNewTab : block.sectionIntroLinksOpenInNewTab,
@@ -129,10 +129,10 @@ export function BlockSectionHeader({
   heading,
   headingLevel = 'h2',
   intro,
-  headingColor = 'coral',
-  introColor = 'blackGreen',
+  headingColor = 'yellow',
+  introColor = 'darkSlate',
   introTextSize = 'md',
-  introLinkColor = 'green',
+  introLinkColor = 'brightYellow',
   introLinksOpenInNewTab = false,
   introOnDark = false,
   introMarginClass = 'mb-7 md:mb-10',
@@ -159,7 +159,7 @@ export function BlockSectionHeader({
   const level = parseSectionHeadingLevel(headingLevel, 'h2')
   const HeadingTag = sectionHeadingTag(level)
   const headingClass = sectionHeadingClassName(level)
-  const headingStyle = sectionHeadingStyle(headingColor, 'coral')
+  const headingStyle = sectionHeadingStyle(headingColor, 'yellow')
 
   return (
     <div className={`text-left ${className}`.trim()}>

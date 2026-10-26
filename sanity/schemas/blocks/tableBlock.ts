@@ -51,7 +51,7 @@ export default defineType({
       name: 'columnHeadingColor',
       title: 'Text color',
       description: 'Applies to all column headings.',
-      initialValue: 'blackGreen',
+      initialValue: 'darkSlate',
       fieldset: 'columnHeadingTypographyRow',
     }),
     defineField({
@@ -114,7 +114,7 @@ export default defineType({
       name: 'cellTextColor',
       title: 'Text color',
       description: 'Applies to all table cells.',
-      initialValue: 'blackGreen',
+      initialValue: 'darkSlate',
       fieldset: 'cellTypographyRow',
     }),
     sectionBackgroundField(),

@@ -22,7 +22,7 @@ export type HubSpotFormBlockProps = {
 
 export function HubSpotFormBlock({
   eyebrow,
-  eyebrowColor = 'coral',
+  eyebrowColor = 'yellow',
   heading,
   headingColor = 'offWhite',
   description,

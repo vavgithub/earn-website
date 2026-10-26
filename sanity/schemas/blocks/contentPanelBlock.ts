@@ -22,7 +22,7 @@ const PANEL_VARIANTS = [
     description: 'Dark green panel · body + green link left · image right',
   },
   {
-    title: 'Action promo (coral)',
+    title: 'Action promo (yellow)',
     value: 'actionPromo',
     description: 'Coral panel · eyebrow, headline, description, divider, two buttons',
   },
@@ -99,7 +99,7 @@ export default defineType({
   type: 'object',
   icon: BlockElementIcon,
   description:
-    'Rounded feature panel: media + text (light or dark), or coral action promo with two buttons. One block covers all three Figma layouts.',
+    'Rounded feature panel: media + text (light or dark), or yellow action promo with two buttons. One block covers all three Figma layouts.',
   fieldsets: [
     textColorPairFieldset('eyebrowRow', 'Eyebrow'),
     textColorPairFieldset('headingRow', 'Panel heading'),
@@ -149,7 +149,7 @@ export default defineType({
     }),
     textColorField({
       name: 'headingColor',
-      initialValue: 'coral',
+      initialValue: 'yellow',
       fieldset: 'headingRow',
     }),
     defineField({
