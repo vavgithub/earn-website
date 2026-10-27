@@ -97,7 +97,7 @@ export default function ContentPanelBlockEntry({
             variant === "mediaTextDark" ? "offWhite" : "darkSlate",
           )}
           bodyTextSize={parseTextSize(block.bodyTextSize, "md")}
-          bodyLinkColor={parseTextColor(block.bodyLinkColor, "green")}
+          bodyLinkColor={parseTextColor(block.bodyLinkColor, "brightYellow")}
           bodyLinksOpenInNewTab={parseLinksOpenInNewTab(block.bodyLinksOpenInNewTab)}
           description={description}
           descriptionColor={parseTextColor(block.descriptionColor, "offWhite")}

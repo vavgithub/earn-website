@@ -165,7 +165,7 @@ export function ResourcesTabs() {
 
         const chrome = getTabChrome(tab)
         const base =
-          'tab-button flex shrink-0 items-center gap-1 h-14 md:h-20 bg-[#E9E9D7] text-[14px] md:text-2xl font-inter font-normal cursor-pointer border-[#141D19]'
+          'tab-button flex shrink-0 items-center gap-1 h-14 md:h-20 bg-earn-card-line text-[14px] md:text-2xl font-inter font-normal cursor-pointer border-earn-work'
         let borderClass = isActive ? chrome.activeBorders : 'border-b'
 
         // When the last tab is selected, the tab before it needs a right edge (legacy case-studies/guides rule).
@@ -174,14 +174,14 @@ export function ResourcesTabs() {
         }
 
         tab.className = `${base} ${chrome.padding} ${borderClass}`
-        if (span) span.style.color = isActive ? '#141D19' : '#7A7E70'
+        if (span) span.style.color = isActive ? 'var(--color-earn-work)' : 'var(--color-earn-gray-600)'
         if (content) content.classList.toggle('hidden', !isActive)
       })
 
       const activeTabEl = document.getElementById(`${activeId}-tab`)
       const growActive = getTabChrome(activeTabEl).growWhenActive
       const growDefault = growDiv.dataset.growDefault ?? 'border-b'
-      growDiv.className = `grow ${isActiveLastTab(activeId, tabs) ? growActive : growDefault} border-[#141D19] bg-[#E9E9D7]`
+      growDiv.className = `grow ${isActiveLastTab(activeId, tabs) ? growActive : growDefault} border-earn-work bg-earn-card-line`
 
       const section = resourcesTabsRootEl()
       if (section) section.setAttribute('data-active', activeId)

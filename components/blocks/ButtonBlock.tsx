@@ -54,7 +54,7 @@ type ButtonBlockProps = {
 }
 
 const gridCellGhostClass =
-  'border-[#FDFDFB] text-[#FDFDFB] hover:bg-[#FDFDFB] hover:text-[#141D19] active:bg-[#FDFDFB]/90 active:text-[#141D19]'
+  'border-earn-paper text-earn-paper hover:bg-earn-paper hover:text-earn-work active:bg-earn-paper/90 active:text-earn-work'
 
 function cn(...parts: Array<string | undefined | false>) {
   return parts.filter(Boolean).join(' ')

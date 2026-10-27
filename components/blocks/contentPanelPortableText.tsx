@@ -36,7 +36,10 @@ export function getContentPanelBodyComponents(
   const EmMark = portableTextEmMark(bodyStyle)
   const link =
     theme === 'dark' && linkColor === 'brightYellow'
-      ? { className: 'underline underline-offset-2', style: { color: '#A4DEC2', textDecorationColor: '#A4DEC2' } }
+      ? {
+          className: 'underline underline-offset-2',
+          style: { color: 'var(--color-earn-orange)', textDecorationColor: 'var(--color-earn-orange)' },
+        }
       : linkMarkProps(linkColor)
 
   return {

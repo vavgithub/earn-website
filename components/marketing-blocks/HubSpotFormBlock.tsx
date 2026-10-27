@@ -54,7 +54,7 @@ export function HubSpotFormBlock({
             ) : null}
             {heading?.trim() ? (
               <h2
-                className="m-0 font-mokoko text-[36px] font-normal leading-[42px] md:text-[48px] md:leading-[52px]"
+                className="m-0 font-plex-sans text-[36px] font-normal leading-[42px] md:text-[48px] md:leading-[52px]"
                 style={textColorStyle(headingColor, 'offWhite')}
               >
                 {heading}

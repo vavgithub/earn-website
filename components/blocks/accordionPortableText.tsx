@@ -6,7 +6,7 @@ import type { PortableTextComponents } from '@portabletext/react'
 /** Intro copy on accordion section (dark beige #5B5F53). */
 export const accordionIntroPortableComponents = createColoredPortableComponents({
   bodyColor: 'offWhite',
-  linkClassName: 'underline decoration-[#FDFDFB]/50 underline-offset-2',
+  linkClassName: 'underline decoration-earn-paper/50 underline-offset-2',
 })
 
 export function getAccordionIntroPortableComponents(

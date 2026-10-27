@@ -27,10 +27,10 @@ export type ButtonStyleOptions = {
 }
 
 const focusRing =
-  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green focus-visible:ring-offset-2 focus-visible:ring-offset-[#fdfdfb]'
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green focus-visible:ring-offset-2 focus-visible:ring-offset-earn-paper'
 
 const baseLayout =
-  'inline-flex items-center justify-center font-mokoko font-medium whitespace-nowrap transition-[color,background-color,border-color,transform,opacity,box-shadow] duration-200 disabled:pointer-events-none disabled:opacity-45 disabled:cursor-not-allowed'
+  'inline-flex items-center justify-center font-plex-sans font-medium whitespace-nowrap transition-[color,background-color,border-color,transform,opacity,box-shadow] duration-200 disabled:pointer-events-none disabled:opacity-45 disabled:cursor-not-allowed'
 
 const textChevronVariants = new Set<ButtonVariant>(['textRule', 'textLink'])
 
@@ -38,9 +38,9 @@ type FilledButtonVariant = Exclude<ButtonVariant, 'textRule' | 'textLink' | 'pri
 
 const variantClasses: Record<FilledButtonVariant, string> = {
   primary:
-    'bg-brand-darkgreen text-[#fdfdfb] border-2 border-transparent hover:bg-brand-green hover:shadow-md hover:shadow-black/20 active:bg-[#12261c] active:shadow-none active:scale-[0.98]',
+    'bg-brand-darkgreen text-earn-paper border-2 border-transparent hover:bg-brand-green hover:shadow-md hover:shadow-black/20 active:bg-earn-ink active:shadow-none active:scale-[0.98]',
   outline:
-    'bg-transparent text-brand-darkgreen border-2 border-brand-darkgreen hover:bg-brand-darkgreen hover:text-[#fdfdfb] active:scale-[0.98]',
+    'bg-transparent text-brand-darkgreen border-2 border-brand-darkgreen hover:bg-brand-darkgreen hover:text-earn-paper active:scale-[0.98]',
   brand:
     'bg-brand-red text-white border-2 border-transparent hover:brightness-110 active:brightness-95 active:scale-[0.98]',
 }
@@ -51,11 +51,11 @@ export const linkRuleWrapperClassName =
 
 /** Text + chevron on dark panels (e.g. How it works footer). */
 export const linkRuleAnchorClassName =
-  'inline-flex items-center gap-0 font-mokoko text-xl font-medium leading-5 text-[#1AAC66] no-underline transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green focus-visible:ring-offset-2 focus-visible:ring-offset-[#142D21]'
+  'inline-flex items-center gap-0 font-plex-sans text-xl font-medium leading-5 text-earn-gold no-underline transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green focus-visible:ring-offset-2 focus-visible:ring-offset-earn-work'
 
 /** Text + chevron for CMS Button block (`textRule` / `textLink`). */
 export const linkRuleButtonAnchorClassName =
-  'inline-flex items-center gap-0 font-mokoko text-xl font-medium leading-5 text-[#142D21] no-underline transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green focus-visible:ring-offset-2 focus-visible:ring-offset-[#fdfdfb]'
+  'inline-flex items-center gap-0 font-plex-sans text-xl font-medium leading-5 text-earn-work no-underline transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green focus-visible:ring-offset-2 focus-visible:ring-offset-earn-paper'
 
 export function LinkRuleChevron() {
   return (

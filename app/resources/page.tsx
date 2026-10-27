@@ -116,26 +116,26 @@ export default async function ResourcesPage({
       />
       <WebsiteChrome>
       {fetchError ? (
-        <div className="min-h-screen bg-[#fdfdfb] px-5 md:px-10 lg:px-[100px] py-20 max-w-content mx-auto">
+        <div className="min-h-screen bg-earn-paper px-5 md:px-10 lg:px-[100px] py-20 max-w-content mx-auto">
           <div className="rounded-lg border border-red-100 bg-white p-8 md:p-10 text-center">
-            <h2 className="font-mokoko text-2xl text-[#141d19] mb-3">Can’t load resources right now</h2>
-            <p className="font-inter text-[#5b5f53] max-w-2xl mx-auto">
+            <h2 className="font-plex-sans text-2xl text-earn-work mb-3">Can’t load resources right now</h2>
+            <p className="font-inter text-earn-gray-700 max-w-2xl mx-auto">
               We couldn’t reach Sanity from this dev server. This is usually a network, VPN, or firewall issue.
             </p>
-            <p className="mt-6 text-sm text-[#7a7e70]">
-              Try checking your connection, then restart <code className="font-mono text-[#141d19]">npm run dev</code>.
+            <p className="mt-6 text-sm text-earn-gray-700">
+              Try checking your connection, then restart <code className="font-mono text-earn-work">npm run dev</code>.
             </p>
           </div>
         </div>
       ) : !hasPosts ? (
         <>
-          <div className="min-h-screen bg-[#fdfdfb]">
+          <div className="min-h-screen bg-earn-paper">
             <section className="max-w-content mx-auto w-full px-5 md:px-10 lg:px-[100px] pt-10 md:pt-16 pb-3 md:pb-4">
-              <h1 className="font-mokoko font-medium text-[36px] leading-[38px] text-brand-red m-0">
+              <h1 className="font-plex-sans font-medium text-[36px] leading-[38px] text-brand-red m-0">
                 Resources
               </h1>
             </section>
-            <p className="py-12 text-center font-inter text-[#5b5f53]">
+            <p className="py-12 text-center font-inter text-earn-gray-700">
               No articles yet. Add blog posts in Sanity Studio.
             </p>
           </div>

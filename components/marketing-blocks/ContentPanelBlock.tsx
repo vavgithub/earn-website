@@ -69,8 +69,8 @@ function PanelTextLink({
 }: ContentPanelLink & { theme: 'light' | 'dark' }) {
   const className =
     theme === 'dark'
-      ? 'inline-flex items-center gap-0 font-mokoko text-xl font-medium leading-5 text-[#1AAC66] no-underline transition-opacity hover:opacity-90'
-      : 'inline-flex items-center gap-0 font-mokoko text-xl font-medium leading-5 text-[#142D21] no-underline transition-opacity hover:opacity-90'
+      ? 'inline-flex items-center gap-0 font-plex-sans text-xl font-medium leading-5 text-earn-gold no-underline transition-opacity hover:opacity-90'
+      : 'inline-flex items-center gap-0 font-plex-sans text-xl font-medium leading-5 text-earn-work no-underline transition-opacity hover:opacity-90'
 
   const content = (
     <>
@@ -99,7 +99,7 @@ function PanelTextLink({
 }
 
 const promoButtonBase =
-  'box-border flex w-full min-h-12 h-auto items-center justify-center rounded-[24px] px-6 py-3.5 text-center font-mokoko text-xl font-medium leading-6 text-balance whitespace-normal no-underline transition-opacity hover:opacity-90 sm:inline-flex sm:w-auto sm:max-w-full'
+  'box-border flex w-full min-h-12 h-auto items-center justify-center rounded-[24px] px-6 py-3.5 text-center font-plex-sans text-xl font-medium leading-6 text-balance whitespace-normal no-underline transition-opacity hover:opacity-90 sm:inline-flex sm:w-auto sm:max-w-full'
 
 function PromoButton({
   button,
@@ -113,8 +113,8 @@ function PromoButton({
   const external = isExternalHref(href)
   const className =
     variant === 'primary'
-      ? `${promoButtonBase} bg-[#155C3A] text-[#FDFDFB] sm:px-9`
-      : `${promoButtonBase} border-2 border-solid border-[#F5F5ED] bg-transparent px-5 text-[#F5F5ED] sm:px-6`
+      ? `${promoButtonBase} bg-earn-gold text-earn-button-ink sm:px-9`
+      : `${promoButtonBase} border-2 border-solid border-earn-paper bg-transparent px-5 text-earn-paper sm:px-6`
 
   if (external || button.openInNewTab) {
     return (
@@ -136,9 +136,9 @@ function PromoButton({
 }
 
 const panelShell: Record<ContentPanelVariant, string> = {
-  mediaTextLight: 'bg-[#F7FBEB] text-[#141D19]',
-  mediaTextDark: 'bg-[#142D21] text-[#FDFDFB]',
-  actionPromo: 'bg-brand-red text-[#FDFDFB]',
+  mediaTextLight: 'bg-earn-cream text-earn-work',
+  mediaTextDark: 'bg-earn-work text-earn-paper',
+  actionPromo: 'bg-earn-work text-earn-paper',
 }
 
 function MediaTextPanel({
@@ -168,8 +168,8 @@ function MediaTextPanel({
 }) {
   const isLight = variant === 'mediaTextLight'
   const headingClass = isLight
-    ? 'm-0 pb-12 text-left font-mokoko text-[32px] font-medium leading-10'
-    : 'm-0 pb-12 text-left font-mokoko text-[26px] font-medium leading-8'
+    ? 'm-0 pb-12 text-left font-plex-sans text-[32px] font-medium leading-10'
+    : 'm-0 pb-12 text-left font-plex-sans text-[26px] font-medium leading-8'
   const headingStyle = textColorStyle(headingColor, 'yellow')
   const bodyComponents = getContentPanelBodyComponents(
     isLight ? 'light' : 'dark',
@@ -249,7 +249,7 @@ function ActionPromoPanel({
           ) : null}
           {heading?.trim() ? (
             <h2
-              className="m-0 font-mokoko text-[36px] font-normal leading-[42px] md:text-[48px] md:leading-[52px]"
+              className="m-0 font-plex-sans text-[36px] font-normal leading-[42px] md:text-[48px] md:leading-[52px]"
               style={textColorStyle(headingColor, 'offWhite')}
             >
               {heading}
@@ -267,7 +267,7 @@ function ActionPromoPanel({
           </p>
         ) : null}
         {primaryButton?.label || secondaryButton?.label ? (
-          <div className="flex w-full flex-col items-stretch gap-6 border-t-[3px] border-[#E9E9D7] pt-6 sm:items-start">
+          <div className="flex w-full flex-col items-stretch gap-6 border-t-[3px] border-earn-card-line pt-6 sm:items-start">
             {primaryButton?.label && primaryButton.href ? (
               <PromoButton button={primaryButton} variant="primary" />
             ) : null}

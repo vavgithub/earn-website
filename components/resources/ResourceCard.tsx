@@ -39,14 +39,14 @@ export function ResourceCard({ item, wideCard }: Props) {
       </div>
       <div className="flex flex-col">
         <div className="flex flex-col gap-4 lg:gap-6 text-left">
-          <h3 className="group-hover:text-[#7a7e70] font-medium text-[#141D19] font-mokoko text-base md:text-lg">
+          <h3 className="group-hover:text-earn-gray-700 font-medium text-earn-work font-plex-sans text-base md:text-lg">
             {item.cardTitle}
           </h3>
-          <p className="group-hover:text-[#7a7e70] text-sm md:text-[16px] font-normal font-inter">
+          <p className="group-hover:text-earn-gray-700 text-sm md:text-[16px] font-normal font-inter">
             {item.cardExcerpt}
           </p>
         </div>
-        <div className="text-sm md:text-base group-hover:text-[#204734] text-brand-red hover:underline inline-flex items-center pt-4 lg:pt-6 justify-start">
+        <div className="text-sm md:text-base group-hover:text-earn-work text-brand-red hover:underline inline-flex items-center pt-4 lg:pt-6 justify-start">
           {item.cardCtaLabel || 'Preview >'}
         </div>
       </div>

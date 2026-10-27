@@ -53,7 +53,7 @@ export default async function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="m-0 font-mokoko text-brand-dark bg-white flex flex-col min-h-screen overflow-x-hidden">
+      <body className="m-0 font-inter text-earn-work bg-earn-paper flex flex-col min-h-screen overflow-x-hidden">
         <WebsiteAnalytics />
         <GlobalHeadSnippet html={siteSettings?.globalHeadSnippet} />
         {children}

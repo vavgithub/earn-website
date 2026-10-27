@@ -40,7 +40,7 @@ export default defineType({
       name: 'heading',
       title: 'Heading',
       type: 'string',
-      description: 'Large Mokoko title in the left column.',
+      description: 'Large IBM Plex Sans title in the left column.',
       fieldset: 'headingRow',
     }),
     textColorField({

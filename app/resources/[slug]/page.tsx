@@ -102,16 +102,16 @@ export default async function ResourceArticlePage({
 
   if (fetchError) {
     return (
-      <article className="min-h-screen bg-[#FDFDFB] text-[#141d19]">
+      <article className="min-h-screen bg-earn-paper text-earn-work">
         <div className="container mx-auto px-4 py-20 text-center">
           <h1 className="text-3xl font-bold text-[#1a1a1a] mb-4">
             Can’t load this article
           </h1>
-          <p className="text-[#5b5f53] max-w-2xl mx-auto">
+          <p className="text-earn-gray-700 max-w-2xl mx-auto">
             We couldn’t reach Sanity from this server. Check your
             internet/VPN/firewall and try again.
           </p>
-          <p className="text-xs text-[#7a7e70] mt-6 font-mono break-all">
+          <p className="text-xs text-earn-gray-700 mt-6 font-mono break-all">
             {String(fetchError?.message ?? fetchError)}
           </p>
         </div>
@@ -128,7 +128,7 @@ export default async function ResourceArticlePage({
   return (
     <WebsiteChrome>
       {headSnippet?.trim() ? <BlogHeadInjector html={headSnippet} /> : null}
-      <article className="min-h-screen bg-[#FDFDFB] text-[#141d19]">
+      <article className="min-h-screen bg-earn-paper text-earn-work">
         {post.pageBuilder && post.pageBuilder.length > 0 ? (
           <BlockRenderer
             blocks={post.pageBuilder}
@@ -137,7 +137,7 @@ export default async function ResourceArticlePage({
             studioBaseUrl={studioBaseUrl}
           />
         ) : (
-          <div className="container mx-auto px-4 py-20 text-center text-[#5b5f53]">
+          <div className="container mx-auto px-4 py-20 text-center text-earn-gray-700">
             This article has no content blocks yet.
           </div>
         )}

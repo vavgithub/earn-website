@@ -92,7 +92,7 @@ export default async function CmsPage({
 
   if (fetchError) {
     return (
-      <main className="min-h-screen bg-[#FDFDFB]">
+      <main className="min-h-screen bg-earn-paper">
         <div className="container mx-auto px-4 py-20 text-center">
           <h1 className="text-2xl font-bold text-gray-900 mb-2">Can’t load this page</h1>
           <p className="text-gray-600">We couldn’t reach Sanity. Check your connection and try again.</p>
@@ -110,7 +110,7 @@ export default async function CmsPage({
   return (
     <WebsiteChrome>
       {headSnippet?.trim() ? <BlogHeadInjector html={headSnippet} /> : null}
-      <div className="min-h-screen bg-[#FDFDFB]">
+      <div className="min-h-screen bg-earn-paper">
         {page.pageBuilder && page.pageBuilder.length > 0 ? (
           <BlockRenderer
             blocks={page.pageBuilder as any[]}

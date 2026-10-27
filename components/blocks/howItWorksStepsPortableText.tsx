@@ -4,7 +4,7 @@ import { portableTextLinkTargetAttrs } from '@/lib/portableTextLink'
 import { PORTABLE_TEXT_INHERIT_MARKS } from '@/lib/createColoredPortableText'
 import { textSizeBodyClass, type TextSizeValue } from '@/lib/cmsTextSize'
 
-const heading = 'm-0 font-mokoko text-xl font-bold leading-8 text-inherit [&+p]:mt-4'
+const heading = 'm-0 font-plex-sans text-xl font-bold leading-8 text-inherit [&+p]:mt-4'
 
 /** Step body copy — inherits section text color from CMS background. */
 export function getHowItWorksStepsPortableComponents(

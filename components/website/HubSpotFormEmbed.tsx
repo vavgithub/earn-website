@@ -91,7 +91,7 @@ export function HubSpotFormEmbed({
   return (
     <div className={`w-full ${className}`.trim()}>
       {showPlaceholder ? (
-        <p className="m-0 min-h-[280px] font-inter text-base leading-relaxed text-[#FDFDFB]/80 md:min-h-[328px]">
+        <p className="m-0 min-h-[280px] font-inter text-base leading-relaxed text-earn-paper/80 md:min-h-[328px]">
           Add HubSpot portal ID and form ID in Sanity to preview this form.
         </p>
       ) : (

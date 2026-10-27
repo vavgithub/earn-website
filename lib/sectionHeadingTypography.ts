@@ -2,9 +2,9 @@ import type { CSSProperties } from 'react'
 import type { SectionHeadingLevel } from '@/lib/cmsSectionHeadingLevel'
 import { textColorStyle, type TextColorValue } from '@/lib/cmsTextColor'
 
-/** Mokoko section title styles for optional block headings (H1–H3). */
+/** IBM Plex Sans section title styles for optional block headings (H1–H3). */
 export function sectionHeadingClassName(level: SectionHeadingLevel): string {
-  const base = 'm-0 pb-12 text-left font-mokoko font-normal whitespace-pre-line'
+  const base = 'm-0 pb-12 text-left font-plex-sans font-normal whitespace-pre-line'
 
   switch (level) {
     case 'h1':

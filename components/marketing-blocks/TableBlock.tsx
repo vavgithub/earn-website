@@ -14,7 +14,7 @@ export type TableBlockProps = {
   className?: string
 }
 
-const tone = 'border-solid [border-color:var(--Base-Color-A0A691,#A0A691)]'
+const tone = 'border-solid border-earn-gray-400'
 
 /** Figma body: bottom + `border-left` on cols 1..n for column dividers. */
 function bodyCellBorderClasses(columnIndex: number) {

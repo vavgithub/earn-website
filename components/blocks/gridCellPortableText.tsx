@@ -8,34 +8,34 @@ import { textSizeBodyClass, type TextSizeValue } from '@/lib/cmsTextSize'
 import { portableTextLinkTargetAttrs } from '@/lib/portableTextLink'
 
 const bodyP = {
-  dark: 'font-inter text-base font-normal leading-7 text-[#FDFDFB]',
-  transparent: 'font-inter text-base font-normal leading-7 text-[#141D19]',
+  dark: 'font-inter text-base font-normal leading-7 text-earn-paper',
+  transparent: 'font-inter text-base font-normal leading-7 text-earn-work',
 } as const
 
 const headingP = {
-  dark: 'text-xl font-bold leading-7 text-[#FDFDFB]',
-  transparent: 'text-xl font-bold leading-7 text-[#141D19]',
+  dark: 'text-xl font-bold leading-7 text-earn-paper',
+  transparent: 'text-xl font-bold leading-7 text-earn-work',
 } as const
 
 const listUl = {
-  dark: 'list-disc space-y-2 pl-6 text-base font-normal leading-7 text-[#FDFDFB]',
-  transparent: 'list-disc space-y-1 pl-6 text-base font-normal leading-7 text-[#141D19]',
+  dark: 'list-disc space-y-2 pl-6 text-base font-normal leading-7 text-earn-paper',
+  transparent: 'list-disc space-y-1 pl-6 text-base font-normal leading-7 text-earn-work',
 } as const
 
 const listOl = {
-  dark: 'list-decimal space-y-2 pl-6 text-base font-normal leading-7 text-[#FDFDFB]',
-  transparent: 'list-decimal space-y-1 pl-6 text-base font-normal leading-7 text-[#141D19]',
+  dark: 'list-decimal space-y-2 pl-6 text-base font-normal leading-7 text-earn-paper',
+  transparent: 'list-decimal space-y-1 pl-6 text-base font-normal leading-7 text-earn-work',
 } as const
 
 const linkClass = {
-  dark: 'text-[#FDFDFB] underline decoration-[#FDFDFB]/50 underline-offset-2 hover:decoration-[#FDFDFB]',
+  dark: 'text-earn-paper underline decoration-earn-paper/50 underline-offset-2 hover:decoration-earn-paper',
   transparent:
-    'text-[#378457] underline decoration-[#2ECC71]/50 underline-offset-2 hover:decoration-[#2ECC71]',
+    'text-earn-gold underline decoration-earn-gold/50 underline-offset-2 hover:decoration-earn-gold',
 } as const
 
 const strongClass = {
-  dark: 'font-bold text-[#FDFDFB]',
-  transparent: 'font-semibold text-[#141D19]',
+  dark: 'font-bold text-earn-paper',
+  transparent: 'font-semibold text-earn-work',
 } as const
 
 function buildGridCellPortableComponents(
@@ -101,8 +101,8 @@ function buildGridCellPortableComponents(
         <blockquote
           className={
             surface === 'dark'
-              ? 'border-l-4 border-[#FDFDFB]/40 pl-4 text-base font-normal leading-7 text-[#FDFDFB]/90 italic'
-              : 'border-l-4 border-[#2ECC71] pl-4 text-base font-normal leading-7 text-gray-600 italic'
+              ? 'border-l-4 border-earn-paper/40 pl-4 text-base font-normal leading-7 text-earn-paper/90 italic'
+              : 'border-l-4 border-earn-orange pl-4 text-base font-normal leading-7 text-earn-gray-700 italic'
           }
         >
           {children}

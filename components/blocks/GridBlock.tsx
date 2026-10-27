@@ -31,7 +31,7 @@ export default function GridBlock({ block }: { block: any }) {
             const slots = resolveGridCell(item)
             if (slots.length === 0) return null
 
-            /** Legacy cells had no field (always #141D19). Only explicit `transparent` clears the panel. */
+            /** Legacy cells had no field and stay on the dark panel. Only explicit `transparent` clears it. */
             const useDarkPanel = row.background !== 'transparent'
 
             return (
@@ -39,7 +39,7 @@ export default function GridBlock({ block }: { block: any }) {
                 key={key}
                 className={
                   useDarkPanel
-                    ? 'flex min-h-full flex-1 flex-col items-stretch gap-4 self-stretch rounded-3xl bg-[#141D19] p-9'
+                    ? 'flex min-h-full flex-1 flex-col items-stretch gap-4 self-stretch rounded-3xl bg-earn-work p-9'
                     : 'flex min-h-full flex-1 flex-col items-stretch gap-4 self-stretch'
                 }
               >

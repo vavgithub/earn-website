@@ -29,12 +29,12 @@ export function getResourceModalPortableTextComponents(
         </p>
       ),
       h3: ({ children }) => (
-        <h3 className="font-mokoko text-[20px] md:text-[26px] font-regular text-[#141d19] leading-[1.2] mt-0">
+        <h3 className="font-plex-sans text-[20px] md:text-[26px] font-regular text-earn-work leading-[1.2] mt-0">
           {children}
         </h3>
       ),
       h4: ({ children }) => (
-        <h4 className="font-mokoko text-lg font-medium text-[#141d19] mt-4">{children}</h4>
+        <h4 className="font-plex-sans text-lg font-medium text-earn-work mt-4">{children}</h4>
       ),
     },
     list: {

@@ -43,7 +43,7 @@ function ModalDocumentHeader() {
     <div className="flex px-6 items-center justify-between">
       <div className="flex items-center gap-3">
         <div className="flex flex-col">
-          <h3 className="text-xl font-mokoko text-[#142d21]">Document Preview</h3>
+          <h3 className="text-xl font-plex-sans text-earn-work">Document Preview</h3>
           <p className="font-inter text-base text-[#6a7282]">Limited preview available</p>
         </div>
       </div>
@@ -61,7 +61,7 @@ function ModalTableOfContents({
   return (
     <div className="px-4 sm:px-16">
       <div className="border-t border-[#D1D5DC] py-[60px]">
-        <h3 className="font-mokoko text-[20px] md:text-[26px] font-regular text-[#141d19] leading-[1.2]">
+        <h3 className="font-plex-sans text-[20px] md:text-[26px] font-regular text-earn-work leading-[1.2]">
           Contents
         </h3>
         <ol className="font-inter text-sm text-[#292929] list-decimal list-inside flex flex-col gap-3 mt-6">
@@ -88,7 +88,7 @@ function MethodologyFooter({ item }: { item: ResourceItemRecord }) {
     <div className="bg-brand-red">
       <div className="py-[60px] px-4 sm:px-16">
         <div className="non-auth-only-content text-center">
-          <h3 className="font-mokoko text-[20px] md:text-[26px] font-regular text-[#FFFFFF] leading-[1.2] mb-[10px]">
+          <h3 className="font-plex-sans text-[20px] md:text-[26px] font-regular text-[#FFFFFF] leading-[1.2] mb-[10px]">
             {item.footerHeading || 'Continue Reading'}
           </h3>
           {item.footerIntro ? (
@@ -110,7 +110,7 @@ function MethodologyFooter({ item }: { item: ResourceItemRecord }) {
               href="#"
               data-id={modalId}
               target="_blank"
-              className="create-account flex items-center justify-center h-9 bg-[#fdfdfb] text-[#142d21] hover:bg-[#ff7e6c] hover:text-[#fdfdfb] transition-colors duration-200 px-6 py-1 rounded-full"
+              className="create-account flex items-center justify-center h-9 bg-earn-paper text-earn-work hover:bg-earn-gold hover:text-earn-paper transition-colors duration-200 px-6 py-1 rounded-full"
             >
               Create an account
             </a>
@@ -118,7 +118,7 @@ function MethodologyFooter({ item }: { item: ResourceItemRecord }) {
               href="#"
               data-id={modalId}
               target="_blank"
-              className="login flex items-center justify-center h-9 border border-[#fdfdfb] hover:border-[#ff7e6c] text-[#fdfdfb] px-6 py-1 rounded-full"
+              className="login flex items-center justify-center h-9 border border-earn-paper hover:border-earn-gold text-earn-paper px-6 py-1 rounded-full"
             >
               Log In
             </a>
@@ -127,7 +127,7 @@ function MethodologyFooter({ item }: { item: ResourceItemRecord }) {
         <div className="auth-only-content hidden">
           <div className="methodology-auth-form-step flex flex-col lg:flex-row gap-8 lg:gap-10 lg:items-start">
             <div className="w-full lg:max-w-[380px] flex-shrink-0">
-              <h3 className="font-mokoko text-[20px] md:text-[26px] font-regular text-[#FFFFFF] leading-[1.2] mb-6">
+              <h3 className="font-plex-sans text-[20px] md:text-[26px] font-regular text-[#FFFFFF] leading-[1.2] mb-6">
                 {item.footerHeading || 'Continue Reading'}
               </h3>
               {item.footerIntro ? (
@@ -169,7 +169,7 @@ function StandardFormFooter({ item }: { item: ResourceItemRecord }) {
     <div className="bg-brand-red py-[60px]">
       <div className="px-4 sm:px-16 flex flex-col lg:flex-row gap-3 md:gap-10">
         <div className="w-full h-full md:max-w-[380px] flex-shrink-0">
-          <h3 className="font-mokoko text-[20px] md:text-[26px] font-regular text-[#FFFFFF] leading-[1.2] mb-6">
+          <h3 className="font-plex-sans text-[20px] md:text-[26px] font-regular text-[#FFFFFF] leading-[1.2] mb-6">
             {item.footerHeading || 'Continue Reading'}
           </h3>
           {item.footerIntro ? (
@@ -221,11 +221,11 @@ export function ResourceModal({ item }: { item: ResourceItemRecord }) {
         <>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-9 px-4 sm:px-16 pt-[60px] pb-8 lg:pb-[60px]">
             <div className="order-2 lg:order-1">
-              <h2 className="text-[#141D19] font-mokoko text-[26px] font-medium leading-[32px]">
+              <h2 className="text-earn-work font-plex-sans text-[26px] font-medium leading-[32px]">
                 {item.modalHeroTitle}
               </h2>
               {item.modalHeroSubtitle ? (
-                <p className="text-[#141D19] font-inter text-[24px] font-bold leading-[28px] mt-2">
+                <p className="text-earn-work font-inter text-[24px] font-bold leading-[28px] mt-2">
                   {item.modalHeroSubtitle}
                 </p>
               ) : null}
@@ -277,14 +277,14 @@ export function ResourceModal({ item }: { item: ResourceItemRecord }) {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-y-[60px] md:gap-9 px-4 sm:px-16 py-[60px]">
             <div className="order-2 lg:order-1">
               <h2
-                className={`font-mokoko text-[20px] md:text-[26px] text-[#141d19] leading-[1.2] mb-4 whitespace-pre-line${
+                className={`font-plex-sans text-[20px] md:text-[26px] text-earn-work leading-[1.2] mb-4 whitespace-pre-line${
                   isGuides && item.modalHeroEyebrow ? ' font-medium' : ' font-regular'
                 }`}
               >
                 {item.modalHeroTitle}
               </h2>
               {item.modalHeroEyebrow ? (
-                <p className="text-[#141D19] font-Mokoko text-[16px] font-medium leading-[20px]">
+                <p className="text-earn-work font-plex-sans text-[16px] font-medium leading-[20px]">
                   {item.modalHeroEyebrow}
                 </p>
               ) : null}
@@ -322,7 +322,7 @@ export function ResourceModal({ item }: { item: ResourceItemRecord }) {
             section.heading || section.content?.length ? (
               <div key={i} className="px-4 sm:px-16 pb-[60px]">
                 {section.heading ? (
-                  <h3 className="font-mokoko text-[20px] md:text-[26px] font-regular text-[#141d19] leading-[1.2]">
+                  <h3 className="font-plex-sans text-[20px] md:text-[26px] font-regular text-earn-work leading-[1.2]">
                     {section.heading}
                   </h3>
                 ) : null}

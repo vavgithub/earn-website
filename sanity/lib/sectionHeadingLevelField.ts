@@ -8,7 +8,7 @@ type SectionHeadingLevelFieldOptions = {
   hidden?: SectionHeadingFieldHidden
 }
 
-/** H1 / H2 / H3 for optional section titles (Mokoko heading above a block). */
+/** H1 / H2 / H3 for optional section titles (IBM Plex Sans heading above a block). */
 export function sectionHeadingLevelField({
   name = 'sectionHeadingLevel',
   fieldset,

@@ -50,7 +50,6 @@
   --color-earn-gray-700: #606060;     /* copyright */
   --color-earn-gray-800: #56575a;     /* footer bottom divider */
 
-  --font-mokoko: "IBM Plex Sans", sans-serif;
   --font-inter: Inter, sans-serif;
   --font-plex-mono: "IBM Plex Mono", monospace; /* Earn: loaded in app/layout.tsx, weights 100–700 + italics */
   --font-plex-sans: "IBM Plex Sans", sans-serif; /* Earn hero heading: loaded in app/layout.tsx, weight 600 */

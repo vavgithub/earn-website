@@ -72,7 +72,7 @@ export function createColoredPortableComponents({
       ),
       h1: ({ children }) => (
         <h1
-          className={`m-0 mb-4 font-mokoko text-4xl font-medium leading-tight md:text-5xl ${bodyBase}`}
+          className={`m-0 mb-4 font-plex-sans text-4xl font-medium leading-tight md:text-5xl ${bodyBase}`}
           style={headingStyle}
         >
           {children}
@@ -80,7 +80,7 @@ export function createColoredPortableComponents({
       ),
       h2: ({ children }) => (
         <h2
-          className={`m-0 mb-4 font-mokoko text-2xl font-medium leading-8 md:text-3xl ${bodyBase}`}
+          className={`m-0 mb-4 font-plex-sans text-2xl font-medium leading-8 md:text-3xl ${bodyBase}`}
           style={headingStyle}
         >
           {children}
@@ -88,7 +88,7 @@ export function createColoredPortableComponents({
       ),
       h3: ({ children }) => (
         <h3
-          className={`m-0 mb-3 font-mokoko text-xl font-medium leading-7 ${bodyBase}`}
+          className={`m-0 mb-3 font-plex-sans text-xl font-medium leading-7 ${bodyBase}`}
           style={headingStyle}
         >
           {children}
@@ -96,7 +96,7 @@ export function createColoredPortableComponents({
       ),
       h4: ({ children }) => (
         <h4
-          className={`m-0 mb-2 font-mokoko text-lg font-medium leading-7 ${bodyBase}`}
+          className={`m-0 mb-2 font-plex-sans text-lg font-medium leading-7 ${bodyBase}`}
           style={headingStyle}
         >
           {children}

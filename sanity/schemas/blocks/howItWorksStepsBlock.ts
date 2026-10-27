@@ -83,7 +83,7 @@ export default defineType({
               blockDescription:
                 "Body copy, bullet lists, and bold text for this step.",
               required: true,
-              linkColorInitialValue: "green",
+              linkColorInitialValue: "brightYellow",
               bodyColorInitialValue: "offWhite",
             }),
           ],

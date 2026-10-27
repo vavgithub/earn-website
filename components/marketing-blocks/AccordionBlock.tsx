@@ -106,7 +106,7 @@ export function AccordionBlock({
                 >
                   <FaqChevron open={isOpen} colorStyle={questionStyle} />
                   <span
-                    className="min-w-0 flex-1 font-mokoko text-2xl font-medium leading-6"
+                    className="min-w-0 flex-1 font-plex-sans text-2xl font-medium leading-6"
                     style={questionStyle}
                   >
                     {item.question}

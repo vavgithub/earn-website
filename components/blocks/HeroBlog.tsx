@@ -23,7 +23,7 @@ export default function HeroBlog({ block }: { block: any }) {
     <PageBlockSection
       block={block}
       blockType="heroBlog"
-      className="relative overflow-hidden text-gray-900"
+      className="relative overflow-hidden"
     >
       <PageBlockLayout layoutWidth={block.layoutWidth}>
         <BlockSectionHeader

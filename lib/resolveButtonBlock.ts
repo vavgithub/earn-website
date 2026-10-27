@@ -74,7 +74,7 @@ function migrateFromLegacyVariant(variant: LegacyVariant): Omit<ResolvedButtonBl
     case 'brand':
       return {
         buttonType: 'fill',
-        textColor: 'offWhite',
+        textColor: 'darkSlate',
         fillColor: 'yellow',
         outlineColor: 'medSlate',
         showTopLine: false,
@@ -175,10 +175,10 @@ export function linkRuleWrapperProps(lineColor: TextColorValue): {
 }
 
 const focusRing =
-  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green focus-visible:ring-offset-2 focus-visible:ring-offset-[#fdfdfb]'
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green focus-visible:ring-offset-2 focus-visible:ring-offset-earn-paper'
 
 const baseLayout =
-  'inline-flex items-center justify-center font-mokoko font-medium whitespace-nowrap transition-[color,background-color,border-color,transform,opacity,box-shadow] duration-200'
+  'inline-flex items-center justify-center font-plex-sans font-medium whitespace-nowrap transition-[color,background-color,border-color,transform,opacity,box-shadow] duration-200'
 
 const sizeClasses: Record<ButtonSize, string> = {
   xs: 'min-h-8 px-3 text-sm gap-1.5',
@@ -227,7 +227,7 @@ export function ghostButtonClasses(
       focusRing,
       sizeClasses[config.size],
       shapeClasses[config.shape],
-      'bg-transparent border-2 hover:bg-[var(--ghost-hover-bg)] hover:text-[#FDFDFB]',
+      'bg-transparent border-2 hover:bg-[var(--ghost-hover-bg)] hover:text-earn-paper',
       'active:scale-[0.98]',
       extra,
     ]
@@ -242,7 +242,7 @@ export function ghostButtonClasses(
 }
 
 export const textLinkAnchorClass =
-  'inline-flex items-center gap-0 font-mokoko text-xl font-medium leading-5 no-underline transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green focus-visible:ring-offset-2 focus-visible:ring-offset-[#fdfdfb]'
+  'inline-flex items-center gap-0 font-plex-sans text-xl font-medium leading-5 no-underline transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green focus-visible:ring-offset-2 focus-visible:ring-offset-earn-paper'
 
 export function textLinkButtonClasses(
   config: ResolvedButtonBlock,

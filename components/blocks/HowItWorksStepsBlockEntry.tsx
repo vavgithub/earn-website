@@ -28,7 +28,7 @@ export default function HowItWorksStepsBlockEntry({ block }: { block: any }) {
 
   const legacyStepFallback = {
     textSize: parseTextSize(block?.stepContentTextSize, "md"),
-    linkColor: parseTextColor(block?.stepContentLinkColor, "green"),
+    linkColor: parseTextColor(block?.stepContentLinkColor, "brightYellow"),
     textColor: "offWhite" as const,
   };
 

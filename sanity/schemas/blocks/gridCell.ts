@@ -16,13 +16,13 @@ export default defineType({
       options: {
         list: [
           { title: 'Transparent', value: 'transparent' },
-          { title: 'Dark panel (#141D19)', value: 'dark' },
+          { title: 'Dark panel (Dark Slate)', value: 'dark' },
         ],
         layout: 'radio',
       },
       initialValue: 'transparent',
       description:
-        'Dark panel (#141D19) uses light text and coral outline buttons. Transparent uses normal page styling. Existing cells without this field keep the dark panel until you choose Transparent.',
+        'Dark panel uses light text. Transparent uses the page styling. Existing cells without this field keep the dark panel until you choose Transparent.',
     }),
     defineField({
       name: 'blocks',
