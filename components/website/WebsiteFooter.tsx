@@ -7,6 +7,7 @@ import type {
 } from '@/components/website/footerData'
 import type { Path, PathSegment } from '@sanity/client/csm'
 import { createDataAttribute } from 'next-sanity'
+import styles from '@/components/website/WebsiteFooter.module.css'
 
 export type WebsiteFooterProps = {
   footer: ResolvedFooter
@@ -107,43 +108,45 @@ export function WebsiteFooter({ footer, presentation }: WebsiteFooterProps) {
 
   return (
     <footer className="bg-earn-ink-deep font-plex-mono pt-15 pb-5">
-      <div className="max-w-270 mx-auto px-5 md:px-10 xl:px-0">
-        <div className="flex flex-col lg:flex-row lg:justify-between gap-12">
-          <div className="flex flex-col items-start lg:items-end lg:w-37.5 shrink-0">
-            <Link href="/">
-              <img src="/assets/images/earn-logo.svg" alt="Earn" className="block h-9 w-auto" />
-            </Link>
-            {footer.socialLinks.length ? (
-              <div className="flex gap-4.5 mt-11.25" {...presentationProps(['socialLinks'])}>
-                {footer.socialLinks.map((social, i) => (
-                  <a
-                    key={social._key ?? i}
-                    href={social.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:opacity-80 transition-opacity"
-                    {...presentationProps(['socialLinks', seg(social._key, i)])}
-                  >
-                    <img
-                      src={SOCIAL_ICONS[social.platform].src}
-                      alt={SOCIAL_ICONS[social.platform].alt}
-                      className="block size-6"
-                    />
-                  </a>
-                ))}
-              </div>
-            ) : null}
-            {footer.phone ? (
-              <p
-                className="m-0 mt-2 font-inter text-2xs leading-4 whitespace-nowrap text-earn-gray-600"
-                {...presentationProps(['phone'])}
-              >
-                {footer.phone}
-              </p>
-            ) : null}
+      <div className={`${styles.inner} px-5 md:px-10 xl:px-0`}>
+        <div className={styles.row}>
+          <div className={styles.brand}>
+            <div className={styles.mark}>
+              <Link href="/">
+                <img src="/assets/images/earn-logo.svg" alt="Earn" className="block h-9 w-auto" />
+              </Link>
+              {footer.socialLinks.length ? (
+                <div className={styles.social} {...presentationProps(['socialLinks'])}>
+                  {footer.socialLinks.map((social, i) => (
+                    <a
+                      key={social._key ?? i}
+                      href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:opacity-80 transition-opacity"
+                      {...presentationProps(['socialLinks', seg(social._key, i)])}
+                    >
+                      <img
+                        src={SOCIAL_ICONS[social.platform].src}
+                        alt={SOCIAL_ICONS[social.platform].alt}
+                        className="block size-6"
+                      />
+                    </a>
+                  ))}
+                </div>
+              ) : null}
+              {footer.phone ? (
+                <p
+                  className={`${styles.phone} font-inter text-2xs leading-4 whitespace-nowrap text-earn-gray-600`}
+                  {...presentationProps(['phone'])}
+                >
+                  {footer.phone}
+                </p>
+              ) : null}
+            </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-x-8 gap-y-10 md:flex md:gap-15 lg:mt-1.75">
+          <div className={styles.columns}>
             {footer.columns.map((column, c) => (
               <FooterColumnBlock
                 key={column._key ?? c}

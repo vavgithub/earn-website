@@ -44,6 +44,14 @@ export const PAGE_BLOCK_PADDING_DEFAULTS: Record<
   accordionBlock: { top: 'sm', bottom: 'sm' },
   howItWorksStepsBlock: { top: 'none', bottom: 'none' },
   hubspotFormBlock: { top: 'sm', bottom: 'sm' },
+  bannerBlock: { top: 'none', bottom: 'none' },
+  ecosystemBlock: { top: 'none', bottom: 'none' },
+  filterCardsBlock: { top: 'none', bottom: 'none' },
+  statementBlock: { top: 'none', bottom: 'none' },
+  architectureBlock: { top: 'none', bottom: 'none' },
+  proofListBlock: { top: 'none', bottom: 'none' },
+  calloutBlock: { top: 'none', bottom: 'none' },
+  insightCardsBlock: { top: 'none', bottom: 'none' },
 }
 
 const FALLBACK_PADDING: { top: BlockPaddingValue; bottom: BlockPaddingValue } = {

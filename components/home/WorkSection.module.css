@@ -42,7 +42,7 @@
   letter-spacing: var(--tracking-eyebrow);
   line-height: normal;
   text-transform: uppercase;
-  color: var(--color-earn-white);
+  color: var(--cms-text, var(--color-earn-white));
 }
 
 .heading {
@@ -50,15 +50,15 @@
   font-weight: 600;
   font-size: var(--text-hero-mobile);
   line-height: var(--text-ecosystem--line-height);
-  color: var(--color-earn-paper);
+  color: var(--cms-text, var(--color-earn-paper));
 }
 
 .intro {
   font-family: var(--font-inter);
   font-weight: 400;
-  font-size: var(--text-slide-body-compact);
+  font-size: var(--cms-copy-size, var(--text-slide-body-compact));
   line-height: var(--text-slide-body-compact--line-height);
-  color: var(--color-earn-paper);
+  color: var(--cms-text, var(--color-earn-paper));
 }
 
 .panel {
@@ -73,15 +73,16 @@
   font-weight: 700;
   font-size: 1.75rem;
   line-height: normal;
-  color: var(--color-earn-white);
+  color: var(--cms-text, var(--color-earn-white));
 }
 
 .body {
   font-family: var(--font-inter);
   font-weight: 400;
-  font-size: var(--text-products-lead);
+  font-size: var(--cms-copy-size, var(--text-products-lead));
   line-height: normal;
-  color: var(--color-earn-white);
+  white-space: pre-line;
+  color: var(--cms-text, var(--color-earn-white));
 }
 
 .actionRow {
@@ -97,10 +98,10 @@
   height: 2.25rem;
   padding: 0 1.25rem;
   border-radius: 1.25rem;
-  background: var(--color-earn-gold);
-  color: var(--color-earn-button-ink);
+  background: var(--cms-button, var(--color-earn-gold));
+  color: var(--cms-button-ink, var(--color-earn-button-ink));
   font-family: var(--font-inter);
-  font-size: var(--text-slide-body-compact);
+  font-size: var(--cms-button-size, var(--text-slide-body-compact));
   font-weight: 400;
   line-height: normal;
   text-decoration: none;
@@ -156,12 +157,12 @@
   }
 
   .intro {
-    font-size: 1.125rem;
+    font-size: var(--cms-copy-size, 1.125rem);
   }
 
   .action {
     height: 2.75rem;
-    font-size: var(--text-slide-body);
+    font-size: var(--cms-button-size, var(--text-slide-body));
   }
 
   .arrows {
@@ -183,14 +184,14 @@
   }
 
   .intro {
-    font-size: var(--text-products-lead);
+    font-size: var(--cms-copy-size, var(--text-products-lead));
   }
 }
 
 @media (min-width: 1440px) {
   .stage {
     gap: 3.75rem;
-    max-width: 67.5rem;
+    max-width: var(--width-page);
   }
 
   .body {

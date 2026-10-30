@@ -15,7 +15,7 @@ function toUrl(path: string): string {
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const pagesQuery = `*[_type == "page" && defined(slug.current) && !(slug.current in ["studio","api","blogs","resources","resources-old","_next"])]{
+  const pagesQuery = `*[_type == "page" && defined(slug.current) && !(slug.current in ["studio","api","blogs","resources","resources-old","_next","home"])]{
     "slug": slug.current,
     _updatedAt
   }`

@@ -1,25 +1,112 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import {
-  PRODUCT_CHIP_COUNT,
-  PRODUCT_CHIP_LABEL,
-  PRODUCT_EYEBROW,
-  PRODUCT_FILTER_LABEL,
-  PRODUCT_HEADING,
-  PRODUCT_LEAD,
-  PRODUCT_LINK_LABEL,
-  PRODUCT_LOGOS,
-  PRODUCT_ROLES,
-  PRODUCTS,
-} from "@/components/home/productsData";
+import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from "react";
+import { LinkText, newTabProps } from "@/components/home/LinkText";
+import type { Product } from "@/components/home/productsData";
 import styles from "./ProductsSection.module.css";
 
-export function ProductsSection() {
-  const [role, setRole] = useState<string>(PRODUCT_ROLES[0].id);
+export type ProductFilter = { id: string; label: string };
+
+function cardStyle(product: Product): CSSProperties | undefined {
+  const style: CSSProperties & Record<string, string> = {};
+  if (product.textColor) style["--card-text"] = product.textColor;
+  if (product.textSize) style["--card-text-size"] = product.textSize;
+  if (product.linkColor) style["--card-link"] = product.linkColor;
+  return Object.keys(style).length > 0 ? style : undefined;
+}
+
+function chipStyle(product: Product): CSSProperties | undefined {
+  const style: CSSProperties & Record<string, string> = {};
+  if (product.chipBackground) style["--chip-bg"] = product.chipBackground;
+  if (product.chipLabelColor) style["--chip-ink"] = product.chipLabelColor;
+  return Object.keys(style).length > 0 ? style : undefined;
+}
+
+export type FilterPaint = {
+  button?: string;
+  label?: string;
+};
+
+export type ProductsSectionProps = {
+  eyebrow?: string;
+  heading?: string;
+  lead?: string;
+  showFilters?: boolean;
+  products?: Product[];
+  filters?: ProductFilter[];
+  filterMenuLabel?: string;
+  filterPaint?: FilterPaint;
+  appearance?: CSSProperties;
+};
+
+export function ProductsSection({
+  eyebrow = "",
+  heading = "",
+  lead = "",
+  showFilters = true,
+  products = [],
+  filters = [],
+  filterMenuLabel = "All",
+  filterPaint,
+  appearance,
+}: ProductsSectionProps = {}) {
+  const buttonStyle: CSSProperties = {};
+  if (filterPaint?.button) {
+    buttonStyle.backgroundColor = filterPaint.button;
+    buttonStyle.borderColor = filterPaint.button;
+  }
+  if (filterPaint?.label) buttonStyle.color = filterPaint.label;
+  const paintedButton = Object.keys(buttonStyle).length > 0 ? buttonStyle : undefined;
+  const pills = [{ id: "all", label: "All" }, ...filters];
+  const [role, setRole] = useState<string>("all");
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
-  const selected = PRODUCT_ROLES.find((item) => item.id === role);
+  const sectionRef = useRef<HTMLElement>(null);
+  const [demandPhoto, setDemandPhoto] = useState<{ src: string; seam: string; remain: string } | null>(null);
+  const selected = pills.find((item) => item.id === role);
+  const visible =
+    role === "all"
+      ? products
+      : products.filter((product) =>
+          (product.filters ?? []).some(
+            (name) => name.trim().toLowerCase() === (selected?.label ?? "").trim().toLowerCase(),
+          ),
+        );
+
+  useLayoutEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const apply = () => {
+      const wide = window.matchMedia("(min-width: 1920px)").matches;
+      const eco = document.getElementById("ecosystem-heading")?.closest("section");
+      const img = eco?.querySelector('[class*="slideFade"] img');
+      const photo = img?.parentElement;
+      if (!wide || !(img instanceof HTMLImageElement) || !photo || !img.naturalWidth) {
+        setDemandPhoto(null);
+        return;
+      }
+      const box = photo.getBoundingClientRect();
+      const scale = Math.max(box.width / img.naturalWidth, box.height / img.naturalHeight);
+      const renderedH = img.naturalHeight * scale;
+      const cropTop = Math.max(0, (renderedH - box.height) / 2);
+      const src = (img.currentSrc || img.src).replace(/"/g, "");
+      setDemandPhoto({
+        src: `url("${src}")`,
+        seam: `${cropTop + box.height}px`,
+        remain: `${Math.max(0, renderedH - cropTop - box.height)}px`,
+      });
+    };
+
+    apply();
+    const img = document.getElementById("ecosystem-heading")?.closest("section")?.querySelector('[class*="slideFade"] img');
+    img?.addEventListener("load", apply);
+    window.addEventListener("resize", apply);
+    return () => {
+      img?.removeEventListener("load", apply);
+      window.removeEventListener("resize", apply);
+    };
+  }, []);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -39,27 +126,40 @@ export function ProductsSection() {
     };
   }, [menuOpen]);
 
+  const sectionStyle: CSSProperties = { ...appearance }
+  if (demandPhoto) {
+    const photo = sectionStyle as CSSProperties & Record<string, string>
+    photo["--demand-photo"] = demandPhoto.src
+    photo["--demand-seam"] = demandPhoto.seam
+    photo["--demand-remain"] = demandPhoto.remain
+  }
+
   return (
-    <section className={styles.section} aria-labelledby="products-heading">
+    <section ref={sectionRef} className={styles.section} aria-labelledby="products-heading" style={sectionStyle}>
       <div className={styles.stage}>
         <header className={styles.header}>
           <div className={styles.intro}>
-            <p className={styles.eyebrow}>{PRODUCT_EYEBROW}</p>
-            <h2 id="products-heading" className={styles.heading}>
-              {PRODUCT_HEADING}
-            </h2>
+            {eyebrow ? <p className={styles.eyebrow}>{eyebrow}</p> : null}
+            {heading ? (
+              <h2 id="products-heading" className={styles.heading}>
+                {heading}
+              </h2>
+            ) : null}
           </div>
-          <p className={styles.lead}>{PRODUCT_LEAD}</p>
+          {lead ? <p className={styles.lead}>{lead}</p> : null}
         </header>
 
-        <div className={styles.pills} role="group" aria-label={PRODUCT_FILTER_LABEL}>
-          {PRODUCT_ROLES.map((item) => {
+        {showFilters && filters.length > 0 ? (
+        <>
+        <div className={styles.pills} role="group" aria-label={filterMenuLabel}>
+          {pills.map((item) => {
             const selected = role === item.id;
             return (
               <button
                 key={item.id}
                 type="button"
                 className={selected ? styles.pillOn : styles.pill}
+                style={paintedButton}
                 aria-pressed={selected}
                 onClick={() => setRole(item.id)}
               >
@@ -73,15 +173,16 @@ export function ProductsSection() {
           <button
             type="button"
             className={styles.select}
+            style={paintedButton}
             aria-haspopup="listbox"
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen((open) => !open)}
           >
-            {role === "all" ? PRODUCT_FILTER_LABEL : selected?.label}
+            {role === "all" ? filterMenuLabel : selected?.label}
           </button>
           {menuOpen ? (
-            <ul className={styles.menu} role="listbox" aria-label={PRODUCT_FILTER_LABEL}>
-              {PRODUCT_ROLES.map((item) => {
+            <ul className={styles.menu} role="listbox" aria-label={filterMenuLabel}>
+              {pills.map((item) => {
                 const active = role === item.id;
                 return (
                   <li key={item.id}>
@@ -90,12 +191,13 @@ export function ProductsSection() {
                       role="option"
                       aria-selected={active}
                       className={active ? styles.menuOn : styles.menuItem}
+                      style={paintedButton}
                       onClick={() => {
                         setRole(item.id);
                         setMenuOpen(false);
                       }}
                     >
-                      {item.id === "all" ? PRODUCT_FILTER_LABEL : item.label}
+                      {item.id === "all" ? filterMenuLabel : item.label}
                     </button>
                   </li>
                 );
@@ -103,34 +205,51 @@ export function ProductsSection() {
             </ul>
           ) : null}
         </div>
+        </>
+        ) : null}
 
         <div className={styles.grid}>
-          {PRODUCTS.map((product) => (
+          {visible.map((product) => (
             <article
               key={product.id}
               className={`${styles.card} ${product.feature ? styles.feature : ""} ${product.span ? styles.span2 : ""}`}
+              style={cardStyle(product)}
             >
-              <img className={styles.icon} src={PRODUCT_LOGOS[product.logo]} alt="" />
+              {product.iconUrl ? (
+                <img
+                  className={`${styles.icon} ${product.iconMode === "image" ? styles.iconPhoto : ""}`}
+                  src={product.iconUrl}
+                  alt=""
+                />
+              ) : null}
               <div className={styles.copy}>
                 <div className={styles.titles}>
-                  <p className={styles.brand}>{product.brand}</p>
+                  {product.brand ? <p className={styles.brand}>{product.brand}</p> : null}
                   <h3 className={styles.title}>{product.title}</h3>
                 </div>
                 <div className={styles.body}>
                   {product.body.map((paragraph) => (
                     <p key={paragraph}>{paragraph}</p>
                   ))}
-                  <a className={styles.more} href="#">
-                    {PRODUCT_LINK_LABEL}
-                  </a>
+                  {product.linkLabel ? (
+                    <a
+                      className={product.linkKind === "textLink" ? styles.moreText : styles.more}
+                      href={product.href || "#"}
+                      {...newTabProps(product.openInNewTab)}
+                    >
+                      <LinkText>{product.linkLabel}</LinkText>
+                    </a>
+                  ) : null}
                 </div>
-                <ul className={styles.chips} aria-label={`${product.title} roles`}>
-                  {Array.from({ length: PRODUCT_CHIP_COUNT }, (_, index) => (
-                    <li key={index} className={styles.chip}>
-                      {PRODUCT_CHIP_LABEL}
-                    </li>
-                  ))}
-                </ul>
+                {product.chips?.length ? (
+                  <ul className={styles.chips} aria-label={`${product.title} tags`}>
+                    {product.chips.map((chip, index) => (
+                      <li key={`${chip}-${index}`} className={styles.chip} style={chipStyle(product)}>
+                        {chip}
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
               </div>
             </article>
           ))}

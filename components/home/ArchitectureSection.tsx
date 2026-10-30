@@ -1,37 +1,51 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState } from "react";
-import {
-  ARCHITECTURE_EYEBROW,
-  ARCHITECTURE_HEADING,
-  ARCHITECTURE_LEAD,
-  ARCHITECTURE_STEPS,
-} from "@/components/home/architectureData";
+import { useLayoutEffect, useRef, useState, type CSSProperties } from "react";
+import type { ArchitectureStep } from "@/components/home/architectureData";
 import styles from "./ArchitectureSection.module.css";
 
 const ARROW_COUNT = 10;
 
-export function ArchitectureSection() {
+export function ArchitectureSection({
+  eyebrow = "",
+  heading = "",
+  lead = "",
+  steps = [],
+  appearance,
+}: {
+  eyebrow?: string;
+  heading?: string;
+  lead?: string;
+  steps?: ArchitectureStep[];
+  appearance?: CSSProperties;
+} = {}) {
   const [index, setIndex] = useState(0);
   const [offset, setOffset] = useState(0);
   const [slideHeight, setSlideHeight] = useState(0);
   const [slideMin, setSlideMin] = useState(0);
-  const [peek, setPeek] = useState(0);
+  const [sideways, setSideways] = useState(false);
   const [pagerPos, setPagerPos] = useState({ top: 0, left: 0 });
   const trackRef = useRef<HTMLDivElement>(null);
-  const step = ARCHITECTURE_STEPS[index];
+  const step = steps[index] ?? steps[0];
 
   const go = (next: number) => {
-    const count = ARCHITECTURE_STEPS.length;
+    const count = steps.length;
+    if (!count) return;
     setIndex((next + count) % count);
   };
 
   useLayoutEffect(() => {
-    const query = window.matchMedia("(min-width: 1024px)");
-    const update = () => setPeek(query.matches ? 48 : 0);
+    const phone = window.matchMedia("(max-width: 767px)");
+    const update = () => {
+      setSideways(phone.matches);
+    };
     update();
-    query.addEventListener("change", update);
-    return () => query.removeEventListener("change", update);
+    phone.addEventListener("change", update);
+    window.addEventListener("resize", update);
+    return () => {
+      phone.removeEventListener("change", update);
+      window.removeEventListener("resize", update);
+    };
   }, []);
 
   useLayoutEffect(() => {
@@ -54,7 +68,9 @@ export function ArchitectureSection() {
         slide.style.minHeight = `${tallest}px`;
       });
       setSlideMin((prev) => (prev === tallest ? prev : tallest));
-      setOffset(current.offsetTop);
+      const phone = window.matchMedia("(max-width: 767px)").matches;
+      setSideways((prev) => (prev === phone ? prev : phone));
+      setOffset(phone ? current.offsetLeft : current.offsetTop);
       setSlideHeight(tallest);
       const space = current.querySelector("[data-pager-space]") as HTMLElement | null;
       if (!space) return;
@@ -70,21 +86,25 @@ export function ArchitectureSection() {
     observer.observe(track);
     [...track.children].forEach((slide) => observer.observe(slide));
     return () => observer.disconnect();
-  }, [index]);
+  }, [index, sideways]);
+
+  if (!steps.length || !step) return null;
 
   return (
-    <section className={styles.section} aria-labelledby="architecture-heading">
+    <section className={styles.section} aria-labelledby="architecture-heading" style={appearance}>
       <img className={styles.field} src="/assets/images/architecture/field.png" alt="" />
       <div className={styles.veil} />
       <div className={styles.stage}>
         <header className={styles.header}>
           <div className={styles.intro}>
-            <p className={styles.eyebrow}>{ARCHITECTURE_EYEBROW}</p>
-            <h2 id="architecture-heading" className={styles.heading}>
-              {ARCHITECTURE_HEADING}
-            </h2>
+            {eyebrow ? <p className={styles.eyebrow}>{eyebrow}</p> : null}
+            {heading ? (
+              <h2 id="architecture-heading" className={styles.heading}>
+                {heading}
+              </h2>
+            ) : null}
           </div>
-          <p className={styles.lead}>{ARCHITECTURE_LEAD}</p>
+          <p className={styles.lead}>{lead}</p>
         </header>
 
         <div className={styles.layout}>
@@ -137,7 +157,7 @@ export function ArchitectureSection() {
 
           <div
             className={styles.viewport}
-            style={slideHeight ? { height: `${slideHeight + peek}px` } : undefined}
+            style={slideHeight ? { height: `${slideHeight}px` } : undefined}
           >
             <div className={styles.pager} style={{ top: pagerPos.top, left: pagerPos.left }}>
               <button type="button" className={styles.page} onClick={() => go(index - 1)} aria-label="Previous step">
@@ -150,9 +170,11 @@ export function ArchitectureSection() {
             <div
               className={styles.track}
               ref={trackRef}
-              style={{ transform: `translateY(-${offset}px)` }}
+              style={{
+                transform: sideways ? `translateX(-${offset}px)` : `translateY(-${offset}px)`,
+              }}
             >
-              {ARCHITECTURE_STEPS.map((item, stepIndex) => {
+              {steps.map((item, stepIndex) => {
                 const place =
                   stepIndex === index ? "current" : stepIndex === index + 1 ? "next" : "later";
                 return (

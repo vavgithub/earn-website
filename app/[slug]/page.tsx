@@ -16,7 +16,9 @@ export async function generateStaticParams() {
     "slug": slug.current
   }`
   const rows = await client.fetch(query)
-  return rows.map((row: { slug: string }) => ({ slug: row.slug }))
+  return rows
+    .filter((row: { slug: string }) => row.slug !== 'home')
+    .map((row: { slug: string }) => ({ slug: row.slug }))
 }
 
 export async function generateMetadata({
@@ -25,6 +27,9 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>
 }): Promise<Metadata> {
   const { slug } = await params
+  if (slug === 'home') {
+    notFound()
+  }
   const { page, fetchError } = await getCachedCmsPageData(slug)
 
   if (fetchError) {
@@ -88,6 +93,9 @@ export default async function CmsPage({
   params: Promise<{ slug: string }>
 }) {
   const { slug } = await params
+  if (slug === 'home') {
+    notFound()
+  }
   const { isDraft, studioBaseUrl, page, fetchError } = await getCachedCmsPageData(slug)
 
   if (fetchError) {

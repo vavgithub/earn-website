@@ -13,6 +13,14 @@ export const PAGE_BUILDER_INNER_TYPES = [
   'howItWorksStepsBlock',
   'hubspotFormBlock',
   'contentPanelBlock',
+  'bannerBlock',
+  'ecosystemBlock',
+  'filterCardsBlock',
+  'statementBlock',
+  'architectureBlock',
+  'proofListBlock',
+  'calloutBlock',
+  'insightCardsBlock',
 ] as const
 
 export type PageBuilderInnerType = (typeof PAGE_BUILDER_INNER_TYPES)[number]

@@ -15,6 +15,14 @@ import ImageBlockEntry from './ImageBlockEntry'
 import HowItWorksStepsBlockEntry from './HowItWorksStepsBlockEntry'
 import HubSpotFormBlockEntry from './HubSpotFormBlockEntry'
 import ContentPanelBlockEntry from './ContentPanelBlockEntry'
+import BannerBlock from './BannerBlock'
+import EcosystemBlock from './EcosystemBlock'
+import FilterCardsBlock from './FilterCardsBlock'
+import StatementBlock from './StatementBlock'
+import ArchitectureBlock from './ArchitectureBlock'
+import ProofListBlock from './ProofListBlock'
+import CalloutBlock from './CalloutBlock'
+import InsightCardsBlock from './InsightCardsBlock'
 
 function blockPresentationProps(
   documentId: string | undefined,
@@ -48,6 +56,14 @@ const blockComponents: Record<string, ComponentType<{ block: any }>> = {
   howItWorksStepsBlock: HowItWorksStepsBlockEntry,
   hubspotFormBlock: HubSpotFormBlockEntry,
   contentPanelBlock: ContentPanelBlockEntry,
+  bannerBlock: BannerBlock,
+  ecosystemBlock: EcosystemBlock,
+  filterCardsBlock: FilterCardsBlock,
+  statementBlock: StatementBlock,
+  architectureBlock: ArchitectureBlock,
+  proofListBlock: ProofListBlock,
+  calloutBlock: CalloutBlock,
+  insightCardsBlock: InsightCardsBlock,
 }
 
 export default function BlockRenderer({

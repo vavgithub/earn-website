@@ -17,6 +17,14 @@ import codeEmbedBlock from './schemas/blocks/codeEmbedBlock'
 import howItWorksStepsBlock from './schemas/blocks/howItWorksStepsBlock'
 import hubspotFormBlock from './schemas/blocks/hubspotFormBlock'
 import contentPanelBlock from './schemas/blocks/contentPanelBlock'
+import bannerBlock from './schemas/blocks/bannerBlock'
+import ecosystemBlock from './schemas/blocks/ecosystemBlock'
+import filterCardsBlock from './schemas/blocks/filterCardsBlock'
+import statementBlock from './schemas/blocks/statementBlock'
+import architectureBlock from './schemas/blocks/architectureBlock'
+import proofListBlock from './schemas/blocks/proofListBlock'
+import calloutBlock from './schemas/blocks/calloutBlock'
+import insightCardsBlock from './schemas/blocks/insightCardsBlock'
 import blogPost from './schemas/blogPost'
 import blogCategory from './schemas/blogCategory'
 import blogTag from './schemas/blogTag'
@@ -48,6 +56,14 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     howItWorksStepsBlock,
     hubspotFormBlock,
     contentPanelBlock,
+    bannerBlock,
+    ecosystemBlock,
+    filterCardsBlock,
+    statementBlock,
+    architectureBlock,
+    proofListBlock,
+    calloutBlock,
+    insightCardsBlock,
     blogPost,
     blogCategory,
     blogTag,

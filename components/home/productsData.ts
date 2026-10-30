@@ -8,6 +8,19 @@ export type Product = {
   body: string[]
   feature?: boolean
   span?: boolean
+  iconUrl?: string
+  linkLabel?: string
+  href?: string
+  openInNewTab?: boolean
+  linkKind?: "textLink" | "button"
+  iconMode?: "icon" | "image"
+  filters?: string[]
+  chips?: string[]
+  textColor?: string
+  textSize?: string
+  linkColor?: string
+  chipBackground?: string
+  chipLabelColor?: string
 }
 
 export const PRODUCT_EYEBROW = "Earn EcoSystem"

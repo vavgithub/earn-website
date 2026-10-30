@@ -1,0 +1,13 @@
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  max-width: 100%;
+}
+
+.icon {
+  display: block;
+  width: 0.9em;
+  height: 0.9em;
+  flex: none;
+}

@@ -14,6 +14,14 @@ const BLOCK_LABELS: Record<PageBuilderInnerType, string> = {
   howItWorksStepsBlock: 'How it works steps',
   hubspotFormBlock: 'HubSpot form',
   contentPanelBlock: 'Content panel',
+  bannerBlock: 'Banner',
+  ecosystemBlock: 'Ecosystem',
+  filterCardsBlock: 'Filter cards',
+  statementBlock: 'Statement',
+  architectureBlock: 'Architecture',
+  proofListBlock: 'Proof list',
+  calloutBlock: 'Callout',
+  insightCardsBlock: 'Insight cards',
 }
 
 export function pageBuilderBlockLabel(blockType: string): string {

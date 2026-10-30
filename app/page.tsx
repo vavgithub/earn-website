@@ -1,29 +1,27 @@
-import { ArchitectureSection } from "@/components/home/ArchitectureSection";
-import { EcosystemSection } from "@/components/home/EcosystemSection";
-import { HeroSection } from "@/components/home/HeroSection";
-import { PrincipleSection } from "@/components/home/PrincipleSection";
-import { ReadingSection } from "@/components/home/ReadingSection";
-import { ProductsSection } from "@/components/home/ProductsSection";
-import { ProofSection } from "@/components/home/ProofSection";
-import { WorkSection } from "@/components/home/WorkSection";
 import { WebsiteChrome } from "@/components/website/WebsiteChrome";
+import BlockRenderer from "@/components/blocks/BlockRenderer";
+import { getCachedHomepage } from "@/sanity/lib/cmsPagePageData";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Home",
 };
 
-export default function Page() {
+export default async function Page() {
+  const { isDraft, studioBaseUrl, page, fetchError } = await getCachedHomepage();
+  const blocks = page?.pageBuilder;
+  const hasBlocks = !fetchError && Array.isArray(blocks) && blocks.length > 0;
+
   return (
     <WebsiteChrome>
-      <HeroSection />
-      <EcosystemSection />
-      <ProductsSection />
-      <PrincipleSection />
-      <ArchitectureSection />
-      <ProofSection />
-      <WorkSection />
-      <ReadingSection />
+      {hasBlocks ? (
+        <BlockRenderer
+          blocks={blocks as never[]}
+          documentId={isDraft ? page?._id : undefined}
+          documentType={isDraft ? page?._type : undefined}
+          studioBaseUrl={studioBaseUrl}
+        />
+      ) : null}
     </WebsiteChrome>
   );
 }

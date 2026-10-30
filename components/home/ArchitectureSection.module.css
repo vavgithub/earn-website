@@ -40,7 +40,7 @@
   flex-direction: column;
   gap: 3.75rem;
   width: 100%;
-  max-width: 67.5rem;
+  max-width: var(--width-page);
   margin-inline: auto;
 }
 
@@ -257,15 +257,19 @@
 
 .track {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  width: 100%;
   transition: transform 0.55s ease;
 }
 
 .slide {
   display: flex;
-  align-items: flex-start;
+  flex: 0 0 100%;
+  flex-direction: column;
+  align-items: stretch;
   gap: 0.75rem;
   box-sizing: border-box;
+  width: 100%;
   padding: 1.5rem 0;
   border-bottom: 1px solid var(--color-earn-chip);
 }
@@ -286,41 +290,44 @@
 .indexCol {
   display: flex;
   flex: none;
-  flex-direction: row-reverse;
+  flex-direction: row;
   align-items: center;
-  justify-content: flex-start;
-  gap: 0.5rem;
+  justify-content: space-between;
+  width: 100%;
+  gap: 1rem;
 }
 
 .index {
   font-family: var(--font-plex-mono);
   font-weight: 200;
-  font-size: 3rem;
-  line-height: 0.57;
+  font-size: 4rem;
+  line-height: 1;
   letter-spacing: -0.05em;
   color: var(--color-earn-chip);
 }
 
 .pager,
 .pagerSpace {
-  width: calc(2rem * 88.7671 / 110.137);
-  height: calc(2rem * 2 + 1.25rem);
+  width: calc(2 * 2.5rem * 110.137 / 88.7671 + 0.5rem);
+  height: 2.5rem;
 }
 
 .pager {
   position: absolute;
   z-index: 3;
   display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
 }
 
 .page {
   display: grid;
   flex: none;
   place-items: center;
-  width: calc(2rem * 88.7671 / 110.137);
-  height: 2rem;
+  width: calc(2.5rem * 110.137 / 88.7671);
+  height: 2.5rem;
   min-width: 0;
   padding: 0;
   border: 0;
@@ -330,22 +337,22 @@
 
 .page img {
   display: block;
-  width: 2rem;
+  width: 100%;
   max-width: none;
   min-width: 0;
-  height: auto;
-  transform: rotate(90deg);
+  height: 100%;
+  transform: none;
 }
 
 .page:first-child img {
-  transform: rotate(-90deg);
+  transform: rotate(180deg);
 }
 
 .copy {
   flex: 1;
   min-width: 0;
   gap: 1.5rem;
-  padding-top: 0.85rem;
+  padding-top: 0;
 }
 
 .titles {
@@ -427,6 +434,63 @@
   .link {
     width: 0.9rem;
   }
+
+  .track {
+    flex-direction: column;
+    width: auto;
+  }
+
+  .slide {
+    flex: none;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--spacing-hero-inline);
+    width: auto;
+  }
+
+  .indexCol {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: auto;
+    gap: 0.625rem;
+  }
+
+  .index {
+    font-size: 3rem;
+    line-height: 1;
+  }
+
+  .pager,
+  .pagerSpace {
+    width: calc(4.589rem * 88.7671 / 110.137);
+    height: calc(4.589rem * 2 + 0.822rem);
+  }
+
+  .pager {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.822rem;
+  }
+
+  .page {
+    width: calc(4.589rem * 88.7671 / 110.137);
+    height: 4.589rem;
+  }
+
+  .page img {
+    width: 4.589rem;
+    height: auto;
+    transform: rotate(90deg);
+  }
+
+  .page:first-child img {
+    transform: rotate(-90deg);
+  }
+
+  .copy {
+    padding-top: 0;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -495,7 +559,7 @@
   .slide {
     flex-direction: row;
     align-items: flex-start;
-    gap: 0;
+    gap: var(--spacing-hero-inline);
     padding-block: 2.25rem;
   }
 

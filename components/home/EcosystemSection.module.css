@@ -17,6 +17,10 @@
   pointer-events: none;
 }
 
+.field {
+  position: relative;
+}
+
 .intro,
 .slides,
 .content {
@@ -27,7 +31,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  max-width: var(--width-ecosystem-header);
+  width: min(100%, var(--width-page));
   margin: 0 auto var(--spacing-hero-gap);
   padding-inline: var(--spacing-hero-inline);
 }
@@ -58,6 +62,7 @@
   flex-direction: column;
   gap: var(--spacing-hero-block);
   position: relative;
+  z-index: 1;
 }
 
 .slide {
@@ -92,6 +97,8 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-hero-gap);
+  width: min(100%, var(--width-page));
+  margin-inline: auto;
   padding-inline: var(--spacing-hero-inline);
 }
 
@@ -170,6 +177,8 @@
   display: flex;
   flex-direction: column;
   gap: 0.625rem;
+  width: 100%;
+  max-width: var(--width-ecosystem-card);
   padding: 0.75rem 1.5rem;
   background: var(--color-earn-card);
   border: 1px solid var(--color-earn-orange);
@@ -209,12 +218,16 @@
 }
 
 .card:hover {
-  background: var(--color-earn-card-hover);
+  background: color-mix(in srgb, var(--color-earn-ink-deep) 78%, transparent);
   border-color: var(--color-earn-card-line);
 }
 
 .card:hover .cardLink {
   color: var(--color-earn-gold);
+}
+
+.group:has(.groupLabel) {
+  width: min(100%, var(--width-ecosystem-card));
 }
 
 .groupLabel {
@@ -229,13 +242,29 @@
     display: block;
   }
 
+  .topo,
+  .lineStart .photo {
+    -webkit-mask-image: url("/assets/images/ecosystem/wave-mask.svg");
+    mask-image: url("/assets/images/ecosystem/wave-mask.svg");
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: top center;
+    mask-position: top center;
+    -webkit-mask-size: cover;
+    mask-size: cover;
+  }
+
   .section {
     padding-top: 1.5rem;
   }
 
   .intro {
+    align-items: flex-start;
+    width: min(100% - 2 * var(--spacing-hero-pad), var(--width-ecosystem-header));
+    margin-inline: auto;
     margin-bottom: var(--spacing-hero-pad);
-    padding-inline: 3.75rem;
+    padding-inline: 0;
+    text-align: start;
   }
 
   .slides {
@@ -254,7 +283,8 @@
     display: flex;
     align-items: center;
     min-height: var(--spacing-hero-frame);
-    padding: 2.5rem 3.75rem;
+    padding-block: 2.5rem;
+    padding-inline: 0;
   }
 
   .slideTall {
@@ -293,9 +323,9 @@
   .content {
     display: grid;
     grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-    gap: 2.25rem;
+    gap: 3.75rem;
     align-items: start;
-    width: 100%;
+    width: min(100% - 2 * var(--spacing-hero-pad), var(--width-page));
     padding-inline: 0;
   }
 
@@ -351,7 +381,12 @@
 
   .card {
     flex: 1;
-    max-width: none;
+    max-width: var(--width-ecosystem-card);
+  }
+
+  .group:has(.groupLabel) {
+    align-self: flex-start;
+    width: min(100%, calc(1.3125rem + 1rem + var(--width-ecosystem-card)));
   }
 
   .groupCards {
@@ -361,6 +396,10 @@
 }
 
 @media (min-width: 1024px) {
+  .content {
+    gap: 6.25rem;
+  }
+
   .eyebrow {
     font-size: var(--text-eyebrow);
   }
@@ -381,56 +420,31 @@
   .cta {
     line-height: normal;
   }
-
-  .slideFade .group:has(.groupLabel) {
-    display: grid;
-    width: fit-content;
-    max-width: 100%;
-    grid-template-columns: 1.3125rem 1rem minmax(0, max-content);
-    column-gap: 0;
-    row-gap: 1rem;
-  }
-
-  .slideFade .group:has(.groupLabel) > .item {
-    display: grid;
-    grid-column: 1 / -1;
-    grid-template-columns: subgrid;
-    gap: 0;
-    width: auto;
-  }
-
-  .slideFade .group:has(.groupLabel) > .item .dot {
-    grid-column: 1;
-  }
-
-  .slideFade .group:has(.groupLabel) .groupLabel {
-    grid-column: 3;
-    min-width: 0;
-  }
-
-  .slideFade .groupCards {
-    grid-column: 3;
-    grid-template-columns: repeat(2, minmax(0, var(--width-ecosystem-card)));
-    justify-content: start;
-    gap: 1rem;
-    margin-inline-start: 0;
-    width: max-content;
-    max-width: 100%;
-  }
 }
 
 @media (min-width: 1920px) {
   .slideFade {
     min-height: 0;
-    padding-bottom: 26rem;
+  }
+
+  .topo {
+    -webkit-mask-image:
+      linear-gradient(to bottom, #000 0%, #000 calc(100% - 14rem), transparent 100%),
+      url("/assets/images/ecosystem/wave-mask.svg");
+    mask-image:
+      linear-gradient(to bottom, #000 0%, #000 calc(100% - 14rem), transparent 100%),
+      url("/assets/images/ecosystem/wave-mask.svg");
+    -webkit-mask-size: 100% 100%, cover;
+    mask-size: 100% 100%, cover;
+    -webkit-mask-position: center, top center;
+    mask-position: center, top center;
+    -webkit-mask-repeat: no-repeat, no-repeat;
+    -webkit-mask-composite: source-in;
+    mask-composite: intersect;
   }
 
   .slide.slideFade .scrim {
-    background: linear-gradient(
-      to bottom,
-      transparent 70%,
-      var(--color-earn-ink)
-    );
+    background: none;
   }
 
   .slides {
@@ -439,13 +453,23 @@
     --eco-copy: 33.75rem;
   }
 
+  .intro {
+    width: var(--width-ecosystem-header);
+    margin-inline: auto;
+  }
+
+  .content {
+    width: min(100%, var(--width-page-wide));
+  }
+
   .slide {
-    padding-inline: var(--eco-pad);
+    padding-inline: 0;
   }
 
   .content {
     grid-template-columns: var(--eco-copy) minmax(0, 1fr);
     gap: var(--eco-gap);
+    padding-inline: 0;
   }
 
   .copy {
@@ -502,8 +526,20 @@
     width: max-content;
     max-width: 100%;
   }
+}
 
-  .slideFade .groupCards {
-    grid-template-columns: repeat(3, minmax(0, var(--width-ecosystem-card)));
+@media (min-width: 2560px) {
+  .intro {
+    width: var(--width-ecosystem-header);
+    margin-inline: auto;
+  }
+
+  .content {
+    width: min(100%, var(--width-page-ultra));
+  }
+
+  .slide {
+    padding-top: 12.5rem;
+    padding-bottom: 12.5rem;
   }
 }

@@ -15,7 +15,8 @@
     "restore:resource-toc": "node scripts/restore-resource-toc.cjs",
     "seed:hubspot-settings": "node scripts/seed-hubspot-settings.cjs",
     "seed:site-navigation": "node scripts/seed-site-navigation.cjs",
-    "seed:site-footer": "node scripts/seed-site-footer.cjs"
+    "seed:site-footer": "node scripts/seed-site-footer.cjs",
+    "seed:homepage": "node scripts/seed-homepage.cjs"
   },
   "keywords": [],
   "author": "",

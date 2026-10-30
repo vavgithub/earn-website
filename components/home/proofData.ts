@@ -11,6 +11,8 @@ export type ProofItem = {
   title: string;
   body: string;
   action: string;
+  href?: string;
+  openInNewTab?: boolean;
 };
 
 export const PROOF_ITEMS: ProofItem[] = [

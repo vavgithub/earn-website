@@ -35,7 +35,7 @@
   letter-spacing: var(--tracking-eyebrow);
   line-height: normal;
   text-transform: uppercase;
-  color: var(--color-earn-white);
+  color: var(--cms-text, var(--color-earn-white));
 }
 
 .heading {
@@ -43,7 +43,8 @@
   font-weight: 600;
   font-size: var(--text-hero-mobile);
   line-height: var(--text-ecosystem--line-height);
-  color: var(--color-earn-paper);
+  white-space: pre-line;
+  color: var(--cms-text, var(--color-earn-paper));
 }
 
 .grid {
@@ -91,7 +92,7 @@
   font-size: var(--text-eyebrow);
   line-height: normal;
   text-transform: uppercase;
-  color: var(--color-earn-white);
+  color: var(--cms-text, var(--color-earn-white));
 }
 
 .title {
@@ -99,7 +100,7 @@
   font-weight: 400;
   font-size: var(--text-products-lead);
   line-height: normal;
-  color: var(--color-earn-white);
+  color: var(--cms-text, var(--color-earn-white));
 }
 
 .break {
@@ -116,9 +117,9 @@
 .body {
   font-family: var(--font-inter);
   font-weight: 400;
-  font-size: var(--text-slide-body-compact);
+  font-size: var(--cms-copy-size, var(--text-slide-body-compact));
   line-height: var(--text-slide-body-compact--line-height);
-  color: var(--color-earn-white);
+  color: var(--cms-text, var(--color-earn-white));
 }
 
 .action {
@@ -128,19 +129,33 @@
   align-items: center;
   height: 1.75rem;
   padding: 0 1rem;
-  border: 1px solid var(--color-earn-gray-400);
+  border: 1px solid var(--cms-link, var(--color-earn-gray-400));
   border-radius: 1.25rem;
-  color: var(--color-earn-orange);
+  color: var(--cms-link, var(--color-earn-orange));
   font-family: var(--font-inter);
-  font-size: var(--text-card-link);
+  font-size: var(--cms-link-size, var(--text-card-link));
   font-weight: 400;
   line-height: normal;
   text-decoration: none;
 }
 
-.action:hover {
-  border-color: var(--color-earn-gold);
-  color: var(--color-earn-gold);
+.actionText {
+  align-self: flex-start;
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  color: var(--cms-link, var(--color-earn-orange));
+  font-family: var(--font-inter);
+  font-size: var(--cms-link-size, var(--text-card-link));
+  font-weight: 400;
+  line-height: normal;
+  text-decoration: none;
+}
+
+.action:hover,
+.actionText:hover {
+  border-color: var(--cms-link, var(--color-earn-gold));
+  color: var(--cms-link, var(--color-earn-gold));
 }
 
 .action:focus-visible {
@@ -154,9 +169,9 @@
 
 .more {
   align-self: flex-end;
-  color: var(--color-earn-white);
+  color: var(--cms-link, var(--color-earn-white));
   font-family: var(--font-inter);
-  font-size: var(--text-slide-body-compact);
+  font-size: var(--cms-link-size, var(--text-slide-body-compact));
   font-weight: 400;
   line-height: normal;
   text-decoration: none;
@@ -181,14 +196,18 @@
   }
 
   .body {
-    font-size: var(--text-slide-body);
+    font-size: var(--cms-copy-size, var(--text-slide-body));
     line-height: normal;
   }
 
   .action {
     height: 2.75rem;
     padding-inline: 1.25rem;
-    font-size: var(--text-slide-body);
+    font-size: var(--cms-link-size, var(--text-slide-body));
+  }
+
+  .actionText {
+    font-size: var(--cms-link-size, var(--text-slide-body));
   }
 }
 
@@ -236,7 +255,7 @@
 
 @media (min-width: 1440px) {
   .stage {
-    max-width: 67.5rem;
+    max-width: var(--width-page);
   }
 
   .grid {

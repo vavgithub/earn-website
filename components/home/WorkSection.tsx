@@ -1,40 +1,68 @@
-import {
-  WORK_ACTION,
-  WORK_ARROWS,
-  WORK_BODY_LEAD,
-  WORK_BODY_TAIL,
-  WORK_EYEBROW,
-  WORK_HEADING,
-  WORK_INTRO,
-  WORK_TITLE,
-} from "@/components/home/workData";
+import type { CSSProperties } from "react";
+import { LinkText, newTabProps } from "@/components/home/LinkText";
+import { WORK_ARROWS } from "@/components/home/workData";
 import styles from "./WorkSection.module.css";
 
-export function WorkSection() {
+export type WorkSectionProps = {
+  eyebrow?: string;
+  heading?: string;
+  intro?: string;
+  panelTitle?: string;
+  bodyLead?: string;
+  bodyTail?: string;
+  action?: string;
+  actionHref?: string;
+  actionOpen?: boolean;
+  showArrows?: boolean;
+  appearance?: CSSProperties;
+};
+
+export function WorkSection({
+  eyebrow = "",
+  heading = "",
+  intro = "",
+  panelTitle = "",
+  bodyLead = "",
+  bodyTail = "",
+  action = "",
+  actionHref = "#",
+  actionOpen = false,
+  showArrows = true,
+  appearance,
+}: WorkSectionProps = {}) {
   return (
-    <section className={styles.section} aria-labelledby="work-heading">
+    <section className={styles.section} aria-labelledby="work-heading" style={appearance}>
       <div className={styles.stage}>
         <header className={styles.header}>
           <div className={styles.titleGroup}>
-            <p className={styles.eyebrow}>{WORK_EYEBROW}</p>
-            <h2 id="work-heading" className={styles.heading}>
-              {WORK_HEADING}
-            </h2>
+            {eyebrow ? <p className={styles.eyebrow}>{eyebrow}</p> : null}
+            {heading ? (
+              <h2 id="work-heading" className={styles.heading}>
+                {heading}
+              </h2>
+            ) : null}
           </div>
-          <p className={styles.intro}>{WORK_INTRO}</p>
+          <p className={styles.intro}>{intro}</p>
         </header>
 
         <div className={styles.panel}>
-          <h3 className={styles.panelTitle}>{WORK_TITLE}</h3>
+          <h3 className={styles.panelTitle}>{panelTitle}</h3>
           <p className={styles.body}>
-            {WORK_BODY_LEAD}
-            <br />
-            {WORK_BODY_TAIL}
+            {bodyLead}
+            {bodyTail ? (
+              <>
+                <br />
+                {bodyTail}
+              </>
+            ) : null}
           </p>
           <div className={styles.actionRow}>
-            <a className={styles.action} href="#">
-              {WORK_ACTION}
-            </a>
+            {action ? (
+              <a className={styles.action} href={actionHref} {...newTabProps(actionOpen)}>
+                <LinkText>{action}</LinkText>
+              </a>
+            ) : null}
+            {showArrows ? (
             <div className={styles.arrows} aria-hidden="true">
               {WORK_ARROWS.map((arrow) => (
                 <img
@@ -45,6 +73,7 @@ export function WorkSection() {
                 />
               ))}
             </div>
+            ) : null}
           </div>
         </div>
       </div>

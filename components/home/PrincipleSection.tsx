@@ -1,28 +1,57 @@
-import {
-  PRINCIPLE_ACTION_LABEL,
-  PRINCIPLE_EYEBROW,
-  PRINCIPLE_HEADING_LEAD,
-  PRINCIPLE_HEADING_TAIL,
-  PRINCIPLE_LINE,
-} from "@/components/home/principleData";
+import type { CSSProperties } from "react";
 import styles from "./PrincipleSection.module.css";
 
-export function PrincipleSection() {
+export type PrincipleSectionProps = {
+  eyebrow?: string;
+  eyebrowStyle?: CSSProperties;
+  headingLead?: string;
+  headingTail?: string;
+  headingStyle?: CSSProperties;
+  line?: string;
+  subtitleStyle?: CSSProperties;
+  appearance?: CSSProperties;
+};
+
+export function PrincipleSection({
+  eyebrow = "",
+  eyebrowStyle,
+  headingLead = "",
+  headingTail = "",
+  headingStyle,
+  line = "",
+  subtitleStyle,
+  appearance,
+}: PrincipleSectionProps = {}) {
   return (
-    <section className={styles.section} aria-labelledby="principle-heading">
+    <section className={styles.section} aria-labelledby="principle-heading" style={appearance}>
       <div className={styles.stage}>
         <header className={styles.header}>
-          <p className={styles.eyebrow}>{PRINCIPLE_EYEBROW}</p>
-          <h2 id="principle-heading" className={styles.heading}>
-            {PRINCIPLE_HEADING_LEAD}
-            <br />
-            {PRINCIPLE_HEADING_TAIL}
-          </h2>
+          {eyebrow ? (
+            <p className={styles.eyebrow} style={eyebrowStyle}>
+              {eyebrow}
+            </p>
+          ) : null}
+          {headingLead || headingTail ? (
+            <h2 id="principle-heading" className={styles.heading} style={headingStyle}>
+              {headingLead}
+              {headingTail
+                ? headingTail.split('\n').map((line, index) => (
+                    <span key={`${index}-${line}`}>
+                      <br />
+                      {line}
+                    </span>
+                  ))
+                : null}
+            </h2>
+          ) : null}
         </header>
-        <div className={styles.action}>
-          <p className={styles.actionLabel}>{PRINCIPLE_ACTION_LABEL}</p>
-          <p className={styles.line}>{PRINCIPLE_LINE}</p>
-        </div>
+        {line ? (
+          <div className={styles.action}>
+            <p className={styles.line} style={subtitleStyle}>
+              {line}
+            </p>
+          </div>
+        ) : null}
       </div>
     </section>
   );

@@ -74,9 +74,9 @@
   --spacing-hero-inline: 1.5rem;      /* 24px — phone side padding */
   --spacing-hero-media: 24.4375rem;   /* 391px — phone image height */
   --spacing-hero-overlap: 7.5rem;     /* 120px — phone copy overlaps the image */
-  --width-hero-panel: 64rem;          /* 1024px — copy panel, 1440 and wider */
-  --width-hero-panel-mid: 42.5rem;    /* 680px — copy panel, below 1440 */
-  --width-hero-panel-compact: 37.5rem; /* 600px — copy panel, below 1024 until 768 */
+  --width-hero-panel: 60rem;          /* 960px — banner text box, 1440 */
+  --width-hero-panel-mid: 48rem;      /* 768px — banner text box, 1024 */
+  --width-hero-panel-compact: 37.5rem; /* 600px — banner text box, 768 */
   --radius-hero: 0.25rem;             /* 4px */
   --blur-hero: 7.5px;
   --blur-card: 8px;
@@ -99,7 +99,10 @@
   --spacing-ecosystem-gap: 7.5rem;        /* 120px */
   --width-ecosystem-copy: 33.75rem;       /* 540px */
   --width-ecosystem-header: 53.4375rem;   /* 855px */
-  --width-ecosystem-card: 27.3125rem;     /* 437px */
+  --width-ecosystem-card: 26.25rem;       /* 420px — ecosystem cards below 1920 */
+  --width-page: 80rem;                /* 1280px — content, 1440 and below */
+  --width-page-wide: 100rem;          /* 1600px — ecosystem and filter cards, 1920 */
+  --width-page-ultra: 120rem;         /* 1920px — ecosystem and filter cards, 2560 */
   --spacing-footer-row: 0.675rem;     /* 10.8px between footer link rows */
 
   --max-width-content: 1280px;

@@ -17,21 +17,21 @@ export const ARCHITECTURE_STEPS: ArchitectureStep[] = [
   {
     id: "record",
     index: "01",
-    title: "Verified Record",
-    kicker: "Verified Record + Immutable Lineage +\nInteroperable Schema",
+    title: "Governed Representation",
+    kicker: "EarnDLT Registry + Interoperable Schema",
     body: [
-      "A governed digital representation keeps energy connected to its provenance, attributes, methodology, verification, ownership, and commercial context as it moves and changes context.",
-      "An extensible schema allows that same representation to move across commodities, methodologies, systems, and market requirements without rebuilding the underlying record.",
+      "EarnDLT maintains the governed record on the Hedera blockchain, preserving an immutable history that connects energy to its provenance, attributes, methodology, verification, ownership, and commercial context.",
+      "An extensible schema lets that same representation move across commodities, methodologies, and market requirements without rebuilding the underlying record.",
     ],
   },
   {
     id: "network",
     index: "02",
-    title: "Natural Gas Network Model",
-    kicker: "55K+ Verified Pipline Segments + Connections",
+    title: "Physical Intelligence",
+    kicker: "Natural Gas Network Model",
     body: [
-      "A live model of the infrastructure, pathways, meter points, operators, and relationships through which gas actually moves.",
-      "It grounds the governed representation in the physical system, connecting the record to where energy originates, how it moves and changes, and where it is ultimately delivered.",
+      "Earn maps natural gas infrastructure across the Lower 48 and the EU, connecting pipelines, supply basins, operators, meter points, and delivery pathways into a unified model of the physical system.",
+      "The model grounds each governed representation in real-world context, connecting the record to where the gas originates, how it moves and changes, and where it is delivered.",
     ],
   },
   {
@@ -40,18 +40,18 @@ export const ARCHITECTURE_STEPS: ArchitectureStep[] = [
     title: "Trust + Governance",
     kicker: "Governance Framework + Token Methodologies + Standards Alignment",
     body: [
-      "Trust and governance define how energy data and derived outputs are structured, calculated, verified, versioned, and interpreted, while maintaining alignment with relevant standards and reporting frameworks.",
-      "Those rules remain connected to both the governed representation and the physical intelligence behind it, preserving how information was produced and making it trustworthy, comparable, and machine-operable.",
+      "EarnDLT defines and versions the methodologies, verification requirements, and governance rules used to structure, calculate, and interpret governed energy data, while aligning them with relevant external standards and reporting frameworks.",
+      "This governing environment applies across both the governed representation and physical intelligence, preserving how data and derived outputs were produced, verified, and governed throughout their lifecycle. Together with the shared schema, it provides the trusted semantic and rules layer that forms the machine-operable foundation.",
     ],
   },
   {
     id: "machine",
     index: "04",
-    title: "Machine Interface",
+    title: "Governed Representation",
     kicker: "MCP + APIs + SDKs + CUA",
     body: [
-      "The machine interface makes governed data, context, and rules accessible to software, systems, people, and agents without losing their underlying meaning.",
-      "It allows organizations to connect existing workflows and progressively automate how information is accessed, interpreted, and acted on without replacing the systems already in place.",
+      "Earn provides multiple ways to access and act on the platform, from APIs and human-directed interfaces through supervised agents to agentic automation, allowing organizations to evolve at their own pace without replacing the systems and workflows already in place.",
+      "The Machine Interface connects the governed core to the outside ecosystem, exposing data and governance through a unified semantic model that preserves their meaning across systems.",
     ],
   },
 ];

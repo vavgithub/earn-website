@@ -1,11 +1,14 @@
-import {
-  ECOSYSTEM_EYEBROW,
-  ECOSYSTEM_HEADING,
-  ECOSYSTEM_LINK_LABEL,
-  ECOSYSTEM_SLIDES,
-  type EcosystemCard,
-} from "@/components/home/ecosystemData";
+import type { CSSProperties } from "react";
+import type { EcosystemCard, EcosystemSlide } from "@/components/home/ecosystemData";
+import { LinkText, newTabProps } from "@/components/home/LinkText";
 import styles from "./EcosystemSection.module.css";
+
+export type EcosystemSectionProps = {
+  eyebrow?: string;
+  heading?: string;
+  slides?: EcosystemSlide[];
+  appearance?: CSSProperties;
+};
 
 function AudienceCard({ card, marker = false }: { card: EcosystemCard; marker?: boolean }) {
   return (
@@ -14,26 +17,36 @@ function AudienceCard({ card, marker = false }: { card: EcosystemCard; marker?: 
       <article className={styles.card}>
         <h4 className={styles.cardTitle}>{card.title}</h4>
         <p className={styles.cardBody}>{card.body}</p>
-        <a className={styles.cardLink} href="#">
-          {ECOSYSTEM_LINK_LABEL}
-        </a>
+        {card.linkLabel ? (
+          <a className={styles.cardLink} href={card.href || "#"} {...newTabProps(card.openInNewTab)}>
+            <LinkText>{card.linkLabel}</LinkText>
+          </a>
+        ) : null}
       </article>
     </div>
   );
 }
 
-export function EcosystemSection() {
+export function EcosystemSection({
+  eyebrow = "",
+  heading = "",
+  slides = [],
+  appearance,
+}: EcosystemSectionProps = {}) {
   return (
-    <section className={styles.section} aria-labelledby="ecosystem-heading">
-      <img className={styles.topo} src="/assets/images/ecosystem/topo.svg" alt="" />
+    <section className={styles.section} aria-labelledby="ecosystem-heading" style={appearance}>
       <div className={styles.intro}>
-        <p className={styles.eyebrow}>{ECOSYSTEM_EYEBROW}</p>
-        <h2 id="ecosystem-heading" className={styles.heading}>
-          {ECOSYSTEM_HEADING}
-        </h2>
+        {eyebrow ? <p className={styles.eyebrow}>{eyebrow}</p> : null}
+        {heading ? (
+          <h2 id="ecosystem-heading" className={styles.heading}>
+            {heading}
+          </h2>
+        ) : null}
       </div>
+      <div className={styles.field}>
+      <img className={styles.topo} src="/assets/images/ecosystem/topo.svg" alt="" />
       <div className={styles.slides}>
-        {ECOSYSTEM_SLIDES.map((slide) => (
+        {slides.map((slide) => (
           <article
             key={slide.id}
             className={[
@@ -53,9 +66,11 @@ export function EcosystemSection() {
               <div className={styles.copy}>
                 <h3 className={styles.slideTitle}>{slide.title}</h3>
                 <p className={styles.slideBody}>{slide.body}</p>
-                <a className={styles.cta} href="#">
-                  {slide.cta}
-                </a>
+                {slide.cta ? (
+                  <a className={styles.cta} href={slide.ctaHref || "#"} {...newTabProps(slide.ctaOpen)}>
+                    <LinkText>{slide.cta}</LinkText>
+                  </a>
+                ) : null}
               </div>
               <div className={styles.cards}>
                 {slide.lead ? <AudienceCard card={slide.lead} marker /> : null}
@@ -82,6 +97,7 @@ export function EcosystemSection() {
             </div>
           </article>
         ))}
+      </div>
       </div>
     </section>
   );

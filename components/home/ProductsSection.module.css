@@ -156,6 +156,14 @@
   opacity: 0.2;
 }
 
+.iconPhoto {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  opacity: 1;
+}
+
 .copy {
   display: flex;
   flex: 1;
@@ -180,12 +188,12 @@
 
 .brand {
   font-size: var(--text-card-link);
-  color: var(--color-earn-gray-200);
+  color: var(--card-text, var(--color-earn-gray-200));
 }
 
 .title {
   font-size: var(--text-products-lead);
-  color: var(--color-earn-cream);
+  color: var(--card-text, var(--color-earn-cream));
 }
 
 .body {
@@ -198,9 +206,9 @@
   margin: 0;
   font-family: var(--font-inter);
   font-weight: 400;
-  font-size: var(--text-slide-body-compact);
+  font-size: var(--card-text-size, var(--text-slide-body-compact));
   line-height: var(--text-slide-body-compact--line-height);
-  color: var(--color-earn-gray-400);
+  color: var(--card-text, var(--color-earn-gray-400));
 }
 
 .more {
@@ -209,9 +217,21 @@
   align-self: flex-start;
   height: 1.75rem;
   padding: 0 1rem;
-  border: 1px solid var(--color-earn-gray-400);
+  border: 1px solid var(--card-link, var(--color-earn-gray-400));
   border-radius: 1.25rem;
-  color: var(--color-earn-orange);
+  color: var(--card-link, var(--color-earn-orange));
+  font-family: var(--font-inter);
+  font-size: var(--text-card-link);
+  font-weight: 400;
+  line-height: normal;
+  text-decoration: none;
+}
+
+.moreText {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  color: var(--card-link, var(--color-earn-orange));
   font-family: var(--font-inter);
   font-size: var(--text-card-link);
   font-weight: 400;
@@ -220,6 +240,11 @@
 }
 
 .more:hover,
+.moreText:hover {
+  border-color: var(--card-link, var(--color-earn-gold));
+  color: var(--card-link, var(--color-earn-gold));
+}
+
 .pill:hover {
   border-color: var(--color-earn-gold);
   color: var(--color-earn-gold);
@@ -240,8 +265,8 @@
   height: 1.5rem;
   padding: 0 0.5rem;
   border-radius: var(--radius-hero);
-  background: var(--color-earn-chip);
-  color: var(--color-earn-chip-ink);
+  background: var(--chip-bg, var(--color-earn-chip));
+  color: var(--chip-ink, var(--color-earn-chip-ink));
   font-family: var(--font-inter);
   font-weight: 500;
   font-size: 0.625rem;
@@ -253,7 +278,6 @@
     padding-inline: var(--spacing-hero-pad);
   }
 
-  .icon,
   .chips {
     display: flex;
   }
@@ -296,9 +320,14 @@
 }
 
 @media (min-width: 1024px) {
+  .icon {
+    display: flex;
+  }
+
   .stage {
     gap: var(--spacing-hero-pad);
-    max-width: var(--width-hero-panel);
+    width: 100%;
+    max-width: var(--width-page);
   }
 
   .eyebrow {
@@ -328,7 +357,7 @@
   }
 
   .card:not(.feature) .body p {
-    font-size: var(--text-card-body);
+    font-size: var(--card-text-size, var(--text-card-body));
   }
 }
 
@@ -340,16 +369,31 @@
 
 @media (min-width: 1920px) {
   .section {
-    margin-top: -26rem;
-    background: linear-gradient(
-      to bottom,
-      transparent,
-      var(--color-earn-ink) 22rem
-    );
+    padding-top: 10rem;
+  }
+
+  .section::before {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: var(--demand-remain, 0px);
+    background-image: var(--demand-photo);
+    background-repeat: no-repeat;
+    background-position: center calc(var(--demand-seam, 0px) * -1);
+    background-size: 100% auto;
+    opacity: 0.2;
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 42%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 0%, #000 42%, transparent 100%);
+    pointer-events: none;
   }
 
   .stage {
-    max-width: 100rem;
+    position: relative;
+    z-index: 1;
+    max-width: var(--width-page-wide);
   }
 
   .grid {
@@ -364,13 +408,21 @@
 
   .feature .body p,
   .card:not(.feature) .body p {
-    font-size: var(--text-card-body);
+    font-size: var(--card-text-size, var(--text-card-body));
   }
 }
 
 @media (min-width: 2560px) {
+  .section {
+    margin-top: 0;
+    padding-top: 3.25rem;
+    background: var(--color-earn-ink);
+  }
+
   .stage {
-    max-width: 120rem;
+    position: relative;
+    z-index: 1;
+    max-width: var(--width-page-ultra);
   }
 
   .grid {
@@ -387,6 +439,6 @@
 
   .feature .body p,
   .span2 .body p {
-    font-size: var(--text-slide-body-compact);
+    font-size: var(--card-text-size, var(--text-slide-body-compact));
   }
 }

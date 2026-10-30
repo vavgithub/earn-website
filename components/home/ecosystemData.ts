@@ -1,6 +1,9 @@
 export type EcosystemCard = {
   title: string
   body: string
+  linkLabel?: string
+  href?: string
+  openInNewTab?: boolean
 }
 
 export type EcosystemGroup = {
@@ -14,7 +17,9 @@ export type EcosystemSlide = {
   tone: "soft" | "mid"
   title: string
   body: string
-  cta: string
+  cta?: string
+  ctaHref?: string
+  ctaOpen?: boolean
   lead?: EcosystemCard
   groups: EcosystemGroup[]
   trailing?: EcosystemCard

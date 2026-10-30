@@ -12,6 +12,8 @@ export type ReadingCard = {
   titleTail?: string;
   body: string;
   action: string;
+  href?: string;
+  openInNewTab?: boolean;
   actionCompact?: string;
   rounded?: boolean;
 };
