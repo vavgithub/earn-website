@@ -70,7 +70,7 @@ export function ResourcesCmsTabs({
   }
 
   return (
-    <section className="bg-earn-card-line">
+    <section className="bg-earn-work">
       <div className="max-w-content mx-auto md:px-10 lg:px-[100px]">
         <div
           id="resources-tabs"

@@ -16,7 +16,8 @@
     "seed:hubspot-settings": "node scripts/seed-hubspot-settings.cjs",
     "seed:site-navigation": "node scripts/seed-site-navigation.cjs",
     "seed:site-footer": "node scripts/seed-site-footer.cjs",
-    "seed:homepage": "node scripts/seed-homepage.cjs"
+    "seed:homepage": "node scripts/seed-homepage.cjs",
+    "seed:resources": "node scripts/seed-resources.cjs"
   },
   "keywords": [],
   "author": "",
