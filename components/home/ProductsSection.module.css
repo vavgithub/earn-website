@@ -203,12 +203,20 @@
 }
 
 .body p {
+  display: -webkit-box;
   margin: 0;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
   font-family: var(--font-inter);
   font-weight: 400;
   font-size: var(--card-text-size, var(--text-slide-body-compact));
   line-height: var(--text-slide-body-compact--line-height);
   color: var(--card-text, var(--color-earn-gray-400));
+}
+
+.body p + p {
+  display: none;
 }
 
 .more {
@@ -255,7 +263,7 @@
   flex-wrap: wrap;
   gap: 0.5rem;
   margin: auto 0 0;
-  padding: 0;
+  padding: 1.25rem 0 0;
   list-style: none;
 }
 
@@ -276,6 +284,14 @@
 @media (min-width: 768px) {
   .section {
     padding-inline: var(--spacing-hero-pad);
+  }
+
+  .body p,
+  .body p + p {
+    display: block;
+    overflow: visible;
+    -webkit-line-clamp: unset;
+    -webkit-box-orient: unset;
   }
 
   .chips {

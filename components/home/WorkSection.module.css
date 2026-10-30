@@ -19,6 +19,7 @@
   flex-direction: column;
   gap: var(--spacing-hero-gap);
   width: 100%;
+  max-width: var(--width-hero-panel-mid);
 }
 
 .titleGroup {

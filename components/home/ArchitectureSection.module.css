@@ -57,6 +57,10 @@
   gap: var(--spacing-hero-gap);
 }
 
+.header {
+  max-width: var(--width-hero-panel-mid);
+}
+
 .intro {
   gap: 0.5rem;
 }
