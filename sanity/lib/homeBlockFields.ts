@@ -11,12 +11,31 @@ export function backgroundColorField() {
   return namedBackgroundField('sectionBackground', 'Background color')
 }
 
-export function namedBackgroundField(name: string, title: string) {
+export function namedBackgroundField(name: string, title: string, fieldset?: string) {
   const { initialValue: _unused, name: _name, title: _title, ...field } = sectionBackgroundField()
   return {
     ...field,
     name,
     title,
+    ...(fieldset ? { fieldset } : {}),
+  }
+}
+
+/** Two related inputs on one line. The text field stays full width above this row. */
+export function pairFieldset(name: string, title: string) {
+  return {
+    name,
+    title,
+    options: { columns: 2 as const },
+  }
+}
+
+/** Heading tag, color, and size on one line. The heading text stays full width above this row. */
+export function headingFieldset(name: string, title = 'Heading') {
+  return {
+    name,
+    title,
+    options: { columns: 3 as const },
   }
 }
 
@@ -49,20 +68,22 @@ export function spaceAroundFields(name = 'spaceAround', title = 'Space around th
   }
 }
 
-export function wordsColorField(name: string, title = 'Text color') {
+export function wordsColorField(name: string, title = 'Text color', fieldset?: string) {
   return defineField({
     name,
     title,
     type: 'string',
+    ...(fieldset ? { fieldset } : {}),
     options: { list: [...TEXT_COLOR_OPTIONS], layout: 'dropdown' },
   })
 }
 
-export function wordsSizeField(name: string, title = 'Text size') {
+export function wordsSizeField(name: string, title = 'Text size', fieldset?: string) {
   return defineField({
     name,
     title,
     type: 'string',
+    ...(fieldset ? { fieldset } : {}),
     options: { list: [...TEXT_SIZE_OPTIONS], layout: 'dropdown' },
   })
 }

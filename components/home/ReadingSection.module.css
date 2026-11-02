@@ -32,20 +32,20 @@
 .eyebrow {
   font-family: var(--font-inter);
   font-weight: 400;
-  font-size: var(--text-eyebrow-mobile);
+  font-size: var(--eyebrow-size, var(--text-eyebrow-mobile));
   letter-spacing: var(--tracking-eyebrow);
   line-height: normal;
   text-transform: uppercase;
-  color: var(--cms-text, var(--color-earn-white));
+  color: var(--eyebrow-color, var(--cms-text, var(--color-earn-white)));
 }
 
 .heading {
   font-family: var(--font-plex-sans);
   font-weight: 600;
-  font-size: var(--text-hero-mobile);
+  font-size: var(--heading-size, var(--text-hero-mobile));
   line-height: var(--text-ecosystem--line-height);
   white-space: pre-line;
-  color: var(--cms-text, var(--color-earn-paper));
+  color: var(--heading-color, var(--cms-text, var(--color-earn-paper)));
 }
 
 .grid {
@@ -90,18 +90,18 @@
 .kicker {
   font-family: var(--font-plex-mono);
   font-weight: 400;
-  font-size: var(--text-eyebrow);
+  font-size: var(--kicker-size, var(--text-eyebrow));
   line-height: normal;
   text-transform: uppercase;
-  color: var(--cms-text, var(--color-earn-white));
+  color: var(--kicker-color, var(--cms-text, var(--color-earn-white)));
 }
 
 .title {
   font-family: var(--font-inter);
   font-weight: 400;
-  font-size: var(--text-products-lead);
+  font-size: var(--title-size, var(--text-products-lead));
   line-height: normal;
-  color: var(--cms-text, var(--color-earn-white));
+  color: var(--title-color, var(--cms-text, var(--color-earn-white)));
 }
 
 .break {
@@ -118,9 +118,9 @@
 .body {
   font-family: var(--font-inter);
   font-weight: 400;
-  font-size: var(--cms-copy-size, var(--text-slide-body-compact));
+  font-size: var(--body-size, var(--cms-copy-size, var(--text-slide-body-compact)));
   line-height: var(--text-slide-body-compact--line-height);
-  color: var(--cms-text, var(--color-earn-white));
+  color: var(--body-color, var(--cms-text, var(--color-earn-white)));
 }
 
 .action {
@@ -130,14 +130,14 @@
   align-items: center;
   height: 1.75rem;
   padding: 0 1rem;
-  border: 1px solid var(--cms-link, var(--color-earn-gray-400));
+  border: 1px solid var(--link-color, var(--cms-link, var(--color-earn-gray-400)));
   border-radius: 1.25rem;
-  color: var(--cms-link, var(--color-earn-orange));
   font-family: var(--font-inter);
-  font-size: var(--cms-link-size, var(--text-card-link));
+  font-size: var(--link-size, var(--cms-link-size, var(--text-card-link)));
   font-weight: 400;
   line-height: normal;
   text-decoration: none;
+  color: var(--link-color, var(--cms-link, var(--color-earn-orange)));
 }
 
 .actionText {
@@ -145,9 +145,9 @@
   margin-top: auto;
   display: inline-flex;
   align-items: center;
-  color: var(--cms-link, var(--color-earn-orange));
+  color: var(--link-color, var(--cms-link, var(--color-earn-orange)));
   font-family: var(--font-inter);
-  font-size: var(--cms-link-size, var(--text-card-link));
+  font-size: var(--link-size, var(--cms-link-size, var(--text-card-link)));
   font-weight: 400;
   line-height: normal;
   text-decoration: none;
@@ -155,8 +155,8 @@
 
 .action:hover,
 .actionText:hover {
-  border-color: var(--cms-link, var(--color-earn-gold));
-  color: var(--cms-link, var(--color-earn-gold));
+  border-color: var(--link-color, var(--cms-link, var(--color-earn-gold)));
+  color: var(--link-color, var(--cms-link, var(--color-earn-gold)));
 }
 
 .action:focus-visible {
@@ -170,9 +170,9 @@
 
 .more {
   align-self: flex-end;
-  color: var(--cms-link, var(--color-earn-white));
+  color: var(--more-color, var(--cms-link, var(--color-earn-white)));
   font-family: var(--font-inter);
-  font-size: var(--cms-link-size, var(--text-slide-body-compact));
+  font-size: var(--more-size, var(--cms-link-size, var(--text-slide-body-compact)));
   font-weight: 400;
   line-height: normal;
   text-decoration: none;
@@ -189,26 +189,26 @@
   }
 
   .heading {
-    font-size: var(--text-ecosystem-mobile);
+    font-size: var(--heading-size, var(--text-ecosystem-mobile));
   }
 
   .title {
-    font-size: 1.75rem;
+    font-size: var(--title-size, 1.75rem);
   }
 
   .body {
-    font-size: var(--cms-copy-size, var(--text-slide-body));
+    font-size: var(--body-size, var(--cms-copy-size, var(--text-slide-body)));
     line-height: normal;
   }
 
   .action {
     height: 2.75rem;
     padding-inline: 1.25rem;
-    font-size: var(--cms-link-size, var(--text-slide-body));
+    font-size: var(--link-size, var(--cms-link-size, var(--text-slide-body)));
   }
 
   .actionText {
-    font-size: var(--cms-link-size, var(--text-slide-body));
+    font-size: var(--link-size, var(--cms-link-size, var(--text-slide-body)));
   }
 }
 
@@ -219,11 +219,11 @@
   }
 
   .eyebrow {
-    font-size: var(--text-eyebrow);
+    font-size: var(--eyebrow-size, var(--text-eyebrow));
   }
 
   .heading {
-    font-size: var(--text-ecosystem);
+    font-size: var(--heading-size, var(--text-ecosystem));
   }
 
   .grid {

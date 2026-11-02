@@ -31,28 +31,28 @@
 .actionLabel {
   font-family: var(--font-inter);
   font-weight: 400;
-  font-size: var(--text-eyebrow-mobile);
+  font-size: var(--eyebrow-size, var(--text-eyebrow-mobile));
   letter-spacing: var(--tracking-eyebrow);
   line-height: normal;
   text-transform: uppercase;
-  color: var(--color-earn-white);
+  color: var(--eyebrow-color, var(--color-earn-white));
 }
 
 .heading {
   font-family: var(--font-inter);
   font-weight: 700;
-  font-size: var(--text-hero-mobile);
+  font-size: var(--heading-size, var(--text-hero-mobile));
   line-height: normal;
-  color: var(--color-earn-sat);
+  color: var(--heading-color, var(--color-earn-sat));
 }
 
 .line {
   font-family: var(--font-inter);
   font-weight: 500;
-  font-size: var(--text-slide-body);
+  font-size: var(--line-size, var(--text-slide-body));
   line-height: normal;
   white-space: pre-line;
-  color: var(--color-earn-paper);
+  color: var(--line-color, var(--color-earn-paper));
 }
 
 @media (min-width: 768px) {
@@ -65,11 +65,11 @@
   }
 
   .heading {
-    font-size: var(--text-ecosystem);
+    font-size: var(--heading-size, var(--text-ecosystem));
   }
 
   .line {
-    font-size: var(--text-products-lead);
+    font-size: var(--line-size, var(--text-products-lead));
   }
 }
 

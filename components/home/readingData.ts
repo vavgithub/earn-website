@@ -1,3 +1,5 @@
+import type { CSSProperties } from "react";
+
 export const READING_EYEBROW = "Further Reading";
 export const READING_HEADING =
   "Go deeper into the forces moving the energy markets.";
@@ -16,6 +18,10 @@ export type ReadingCard = {
   openInNewTab?: boolean;
   actionCompact?: string;
   rounded?: boolean;
+  kickerStyle?: CSSProperties;
+  titleStyle?: CSSProperties;
+  bodyStyle?: CSSProperties;
+  linkStyle?: CSSProperties;
 };
 
 export const READING_CARDS: ReadingCard[] = [

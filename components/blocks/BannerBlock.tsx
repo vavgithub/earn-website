@@ -1,17 +1,11 @@
 import { stegaClean } from 'next-sanity'
 import { HeroSection, type HeroBannerButton } from '@/components/home/HeroSection'
+import { colorOf, sizeOf } from '@/components/blocks/homeBlockValue'
+import { parseSectionHeadingLevel } from '@/lib/cmsSectionHeadingLevel'
 import { parseTextColor, TEXT_COLOR_HEX } from '@/lib/cmsTextColor'
 import { parseBlockPadding } from '@/lib/blockPadding'
 import { sectionBackgroundStyle } from '@/lib/sectionBackground'
 import { urlForImage } from '@/sanity/lib/image'
-
-const HEADING_SIZE: Record<string, string | undefined> = {
-  default: undefined,
-  lg: '1.5rem',
-  md: '1.25rem',
-  sm: '1rem',
-  xs: '0.75rem',
-}
 
 const PADDING: Record<string, string> = {
   none: '0px',
@@ -59,6 +53,7 @@ export default function BannerBlock({ block }: { block: Record<string, unknown> 
       kind: buttonKind === 'textLink' ? 'textLink' : 'button',
       fill: TEXT_COLOR_HEX[buttonColor],
       ink: LIGHT_FILLS.has(buttonColor) ? 'var(--color-earn-button-ink)' : 'var(--color-earn-paper)',
+      size: sizeOf(block.buttonSize),
       openInNewTab: block.openInNewTab === true,
     }
   }
@@ -69,6 +64,7 @@ export default function BannerBlock({ block }: { block: Record<string, unknown> 
     <HeroSection
       headingId={typeof block._key === "string" ? `banner-${block._key}` : "banner-heading"}
       heading={clean(block.heading)}
+      headingLevel={parseSectionHeadingLevel(block.headingLevel, 'h1')}
       body={clean(block.body)}
       showImage={backgroundMode === 'image' && Boolean(imageSrc)}
       imageSrc={imageSrc}
@@ -80,7 +76,9 @@ export default function BannerBlock({ block }: { block: Record<string, unknown> 
       imagePosition={clean(block.imagePosition) || 'center'}
       copyOpacity={opacity}
       textColor={TEXT_COLOR_HEX[fontColor]}
-      headingSize={HEADING_SIZE[fontSize]}
+      headingSize={fontSize === 'default' ? undefined : sizeOf(fontSize)}
+      bodyColor={colorOf(block.bodyColor)}
+      bodySize={sizeOf(block.bodySize)}
       button={button}
       paddingTop={paddingCss(block.paddingTop)}
       paddingBottom={paddingCss(block.paddingBottom)}

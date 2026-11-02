@@ -1,24 +1,36 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from "react";
+import { parseSectionHeadingLevel, type SectionHeadingLevel } from "@/lib/cmsSectionHeadingLevel";
 import { LinkText, newTabProps } from "@/components/home/LinkText";
 import type { Product } from "@/components/home/productsData";
 import styles from "./ProductsSection.module.css";
 
-export type ProductFilter = { id: string; label: string };
+export type ProductFilter = { id: string; label: string; color?: string; size?: string };
 
 function cardStyle(product: Product): CSSProperties | undefined {
   const style: CSSProperties & Record<string, string> = {};
   if (product.textColor) style["--card-text"] = product.textColor;
   if (product.textSize) style["--card-text-size"] = product.textSize;
+  if (product.brandColor) style["--brand-color"] = product.brandColor;
+  if (product.brandSize) style["--brand-size"] = product.brandSize;
+  if (product.titleColor) style["--title-color"] = product.titleColor;
+  if (product.titleSize) style["--title-size"] = product.titleSize;
   if (product.linkColor) style["--card-link"] = product.linkColor;
+  if (product.linkSize) style["--link-size"] = product.linkSize;
   return Object.keys(style).length > 0 ? style : undefined;
 }
 
 function chipStyle(product: Product): CSSProperties | undefined {
   const style: CSSProperties & Record<string, string> = {};
-  if (product.chipBackground) style["--chip-bg"] = product.chipBackground;
-  if (product.chipLabelColor) style["--chip-ink"] = product.chipLabelColor;
+  if (product.chipBackground) {
+    style["--chip-bg"] = product.chipBackground;
+    style.backgroundColor = product.chipBackground;
+  }
+  if (product.chipLabelColor) {
+    style["--chip-ink"] = product.chipLabelColor;
+    style.color = product.chipLabelColor;
+  }
   return Object.keys(style).length > 0 ? style : undefined;
 }
 
@@ -31,6 +43,11 @@ export type ProductsSectionProps = {
   eyebrow?: string;
   heading?: string;
   lead?: string;
+  eyebrowStyle?: CSSProperties;
+  headingStyle?: CSSProperties;
+  headingLevel?: SectionHeadingLevel;
+  leadStyle?: CSSProperties;
+  menuStyle?: CSSProperties;
   showFilters?: boolean;
   products?: Product[];
   filters?: ProductFilter[];
@@ -43,6 +60,11 @@ export function ProductsSection({
   eyebrow = "",
   heading = "",
   lead = "",
+  eyebrowStyle,
+  headingStyle,
+  headingLevel = "h2",
+  leadStyle,
+  menuStyle,
   showFilters = true,
   products = [],
   filters = [],
@@ -57,6 +79,12 @@ export function ProductsSection({
   }
   if (filterPaint?.label) buttonStyle.color = filterPaint.label;
   const paintedButton = Object.keys(buttonStyle).length > 0 ? buttonStyle : undefined;
+  const pillStyle = (item: ProductFilter): CSSProperties | undefined => {
+    const style: CSSProperties = { ...paintedButton };
+    if (item.color) style.color = item.color;
+    if (item.size) style.fontSize = item.size;
+    return Object.keys(style).length > 0 ? style : undefined;
+  };
   const pills = [{ id: "all", label: "All" }, ...filters];
   const [role, setRole] = useState<string>("all");
   const [menuOpen, setMenuOpen] = useState(false);
@@ -126,6 +154,7 @@ export function ProductsSection({
     };
   }, [menuOpen]);
 
+  const HeadingTag = parseSectionHeadingLevel(headingLevel, "h2");
   const sectionStyle: CSSProperties = { ...appearance }
   if (demandPhoto) {
     const photo = sectionStyle as CSSProperties & Record<string, string>
@@ -139,14 +168,14 @@ export function ProductsSection({
       <div className={styles.stage}>
         <header className={styles.header}>
           <div className={styles.intro}>
-            {eyebrow ? <p className={styles.eyebrow}>{eyebrow}</p> : null}
+            {eyebrow ? <p className={styles.eyebrow} style={eyebrowStyle}>{eyebrow}</p> : null}
             {heading ? (
-              <h2 id="products-heading" className={styles.heading}>
+              <HeadingTag id="products-heading" className={styles.heading} style={headingStyle}>
                 {heading}
-              </h2>
+              </HeadingTag>
             ) : null}
           </div>
-          {lead ? <p className={styles.lead}>{lead}</p> : null}
+          {lead ? <p className={styles.lead} style={leadStyle}>{lead}</p> : null}
         </header>
 
         {showFilters && filters.length > 0 ? (
@@ -159,7 +188,7 @@ export function ProductsSection({
                 key={item.id}
                 type="button"
                 className={selected ? styles.pillOn : styles.pill}
-                style={paintedButton}
+                style={pillStyle(item)}
                 aria-pressed={selected}
                 onClick={() => setRole(item.id)}
               >
@@ -173,7 +202,7 @@ export function ProductsSection({
           <button
             type="button"
             className={styles.select}
-            style={paintedButton}
+            style={{ ...paintedButton, ...menuStyle }}
             aria-haspopup="listbox"
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen((open) => !open)}
@@ -228,8 +257,8 @@ export function ProductsSection({
                   <h3 className={styles.title}>{product.title}</h3>
                 </div>
                 <div className={styles.body}>
-                  {product.body.map((paragraph) => (
-                    <p key={paragraph}>{paragraph}</p>
+                  {product.body.map((paragraph, index) => (
+                    <p key={`${index}-${paragraph}`}>{paragraph}</p>
                   ))}
                   {product.linkLabel ? (
                     <a

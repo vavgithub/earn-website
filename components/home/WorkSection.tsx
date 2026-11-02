@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import { parseSectionHeadingLevel, type SectionHeadingLevel } from "@/lib/cmsSectionHeadingLevel";
 import { LinkText, newTabProps } from "@/components/home/LinkText";
 import { WORK_ARROWS } from "@/components/home/workData";
 import styles from "./WorkSection.module.css";
@@ -15,6 +16,12 @@ export type WorkSectionProps = {
   actionOpen?: boolean;
   showArrows?: boolean;
   appearance?: CSSProperties;
+  eyebrowStyle?: CSSProperties;
+  headingStyle?: CSSProperties;
+  headingLevel?: SectionHeadingLevel;
+  introStyle?: CSSProperties;
+  panelTitleStyle?: CSSProperties;
+  bodyStyle?: CSSProperties;
 };
 
 export function WorkSection({
@@ -29,25 +36,32 @@ export function WorkSection({
   actionOpen = false,
   showArrows = true,
   appearance,
+  eyebrowStyle,
+  headingStyle,
+  headingLevel = "h2",
+  introStyle,
+  panelTitleStyle,
+  bodyStyle,
 }: WorkSectionProps = {}) {
+  const HeadingTag = parseSectionHeadingLevel(headingLevel, "h2");
   return (
     <section className={styles.section} aria-labelledby="work-heading" style={appearance}>
       <div className={styles.stage}>
         <header className={styles.header}>
           <div className={styles.titleGroup}>
-            {eyebrow ? <p className={styles.eyebrow}>{eyebrow}</p> : null}
+            {eyebrow ? <p className={styles.eyebrow} style={eyebrowStyle}>{eyebrow}</p> : null}
             {heading ? (
-              <h2 id="work-heading" className={styles.heading}>
+              <HeadingTag id="work-heading" className={styles.heading} style={headingStyle}>
                 {heading}
-              </h2>
+              </HeadingTag>
             ) : null}
           </div>
-          <p className={styles.intro}>{intro}</p>
+          <p className={styles.intro} style={introStyle}>{intro}</p>
         </header>
 
         <div className={styles.panel}>
-          <h3 className={styles.panelTitle}>{panelTitle}</h3>
-          <p className={styles.body}>
+          <h3 className={styles.panelTitle} style={panelTitleStyle}>{panelTitle}</h3>
+          <p className={styles.body} style={bodyStyle}>
             {bodyLead}
             {bodyTail ? (
               <>

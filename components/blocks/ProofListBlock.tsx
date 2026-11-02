@@ -1,6 +1,7 @@
 import { ProofSection } from '@/components/home/ProofSection'
 import type { ProofItem } from '@/components/home/proofData'
-import { areaStyle, clean, colorOf, imageUrl, paintVars, sizeOf } from '@/components/blocks/homeBlockValue'
+import { areaStyle, clean, colorOf, imageUrl, paintVars, sizeOf, toneStyle } from '@/components/blocks/homeBlockValue'
+import { parseSectionHeadingLevel } from '@/lib/cmsSectionHeadingLevel'
 
 const LOGO_SIZE: Record<string, string | undefined> = {
   default: undefined,
@@ -14,8 +15,14 @@ type ItemDoc = {
   logo?: unknown
   logoAlt?: string
   title?: string
+  titleColor?: string
+  titleSize?: string
   body?: string
+  bodyColor?: string
+  bodySize?: string
   buttonLabel?: string
+  buttonColor?: string
+  buttonSize?: string
   buttonUrl?: string
   openInNewTab?: boolean
 }
@@ -37,6 +44,9 @@ export default function ProofListBlock({ block }: { block: Record<string, unknow
               action: clean(item.buttonLabel),
               href: clean(item.buttonUrl) || '#',
               openInNewTab: item.openInNewTab === true,
+              titleStyle: toneStyle(item.titleColor, item.titleSize, '--title-color', '--title-size'),
+              bodyStyle: toneStyle(item.bodyColor, item.bodySize, '--body-color', '--body-size'),
+              buttonStyle: toneStyle(item.buttonColor, item.buttonSize, '--button-color', '--button-size'),
             },
           ]
         })
@@ -49,7 +59,10 @@ export default function ProofListBlock({ block }: { block: Record<string, unknow
   return (
     <ProofSection
       eyebrow={clean(block.eyebrow)}
+      eyebrowStyle={toneStyle(block.eyebrowColor || block.textColor, block.eyebrowSize || block.textSize, '--eyebrow-color', '--eyebrow-size')}
       headingLead={lead}
+      headingStyle={toneStyle(block.headingColor || block.textColor, block.headingSize || block.textSize, '--heading-color', '--heading-size')}
+      headingLevel={parseSectionHeadingLevel(block.headingLevel, 'h2')}
       headingTail={heading ? rest.join('\n') : ''}
       items={items ?? []}
       logoSize={LOGO_SIZE[clean(block.imageSize)] }

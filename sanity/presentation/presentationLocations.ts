@@ -1,4 +1,5 @@
 import { defineLocations } from 'sanity/presentation'
+import { isHomepagePreview, pagePreviewPath } from '../lib/pagePreviewPath'
 import { RESOURCES_INDEX_PATH, resourcesArticlePath } from '../../lib/resourcePaths'
 
 /** Maps CMS documents to site URLs for Presentation (Structure banner + preview sync). */
@@ -25,15 +26,19 @@ export const presentationLocations = {
   }),
 
   page: defineLocations({
-    select: { title: 'title', slug: 'slug.current' },
+    select: { title: 'title', slug: 'slug.current', id: '_id' },
     resolve: (doc) => {
       const slug = typeof doc?.slug === 'string' ? doc.slug.trim() : ''
-      if (!slug) {
+      const id = typeof doc?.id === 'string' ? doc.id : ''
+      if (!slug && !isHomepagePreview(id, slug)) {
         return { message: 'Add a slug to preview this page', tone: 'caution' as const }
       }
-      const title = typeof doc?.title === 'string' && doc.title.trim() ? doc.title.trim() : slug
+      const title =
+        typeof doc?.title === 'string' && doc.title.trim()
+          ? doc.title.trim()
+          : slug || 'Home'
       return {
-        locations: [{ title, href: `/${slug}` }],
+        locations: [{ title, href: isHomepagePreview(id, slug) ? '/' : pagePreviewPath(slug) }],
       }
     },
   }),

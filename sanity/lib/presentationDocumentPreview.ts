@@ -1,5 +1,6 @@
 import type { SanityClient } from '@sanity/client'
 import { getPublishedId } from 'sanity'
+import { isHomepagePreview, pagePreviewPath } from './pagePreviewPath'
 import { RESOURCES_INDEX_PATH, resourcesArticlePath } from '../../lib/resourcePaths'
 
 /** Document types that map to a marketing-site preview URL. */
@@ -130,11 +131,13 @@ export async function resolvePresentationPreviewHref(
   }
 
   if (type === 'page') {
-    const slug = await client.fetch<string | null>(
-      `*[_id in [$id, "drafts." + $id]][0].slug.current`,
+    const doc = await client.fetch<{ _id?: string; slug?: string | null } | null>(
+      `*[_id in [$id, "drafts." + $id]][0]{ _id, "slug": slug.current }`,
       { id: publishedId },
     )
-    return slug?.trim() ? `/${slug.trim()}` : null
+    if (!doc) return null
+    if (isHomepagePreview(doc._id, doc.slug)) return '/'
+    return doc.slug?.trim() ? pagePreviewPath(doc.slug) : null
   }
 
   return null

@@ -1,5 +1,6 @@
 import type { CSSProperties } from "react";
 import Link from "next/link";
+import { parseSectionHeadingLevel, type SectionHeadingLevel } from "@/lib/cmsSectionHeadingLevel";
 import { LinkText, newTabProps } from "@/components/home/LinkText";
 import styles from "./HeroSection.module.css";
 
@@ -9,12 +10,14 @@ export type HeroBannerButton = {
   kind: "button" | "textLink";
   fill?: string;
   ink?: string;
+  size?: string;
   openInNewTab?: boolean;
 };
 
 export type HeroSectionProps = {
   headingId?: string;
   heading?: string;
+  headingLevel?: SectionHeadingLevel;
   body?: string;
   imageSrc?: string;
   imageAlt?: string;
@@ -25,6 +28,8 @@ export type HeroSectionProps = {
   copyOpacity?: number;
   textColor?: string;
   headingSize?: string;
+  bodyColor?: string;
+  bodySize?: string;
   button?: HeroBannerButton | null;
   paddingTop?: string;
   paddingBottom?: string;
@@ -60,6 +65,9 @@ function bannerStyle(props: HeroSectionProps): CSSProperties | undefined {
   if (props.imagePosition) style["--banner-image-position"] = props.imagePosition;
   if (props.copyOpacity !== undefined) style["--banner-copy-opacity"] = String(props.copyOpacity);
   if (props.headingSize) style["--banner-heading-size"] = props.headingSize;
+  if (props.bodyColor) style["--banner-body-color"] = props.bodyColor;
+  if (props.bodySize) style["--banner-body-size"] = props.bodySize;
+  if (props.button?.size) style["--banner-button-size"] = props.button.size;
   if (props.paddingTop) style["--banner-pad-top"] = props.paddingTop;
   if (props.paddingBottom) style["--banner-pad-bottom"] = props.paddingBottom;
   if (props.copyPaddingTop) style["--banner-copy-pad-top"] = props.copyPaddingTop;
@@ -75,6 +83,7 @@ export function HeroSection(props: HeroSectionProps = {}) {
   const imageSrc = props.imageSrc;
   const showImage = props.showImage !== false && Boolean(imageSrc);
   const headingId = props.headingId ?? "home-hero-heading";
+  const HeadingTag = parseSectionHeadingLevel(props.headingLevel, "h1");
   const button = props.button?.label && props.button.href ? props.button : null;
 
   return (
@@ -92,18 +101,18 @@ export function HeroSection(props: HeroSectionProps = {}) {
       <div className={styles.stage}>
         <div className={styles.copy}>
           {headingLines.length > 0 ? (
-            <h1 id={headingId} className={styles.heading}>
-              {headingLines.map((line) => (
-                <span key={line} className={styles.headingLine}>
+            <HeadingTag id={headingId} className={styles.heading}>
+              {headingLines.map((line, index) => (
+                <span key={`${index}-${line}`} className={styles.headingLine}>
                   {line}
                 </span>
               ))}
-            </h1>
+            </HeadingTag>
           ) : null}
           {paragraphs.length > 0 ? (
             <div className={styles.body}>
-              {paragraphs.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
+              {paragraphs.map((paragraph, index) => (
+                <p key={`${index}-${paragraph}`}>{paragraph}</p>
               ))}
             </div>
           ) : null}

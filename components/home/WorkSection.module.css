@@ -39,27 +39,27 @@
 .eyebrow {
   font-family: var(--font-inter);
   font-weight: 400;
-  font-size: var(--text-eyebrow-mobile);
+  font-size: var(--eyebrow-size, var(--text-eyebrow-mobile));
   letter-spacing: var(--tracking-eyebrow);
   line-height: normal;
   text-transform: uppercase;
-  color: var(--cms-text, var(--color-earn-white));
+  color: var(--eyebrow-color, var(--cms-text, var(--color-earn-white)));
 }
 
 .heading {
   font-family: var(--font-plex-sans);
   font-weight: 600;
-  font-size: var(--text-hero-mobile);
+  font-size: var(--heading-size, var(--text-hero-mobile));
   line-height: var(--text-ecosystem--line-height);
-  color: var(--cms-text, var(--color-earn-paper));
+  color: var(--heading-color, var(--cms-text, var(--color-earn-paper)));
 }
 
 .intro {
   font-family: var(--font-inter);
   font-weight: 400;
-  font-size: var(--cms-copy-size, var(--text-slide-body-compact));
+  font-size: var(--intro-size, var(--cms-copy-size, var(--text-slide-body-compact)));
   line-height: var(--text-slide-body-compact--line-height);
-  color: var(--cms-text, var(--color-earn-paper));
+  color: var(--intro-color, var(--cms-text, var(--color-earn-paper)));
 }
 
 .panel {
@@ -72,18 +72,18 @@
 .panelTitle {
   font-family: var(--font-inter);
   font-weight: 700;
-  font-size: 1.75rem;
+  font-size: var(--panel-title-size, 1.75rem);
   line-height: normal;
-  color: var(--cms-text, var(--color-earn-white));
+  color: var(--panel-title-color, var(--cms-text, var(--color-earn-white)));
 }
 
 .body {
   font-family: var(--font-inter);
   font-weight: 400;
-  font-size: var(--cms-copy-size, var(--text-products-lead));
+  font-size: var(--body-size, var(--cms-copy-size, var(--text-products-lead)));
   line-height: normal;
   white-space: pre-line;
-  color: var(--cms-text, var(--color-earn-white));
+  color: var(--body-color, var(--cms-text, var(--color-earn-white)));
 }
 
 .actionRow {
@@ -154,11 +154,11 @@
   }
 
   .heading {
-    font-size: var(--text-ecosystem-mobile);
+    font-size: var(--heading-size, var(--text-ecosystem-mobile));
   }
 
   .intro {
-    font-size: var(--cms-copy-size, 1.125rem);
+    font-size: var(--intro-size, var(--cms-copy-size, 1.125rem));
   }
 
   .action {
@@ -177,15 +177,15 @@
 
 @media (min-width: 1024px) {
   .eyebrow {
-    font-size: var(--text-eyebrow);
+    font-size: var(--eyebrow-size, var(--text-eyebrow));
   }
 
   .heading {
-    font-size: var(--text-ecosystem);
+    font-size: var(--heading-size, var(--text-ecosystem));
   }
 
   .intro {
-    font-size: var(--cms-copy-size, var(--text-products-lead));
+    font-size: var(--intro-size, var(--cms-copy-size, var(--text-products-lead)));
   }
 }
 

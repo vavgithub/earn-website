@@ -18,7 +18,12 @@ export type Product = {
   chips?: string[]
   textColor?: string
   textSize?: string
+  brandColor?: string
+  brandSize?: string
+  titleColor?: string
+  titleSize?: string
   linkColor?: string
+  linkSize?: string
   chipBackground?: string
   chipLabelColor?: string
 }

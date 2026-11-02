@@ -1,6 +1,7 @@
 import { ReadingSection } from '@/components/home/ReadingSection'
 import type { ReadingCard } from '@/components/home/readingData'
-import { areaStyle, clean, colorOf, imageUrl, paintVars, sizeOf } from '@/components/blocks/homeBlockValue'
+import { areaStyle, clean, colorOf, imageUrl, paintVars, sizeOf, toneStyle } from '@/components/blocks/homeBlockValue'
+import { parseSectionHeadingLevel } from '@/lib/cmsSectionHeadingLevel'
 
 const SHAPE: Record<string, string | undefined> = {
   default: undefined,
@@ -14,9 +15,17 @@ type CardDoc = {
   image?: unknown
   imageAlt?: string
   kicker?: string
+  kickerColor?: string
+  kickerSize?: string
   title?: string
+  titleColor?: string
+  titleSize?: string
   body?: string
+  bodyColor?: string
+  bodySize?: string
   linkLabel?: string
+  linkColor?: string
+  linkSize?: string
   compactLinkLabel?: string
   linkUrl?: string
   openInNewTab?: boolean
@@ -47,6 +56,10 @@ export default function InsightCardsBlock({ block }: { block: Record<string, unk
           const compact = clean(card.compactLinkLabel)
           if (compact) item.actionCompact = compact
           if (card.roundImage === true) item.rounded = true
+          item.kickerStyle = toneStyle(card.kickerColor, card.kickerSize, '--kicker-color', '--kicker-size')
+          item.titleStyle = toneStyle(card.titleColor, card.titleSize, '--title-color', '--title-size')
+          item.bodyStyle = toneStyle(card.bodyColor, card.bodySize, '--body-color', '--body-size')
+          item.linkStyle = toneStyle(card.linkColor, card.linkSize, '--link-color', '--link-size')
           return [item]
         })
       : undefined
@@ -55,6 +68,9 @@ export default function InsightCardsBlock({ block }: { block: Record<string, unk
     <ReadingSection
       eyebrow={clean(block.eyebrow)}
       heading={clean(block.heading)}
+      headingLevel={parseSectionHeadingLevel(block.headingLevel, 'h2')}
+      eyebrowStyle={toneStyle(block.eyebrowColor, block.eyebrowSize, '--eyebrow-color', '--eyebrow-size')}
+      headingStyle={toneStyle(block.textColor, block.textSize, '--heading-color', '--heading-size')}
       cards={cards ?? []}
       more={clean(block.conclusionLabel)}
       moreHref={clean(block.conclusionUrl) || '#'}
@@ -62,6 +78,7 @@ export default function InsightCardsBlock({ block }: { block: Record<string, unk
       showMore={block.showConclusion !== false}
       imageProportion={SHAPE[clean(block.imageProportion)]}
       linkKind={clean(block.linkKind) === "textLink" ? "textLink" : undefined}
+      moreStyle={toneStyle(block.conclusionColor || block.linkColor, block.conclusionSize || block.linkSize, '--more-color', '--more-size')}
       appearance={paintVars(areaStyle(block, 'textColor', false), {
         '--cms-text': colorOf(block.textColor),
         '--cms-copy-size': sizeOf(block.textSize),

@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import { parseSectionHeadingLevel, type SectionHeadingLevel } from "@/lib/cmsSectionHeadingLevel";
 import styles from "./PrincipleSection.module.css";
 
 export type PrincipleSectionProps = {
@@ -7,6 +8,7 @@ export type PrincipleSectionProps = {
   headingLead?: string;
   headingTail?: string;
   headingStyle?: CSSProperties;
+  headingLevel?: SectionHeadingLevel;
   line?: string;
   subtitleStyle?: CSSProperties;
   appearance?: CSSProperties;
@@ -18,10 +20,12 @@ export function PrincipleSection({
   headingLead = "",
   headingTail = "",
   headingStyle,
+  headingLevel = "h2",
   line = "",
   subtitleStyle,
   appearance,
 }: PrincipleSectionProps = {}) {
+  const HeadingTag = parseSectionHeadingLevel(headingLevel, "h2");
   return (
     <section className={styles.section} aria-labelledby="principle-heading" style={appearance}>
       <div className={styles.stage}>
@@ -32,7 +36,7 @@ export function PrincipleSection({
             </p>
           ) : null}
           {headingLead || headingTail ? (
-            <h2 id="principle-heading" className={styles.heading} style={headingStyle}>
+            <HeadingTag id="principle-heading" className={styles.heading} style={headingStyle}>
               {headingLead}
               {headingTail
                 ? headingTail.split('\n').map((line, index) => (
@@ -42,7 +46,7 @@ export function PrincipleSection({
                     </span>
                   ))
                 : null}
-            </h2>
+            </HeadingTag>
           ) : null}
         </header>
         {line ? (

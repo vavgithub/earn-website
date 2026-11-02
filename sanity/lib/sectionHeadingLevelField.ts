@@ -6,6 +6,8 @@ type SectionHeadingLevelFieldOptions = {
   name?: string
   fieldset?: string
   hidden?: SectionHeadingFieldHidden
+  initialValue?: 'h1' | 'h2' | 'h3'
+  description?: string
 }
 
 /** H1 / H2 / H3 for optional section titles (IBM Plex Sans heading above a block). */
@@ -13,12 +15,14 @@ export function sectionHeadingLevelField({
   name = 'sectionHeadingLevel',
   fieldset,
   hidden,
+  initialValue = 'h2',
+  description = 'Heading tag',
 }: SectionHeadingLevelFieldOptions = {}) {
   return defineField({
     name,
     title: 'Heading tag',
     type: 'string',
-    description: 'Heading tag',
+    ...(description ? { description } : {}),
     fieldset,
     hidden,
     options: {
@@ -29,6 +33,6 @@ export function sectionHeadingLevelField({
       ],
       layout: 'dropdown',
     },
-    initialValue: 'h2',
+    initialValue,
   })
 }

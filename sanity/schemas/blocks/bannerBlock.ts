@@ -4,6 +4,8 @@ import { BLOCK_PADDING_OPTIONS } from '../../lib/blockPaddingFields'
 import { pageBuilderBlockPreview } from '../../lib/pageBuilderPreview'
 import { sectionBackgroundField } from '../../lib/sectionBackgroundField'
 import { textColorField } from '../../lib/textColorField'
+import { sectionHeadingLevelField } from '../../lib/sectionHeadingLevelField'
+import { textSizeOptions } from '../../lib/textSizeField'
 
 const IMAGE_POSITIONS = [
   { title: 'Top', value: 'top' },
@@ -29,6 +31,29 @@ const bannerSpacingFieldset = {
   options: { columns: 2 as const },
 } as const
 
+const fontStyleFieldset = {
+  name: 'fontStyle',
+  title: 'Heading',
+  options: { columns: 3 as const },
+} as const
+
+const bodyStyleFieldset = {
+  name: 'bodyStyle',
+  title: 'Body',
+  options: { columns: 2 as const },
+} as const
+
+const buttonStyleFieldset = {
+  name: 'buttonStyle',
+  title: 'Button',
+  options: { columns: 2 as const },
+} as const
+
+function hideWithoutButton(parent: { buttonKind?: string } | undefined) {
+  const kind = parent?.buttonKind
+  return kind === 'none' || !kind
+}
+
 function isColorBackground(parent: { backgroundMode?: string } | undefined) {
   return parent?.backgroundMode === 'color'
 }
@@ -40,7 +65,7 @@ export default defineType({
   icon: ImageIcon,
   description:
     'Full-width banner. Leave the spacing empty to match the homepage. Add a button only when this banner needs one.',
-  fieldsets: [textBoxSpacingFieldset, bannerSpacingFieldset],
+  fieldsets: [fontStyleFieldset, bodyStyleFieldset, buttonStyleFieldset, textBoxSpacingFieldset, bannerSpacingFieldset],
   fields: [
     defineField({
       name: 'heading',
@@ -48,6 +73,30 @@ export default defineType({
       type: 'text',
       rows: 3,
       description: 'One line per row. On desktop each row is its own line.',
+    }),
+    sectionHeadingLevelField({
+      name: 'headingLevel',
+      initialValue: 'h1',
+      fieldset: fontStyleFieldset.name,
+      description: '',
+    }),
+    textColorField({
+      name: 'fontColor',
+      title: 'Text color',
+      description: '',
+      initialValue: 'offWhite',
+      fieldset: fontStyleFieldset.name,
+    }),
+    defineField({
+      name: 'fontSize',
+      title: 'Text size',
+      type: 'string',
+      fieldset: fontStyleFieldset.name,
+      options: {
+        list: textSizeOptions([{ title: 'Same as the homepage', value: 'default' }]),
+        layout: 'dropdown',
+      },
+      initialValue: 'default',
     }),
     defineField({
       name: 'body',
@@ -57,27 +106,21 @@ export default defineType({
       description: 'Separate paragraphs with a blank line.',
     }),
     textColorField({
-      name: 'fontColor',
-      title: 'Font color',
-      description: 'Heading and body color.',
-      initialValue: 'offWhite',
+      name: 'bodyColor',
+      title: 'Text color',
+      description: 'Color of the body. Leave empty to keep the design color.',
+      fieldset: bodyStyleFieldset.name,
     }),
     defineField({
-      name: 'fontSize',
-      title: 'Font size',
+      name: 'bodySize',
+      title: 'Text size',
       type: 'string',
-      description: 'Size of the heading. Default matches the homepage.',
+      fieldset: bodyStyleFieldset.name,
+      description: 'Size of the body. Leave empty to keep the design size.',
       options: {
-        list: [
-          { title: 'Same as the homepage', value: 'default' },
-          { title: 'Lg (24px)', value: 'lg' },
-          { title: 'Med (20px)', value: 'md' },
-          { title: 'Small (16px)', value: 'sm' },
-          { title: 'XS (12px)', value: 'xs' },
-        ],
+        list: textSizeOptions(),
         layout: 'dropdown',
       },
-      initialValue: 'default',
     }),
     defineField({
       name: 'copyOpacity',
@@ -105,40 +148,40 @@ export default defineType({
       name: 'buttonLabel',
       title: 'Button label',
       type: 'string',
-      hidden: ({ parent }) => {
-        const kind = (parent as { buttonKind?: string } | undefined)?.buttonKind
-        return kind === 'none' || !kind
-      },
+      hidden: ({ parent }) => hideWithoutButton(parent),
     }),
     defineField({
       name: 'openInNewTab',
       title: 'Open in a new tab',
       type: 'boolean',
       initialValue: false,
-      hidden: ({ parent }) => {
-        const kind = (parent as { buttonKind?: string } | undefined)?.buttonKind
-        return kind === 'none' || !kind
-      },
+      hidden: ({ parent }) => hideWithoutButton(parent),
     }),
     defineField({
       name: 'buttonUrl',
       title: 'Button URL',
       type: 'string',
       description: 'Internal path such as /contact, or a full https URL.',
-      hidden: ({ parent }) => {
-        const kind = (parent as { buttonKind?: string } | undefined)?.buttonKind
-        return kind === 'none' || !kind
-      },
+      hidden: ({ parent }) => hideWithoutButton(parent),
     }),
     textColorField({
       name: 'buttonColor',
-      title: 'Button color',
+      title: 'Text color',
       description: 'Fill color for a button. Text color for a text link.',
       initialValue: 'brightYellow',
-      hidden: ({ parent }) => {
-        const kind = (parent as { buttonKind?: string } | undefined)?.buttonKind
-        return kind === 'none' || !kind
+      fieldset: buttonStyleFieldset.name,
+      hidden: ({ parent }) => hideWithoutButton(parent),
+    }),
+    defineField({
+      name: 'buttonSize',
+      title: 'Text size',
+      type: 'string',
+      fieldset: buttonStyleFieldset.name,
+      options: {
+        list: textSizeOptions(),
+        layout: 'dropdown',
       },
+      hidden: ({ parent }) => hideWithoutButton(parent),
     }),
     defineField({
       name: 'backgroundMode',

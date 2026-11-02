@@ -1,5 +1,6 @@
 import { PrincipleSection } from '@/components/home/PrincipleSection'
-import { areaStyle, clean, textStyle } from '@/components/blocks/homeBlockValue'
+import { areaStyle, clean, toneStyle } from '@/components/blocks/homeBlockValue'
+import { parseSectionHeadingLevel } from '@/lib/cmsSectionHeadingLevel'
 
 export default function StatementBlock({ block }: { block: Record<string, unknown> }) {
   const heading = clean(block.heading)
@@ -9,12 +10,13 @@ export default function StatementBlock({ block }: { block: Record<string, unknow
   return (
     <PrincipleSection
       eyebrow={clean(block.eyebrow)}
-      eyebrowStyle={textStyle(block.eyebrowColor, block.eyebrowSize)}
+      eyebrowStyle={toneStyle(block.eyebrowColor, block.eyebrowSize, '--eyebrow-color', '--eyebrow-size')}
       headingLead={lead}
       headingTail={heading ? tail : ""}
-      headingStyle={textStyle(block.headingColor, block.headingSize)}
+      headingStyle={toneStyle(block.headingColor, block.headingSize, '--heading-color', '--heading-size')}
+      headingLevel={parseSectionHeadingLevel(block.headingLevel, 'h2')}
       line={clean(block.subtitle)}
-      subtitleStyle={textStyle(block.subtitleColor, block.subtitleSize)}
+      subtitleStyle={toneStyle(block.subtitleColor, block.subtitleSize, '--line-color', '--line-size')}
       appearance={areaStyle(block)}
     />
   )

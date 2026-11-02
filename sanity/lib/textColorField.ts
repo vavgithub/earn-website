@@ -160,7 +160,7 @@ export function textColorField({
     name,
     title,
     type: 'string',
-    description,
+    ...(description ? { description } : {}),
     options: {
       list: [...TEXT_COLOR_OPTIONS],
       layout: 'dropdown',

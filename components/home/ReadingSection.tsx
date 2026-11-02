@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import { parseSectionHeadingLevel, type SectionHeadingLevel } from "@/lib/cmsSectionHeadingLevel";
 import { LinkText, newTabProps } from "@/components/home/LinkText";
 import type { ReadingCard } from "@/components/home/readingData";
 import styles from "./ReadingSection.module.css";
@@ -14,6 +15,10 @@ export type ReadingSectionProps = {
   imageProportion?: string;
   linkKind?: "textLink" | "button";
   appearance?: CSSProperties;
+  eyebrowStyle?: CSSProperties;
+  headingStyle?: CSSProperties;
+  headingLevel?: SectionHeadingLevel;
+  moreStyle?: CSSProperties;
 };
 
 export function ReadingSection({
@@ -27,23 +32,28 @@ export function ReadingSection({
   imageProportion,
   linkKind,
   appearance,
+  eyebrowStyle,
+  headingStyle,
+  headingLevel = "h2",
+  moreStyle,
 }: ReadingSectionProps = {}) {
+  const HeadingTag = parseSectionHeadingLevel(headingLevel, "h2");
   return (
     <section className={styles.section} aria-labelledby="reading-heading" style={appearance}>
       <div className={styles.stage}>
         <header className={styles.header}>
-          {eyebrow ? <p className={styles.eyebrow}>{eyebrow}</p> : null}
+          {eyebrow ? <p className={styles.eyebrow} style={eyebrowStyle}>{eyebrow}</p> : null}
           {heading ? (
-            <h2 id="reading-heading" className={styles.heading}>
+            <HeadingTag id="reading-heading" className={styles.heading} style={headingStyle}>
               {heading}
-            </h2>
+            </HeadingTag>
           ) : null}
         </header>
 
         <div className={styles.content}>
           <div className={styles.grid}>
             {cards.map((card) => (
-              <article key={card.id} className={styles.card}>
+              <article key={card.id} className={styles.card} style={card.linkStyle}>
                 <div
                   className={`${styles.media} ${card.rounded ? styles.rounded : ""}`}
                   style={imageProportion ? { aspectRatio: imageProportion, height: "auto" } : undefined}
@@ -51,8 +61,8 @@ export function ReadingSection({
                   <img src={card.image} alt={card.imageAlt} />
                 </div>
                 <div className={styles.copy}>
-                  <p className={styles.kicker}>{card.kicker}</p>
-                  <h3 className={styles.title}>
+                  <p className={styles.kicker} style={card.kickerStyle}>{card.kicker}</p>
+                  <h3 className={styles.title} style={card.titleStyle}>
                     {card.titleLead}
                     {card.titleTail
                       ? card.titleTail.split('\n').map((line, index) => (
@@ -64,7 +74,7 @@ export function ReadingSection({
                   </h3>
                 </div>
                 <div className={styles.foot}>
-                  <p className={styles.body}>{card.body}</p>
+                  <p className={styles.body} style={card.bodyStyle}>{card.body}</p>
                   {card.action ? (
                     <a
                       className={linkKind === "textLink" ? styles.actionText : styles.action}
@@ -90,7 +100,7 @@ export function ReadingSection({
             ))}
           </div>
           {showMore && more ? (
-            <a className={styles.more} href={moreHref} {...newTabProps(moreOpen)}>
+            <a className={styles.more} href={moreHref} style={moreStyle} {...newTabProps(moreOpen)}>
               <LinkText>{more}</LinkText>
             </a>
           ) : null}

@@ -31,7 +31,7 @@ export async function fetchSanitySiteRouteChoices(client: SanityClient): Promise
     },
     "pages": *[_type == "page" && defined(slug.current)] | order(title asc) {
       "title": coalesce(title, slug.current),
-      "href": "/" + slug.current
+      "href": select(slug.current == "home" => "/", "/" + slug.current)
     }
   }`
   const data = await client.fetch<{

@@ -1,15 +1,25 @@
 import { defineField } from 'sanity'
 
-export const TEXT_SIZE_VALUES = ['lg', 'md', 'sm', 'xs'] as const
+export const TEXT_SIZE_VALUES = ['48', '40', '36', '32', '28', 'lg', 'md', 'sm', '14', 'xs'] as const
 
 export type TextSizeValue = (typeof TEXT_SIZE_VALUES)[number]
 
 export const TEXT_SIZE_OPTIONS = [
-  { title: 'Lg (24px)', value: 'lg' },
-  { title: 'Med (20px)', value: 'md' },
-  { title: 'Small (16px)', value: 'sm' },
-  { title: 'XS (12px)', value: 'xs' },
+  { title: '48px', value: '48' },
+  { title: '40px', value: '40' },
+  { title: '36px', value: '36' },
+  { title: '32px', value: '32' },
+  { title: '28px', value: '28' },
+  { title: '24px', value: 'lg' },
+  { title: '20px', value: 'md' },
+  { title: '16px', value: 'sm' },
+  { title: '14px', value: '14' },
+  { title: '12px', value: 'xs' },
 ] as const
+
+export function textSizeOptions(leading: readonly { title: string; value: string }[] = []) {
+  return [...leading, ...TEXT_SIZE_OPTIONS]
+}
 
 type TextSizeFieldHidden = boolean | ((context: { parent?: unknown; path?: unknown }) => boolean)
 

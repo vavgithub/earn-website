@@ -193,8 +193,8 @@ export function ArchitectureSection({
                         <h3 className={styles.title}>{item.title}</h3>
                         <p className={styles.kicker}>{item.kicker}</p>
                       </div>
-                      {item.body.map((paragraph) => (
-                        <p key={paragraph} className={styles.body}>
+                      {item.body.map((paragraph, index) => (
+                        <p key={`${index}-${paragraph}`} className={styles.body}>
                           {paragraph}
                         </p>
                       ))}

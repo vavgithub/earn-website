@@ -188,6 +188,10 @@ export default defineConfig({
         locations: presentationLocations,
         mainDocuments: defineDocuments([
           {
+            route: "/",
+            filter: `_type == "page" && (_id == "homepage" || slug.current == "home")`,
+          },
+          {
             route: "/resources",
             filter: `_type == "blogSettings" && _id == "blogSettings"`,
           },

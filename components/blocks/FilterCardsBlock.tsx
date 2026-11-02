@@ -1,21 +1,27 @@
 import { ProductsSection } from '@/components/home/ProductsSection'
 import type { Product } from '@/components/home/productsData'
-import { areaStyle, clean, colorOf, imageUrl, paintVars, paragraphs, sizeOf } from '@/components/blocks/homeBlockValue'
+import { areaStyle, clean, colorOf, imageUrl, paragraphs, sizeOf, textStyle, toneStyle } from '@/components/blocks/homeBlockValue'
 import type { FilterPaint } from '@/components/home/ProductsSection'
+import { parseSectionHeadingLevel } from '@/lib/cmsSectionHeadingLevel'
 import { sectionBackgroundStyle } from '@/lib/sectionBackground'
 
-type FilterDoc = { _key?: string; label?: string }
+type FilterDoc = { _key?: string; label?: string; labelColor?: string; labelSize?: string }
 type CardDoc = {
   _key?: string
   iconMode?: string
   icon?: unknown
   brand?: string
+  brandColor?: string
+  brandSize?: string
   title?: string
+  titleColor?: string
+  titleSize?: string
   body?: string
   linkLabel?: string
   linkUrl?: string
   linkKind?: string
   linkColor?: string
+  linkSize?: string
   openInNewTab?: boolean
   textColor?: string
   textSize?: string
@@ -52,7 +58,12 @@ export default function FilterCardsBlock({ block }: { block: Record<string, unkn
   const filters = (Array.isArray(block.filters) ? (block.filters as FilterDoc[]) : []).flatMap((filter) => {
     const label = clean(filter.label)
     if (!label) return []
-    return [{ id: filter._key || label, label }]
+    return [{
+      id: filter._key || label,
+      label,
+      color: colorOf(filter.labelColor),
+      size: sizeOf(filter.labelSize),
+    }]
   })
   const products: Product[] | undefined =
     docs.length > 0
@@ -81,14 +92,24 @@ export default function FilterCardsBlock({ block }: { block: Record<string, unkn
           if (shownUnder.length) product.filters = shownUnder
           const chips = names(card.chips)
           if (chips.length) product.chips = chips
-          const textColor = colorOf(card.textColor)
-          const textSize = sizeOf(card.textSize)
+          const textColor = colorOf(card.textColor) || colorOf(block.cardTextColor)
+          const textSize = sizeOf(card.textSize) || sizeOf(block.cardTextSize)
           const linkColor = colorOf(card.linkColor)
           const chipBackground = backgroundHex(card.chipBackground)
           const chipLabelColor = colorOf(card.chipLabelColor)
           if (textColor) product.textColor = textColor
           if (textSize) product.textSize = textSize
+          const brandColor = colorOf(card.brandColor)
+          const brandSize = sizeOf(card.brandSize)
+          const titleColor = colorOf(card.titleColor)
+          const titleSize = sizeOf(card.titleSize)
+          const linkSize = sizeOf(card.linkSize)
+          if (brandColor) product.brandColor = brandColor
+          if (brandSize) product.brandSize = brandSize
+          if (titleColor) product.titleColor = titleColor
+          if (titleSize) product.titleSize = titleSize
           if (linkColor) product.linkColor = linkColor
+          if (linkSize) product.linkSize = linkSize
           if (chipBackground) product.chipBackground = chipBackground
           if (chipLabelColor) product.chipLabelColor = chipLabelColor
           if (card.wide === true) product.feature = true
@@ -102,16 +123,18 @@ export default function FilterCardsBlock({ block }: { block: Record<string, unkn
     <ProductsSection
       eyebrow={clean(block.eyebrow)}
       heading={clean(block.heading)}
+      headingLevel={parseSectionHeadingLevel(block.headingLevel, 'h2')}
       lead={clean(block.lead)}
+      eyebrowStyle={toneStyle(block.eyebrowColor, block.eyebrowSize, '--eyebrow-color', '--eyebrow-size')}
+      headingStyle={toneStyle(block.headingColor, block.headingSize, '--heading-color', '--heading-size')}
+      leadStyle={toneStyle(block.leadColor, block.leadSize, '--lead-color', '--lead-size')}
+      menuStyle={textStyle(block.filterMenuColor, block.filterMenuSize)}
       showFilters={block.showFilters !== false}
       products={products}
       filters={filters}
       filterMenuLabel={clean(block.filterMenuLabel) || 'All'}
       {...(paint ? { filterPaint: paint } : {})}
-      appearance={paintVars(areaStyle(block), {
-        '--card-text': colorOf(block.cardTextColor),
-        '--card-text-size': sizeOf(block.cardTextSize),
-      })}
+      appearance={areaStyle(block, 'textColor', false)}
     />
   )
 }

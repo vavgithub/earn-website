@@ -31,28 +31,29 @@
   margin: 0;
   font-family: var(--font-inter);
   font-weight: 400;
-  font-size: var(--text-eyebrow-mobile);
+  font-size: var(--eyebrow-size, var(--text-eyebrow-mobile));
   letter-spacing: var(--tracking-eyebrow);
   text-transform: uppercase;
-  color: var(--color-earn-white);
+  color: var(--eyebrow-color, var(--color-earn-white));
 }
 
 .heading {
   margin: 0;
   font-family: var(--font-plex-sans);
   font-weight: 600;
-  font-size: var(--text-hero-mobile);
+  font-size: var(--heading-size, var(--text-hero-mobile));
   line-height: var(--text-ecosystem-mobile--line-height);
   white-space: pre-line;
+  color: var(--heading-color, inherit);
 }
 
 .lead {
   margin: 0;
   font-family: var(--font-inter);
   font-weight: 400;
-  font-size: var(--text-slide-body-compact);
+  font-size: var(--lead-size, var(--text-slide-body-compact));
   line-height: var(--text-slide-body-compact--line-height);
-  color: var(--color-earn-paper);
+  color: var(--lead-color, var(--color-earn-paper));
 }
 
 .pills {
@@ -187,13 +188,13 @@
 }
 
 .brand {
-  font-size: var(--text-card-link);
-  color: var(--card-text, var(--color-earn-gray-200));
+  font-size: var(--brand-size, var(--text-card-link));
+  color: var(--brand-color, var(--card-text, var(--color-earn-gray-200)));
 }
 
 .title {
-  font-size: var(--text-products-lead);
-  color: var(--card-text, var(--color-earn-cream));
+  font-size: var(--title-size, var(--text-products-lead));
+  color: var(--title-color, var(--card-text, var(--color-earn-cream)));
 }
 
 .body {
@@ -229,7 +230,7 @@
   border-radius: 1.25rem;
   color: var(--card-link, var(--color-earn-orange));
   font-family: var(--font-inter);
-  font-size: var(--text-card-link);
+  font-size: var(--link-size, var(--text-card-link));
   font-weight: 400;
   line-height: normal;
   text-decoration: none;
@@ -241,7 +242,7 @@
   align-self: flex-start;
   color: var(--card-link, var(--color-earn-orange));
   font-family: var(--font-inter);
-  font-size: var(--text-card-link);
+  font-size: var(--link-size, var(--text-card-link));
   font-weight: 400;
   line-height: normal;
   text-decoration: none;
@@ -347,11 +348,11 @@
   }
 
   .eyebrow {
-    font-size: var(--text-eyebrow);
+    font-size: var(--eyebrow-size, var(--text-eyebrow));
   }
 
   .heading {
-    font-size: var(--text-ecosystem);
+    font-size: var(--heading-size, var(--text-ecosystem));
     line-height: var(--text-ecosystem--line-height);
   }
 
@@ -379,7 +380,7 @@
 
 @media (min-width: 1440px) {
   .lead {
-    font-size: var(--text-products-lead);
+    font-size: var(--lead-size, var(--text-products-lead));
   }
 }
 

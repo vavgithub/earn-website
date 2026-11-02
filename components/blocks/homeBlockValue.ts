@@ -16,9 +16,15 @@ const SPACE: Record<string, string> = {
 }
 
 const TEXT_SIZE: Record<string, string> = {
+  '48': 'var(--text-ecosystem)',
+  '40': 'var(--text-hero)',
+  '36': 'var(--text-ecosystem-mobile)',
+  '32': 'var(--text-hero-mobile)',
+  '28': 'var(--text-title)',
   lg: '1.5rem',
   md: '1.25rem',
   sm: '1rem',
+  '14': 'var(--text-card-body)',
   xs: '0.75rem',
 }
 
@@ -52,6 +58,21 @@ export function textStyle(color: unknown, size: unknown): CSSProperties | undefi
   const fontSize = sizeOf(size)
   if (paint) style.color = paint
   if (fontSize) style.fontSize = fontSize
+  return Object.keys(style).length > 0 ? style : undefined
+}
+
+/** Sets CSS variables on one element. Screen-size rules read these first, then the design size. */
+export function toneStyle(
+  color: unknown,
+  size: unknown,
+  colorVar: string,
+  sizeVar: string,
+): CSSProperties | undefined {
+  const style: CSSProperties & Record<string, string> = {}
+  const paint = colorOf(color)
+  const fontSize = sizeOf(size)
+  if (paint) style[colorVar] = paint
+  if (fontSize) style[sizeVar] = fontSize
   return Object.keys(style).length > 0 ? style : undefined
 }
 

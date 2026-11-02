@@ -66,7 +66,7 @@ export default defineType({
     prepare({ title, slug }) {
       return {
         title: title || 'Untitled',
-        subtitle: slug ? `/${slug}` : 'Page',
+        subtitle: !slug ? 'Page' : slug === 'home' ? '/' : `/${slug}`,
       }
     },
   },

@@ -1,3 +1,5 @@
+import type { CSSProperties } from "react";
+
 export const PROOF_EYEBROW = "Proof";
 
 export const PROOF_HEADING_LEAD = "Proven across infrastructure, transactions,";
@@ -13,6 +15,9 @@ export type ProofItem = {
   action: string;
   href?: string;
   openInNewTab?: boolean;
+  titleStyle?: CSSProperties;
+  bodyStyle?: CSSProperties;
+  buttonStyle?: CSSProperties;
 };
 
 export const PROOF_ITEMS: ProofItem[] = [

@@ -1,7 +1,7 @@
 .hero {
   position: relative;
   background: var(--banner-background, var(--color-earn-ink));
-  color: var(--banner-text, var(--color-earn-paper));
+  color: var(--color-earn-paper);
   padding-bottom: var(--banner-pad-bottom, var(--spacing-hero-block));
 }
 
@@ -44,6 +44,7 @@
   font-weight: 600;
   font-size: var(--banner-heading-size, var(--text-hero-mobile));
   line-height: var(--text-hero-mobile--line-height);
+  color: var(--banner-text, var(--color-earn-paper));
 }
 
 .headingLine {
@@ -61,8 +62,9 @@
   margin: 0;
   font-family: var(--font-inter);
   font-weight: 400;
-  font-size: var(--text-hero-body-mobile);
+  font-size: var(--banner-body-size, var(--text-hero-body-mobile));
   line-height: var(--text-hero-body-mobile--line-height);
+  color: var(--banner-body-color, var(--color-earn-paper));
 }
 
 .body p {
@@ -72,7 +74,7 @@
 .action {
   align-self: flex-start;
   font-family: var(--font-plex-sans);
-  font-size: 1rem;
+  font-size: var(--banner-button-size, 1rem);
   font-weight: 500;
   line-height: 1.5;
   text-decoration: none;
@@ -164,7 +166,7 @@
   }
 
   .body {
-    font-size: var(--text-hero-body);
+    font-size: var(--banner-body-size, var(--text-hero-body));
     line-height: var(--text-hero-body--line-height);
   }
 }
