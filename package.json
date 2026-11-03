@@ -17,7 +17,8 @@
     "seed:site-navigation": "node scripts/seed-site-navigation.cjs",
     "seed:site-footer": "node scripts/seed-site-footer.cjs",
     "seed:homepage": "node scripts/seed-homepage.cjs",
-    "seed:resources": "node scripts/seed-resources.cjs"
+    "seed:resources": "node scripts/seed-resources.cjs",
+    "seed:resource-tabs": "node scripts/seed-resource-tabs.cjs"
   },
   "keywords": [],
   "author": "",

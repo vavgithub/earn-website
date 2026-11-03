@@ -81,7 +81,7 @@ export default async function ResourcesPage({
     typeof sp.category === 'string' && sp.category.trim() ? sp.category.trim() : null
   const tagSlug = typeof sp.tag === 'string' && sp.tag.trim() ? sp.tag.trim() : null
 
-  const { isDraft, sanityClient } = await getSanityForRequest()
+  const { sanityClient } = await getSanityForRequest()
 
   let bundle: {
     settings: any
@@ -92,7 +92,8 @@ export default async function ResourcesPage({
   let resourcesHub: ResourcesHubData | null = null
   let fetchError: unknown = null
 
-  const fetchOpts = isDraft ? { cache: 'no-store' as const } : { next: { revalidate: 60 } }
+  // Published edits must show on the next refresh. A 60s fetch cache kept old previews.
+  const fetchOpts = { cache: 'no-store' as const }
 
   try {
     const [blogBundle, hub] = await Promise.all([
@@ -130,10 +131,12 @@ export default async function ResourcesPage({
       ) : !hasPosts ? (
         <>
           <div className="min-h-screen bg-earn-work">
-            <section className="max-w-content mx-auto w-full px-5 md:px-10 lg:px-[100px] pt-10 md:pt-16 pb-3 md:pb-4">
-              <h1 className="m-0 font-plex-sans text-ecosystem-mobile font-semibold text-earn-paper md:text-ecosystem">
-                Resources
-              </h1>
+            <section className="bg-earn-med-slate">
+              <div className="max-w-content mx-auto w-full px-5 md:px-10 lg:px-[100px] pt-10 md:pt-16 pb-3 md:pb-4">
+                <h1 className="m-0 font-outfit text-resource-title font-medium text-earn-paper">
+                  Resources
+                </h1>
+              </div>
             </section>
             <p className="py-12 text-center font-inter text-earn-gray-200">
               No articles yet. Add blog posts in Sanity Studio.

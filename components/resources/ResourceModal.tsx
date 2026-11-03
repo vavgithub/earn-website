@@ -16,19 +16,19 @@ function ModalCloseButton() {
     <button
       type="button"
       data-close-modal=""
-      className="focus:outline-none opacity-80 hover:opacity-100 cursor-pointer"
+      className="focus:outline-none text-earn-gray-400 opacity-80 hover:opacity-100 cursor-pointer"
     >
       <svg width={20} height={20} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M15 5L5 15"
-          stroke="#99A1AF"
+          stroke="currentColor"
           strokeWidth="1.66667"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
         <path
           d="M5 5L15 15"
-          stroke="#99A1AF"
+          stroke="currentColor"
           strokeWidth="1.66667"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -40,11 +40,18 @@ function ModalCloseButton() {
 
 function ModalDocumentHeader() {
   return (
-    <div className="flex px-6 items-center justify-between">
+    <div className="flex items-center justify-between border-b border-earn-gray-800 px-6 py-4">
       <div className="flex items-center gap-3">
+        <span className="relative block h-11 w-10 shrink-0 overflow-hidden" aria-hidden="true">
+          <img
+            src="/assets/images/earn-logo.svg"
+            alt=""
+            className="absolute left-0 top-0 h-11 w-auto max-w-none"
+          />
+        </span>
         <div className="flex flex-col">
-          <h3 className="text-xl font-plex-sans text-earn-work">Document Preview</h3>
-          <p className="font-inter text-base text-[#6a7282]">Limited preview available</p>
+          <h3 className="text-lg font-medium font-plex-sans text-earn-white">Document Preview</h3>
+          <p className="font-inter text-sm text-earn-gray-400">Limited preview available</p>
         </div>
       </div>
       <ModalCloseButton />
@@ -60,21 +67,22 @@ function ModalTableOfContents({
   if (!entries?.length) return null
   return (
     <div className="px-4 sm:px-16">
-      <div className="border-t border-[#D1D5DC] py-[60px]">
-        <h3 className="font-plex-sans text-[20px] md:text-[26px] font-regular text-earn-work leading-[1.2]">
+      <div className="border-t border-earn-gray-400 py-[60px]">
+        <h3 className="m-0 font-outfit text-xl font-medium leading-7 text-earn-white">
           Contents
         </h3>
-        <ol className="font-inter text-sm text-[#292929] list-decimal list-inside flex flex-col gap-3 mt-6">
+        <div className="mt-6 flex flex-col gap-3">
           {entries.map((entry, i) => (
-            <li
+            <div
               key={`${entry.label}-${i}`}
-              className="grid grid-cols-[1fr_auto]"
+              className="grid grid-cols-[1.5rem_1fr_auto] items-start gap-2 border-b border-earn-gray-700 pb-3 font-inter text-sm leading-5 text-earn-gray-100"
             >
+              <span>{i + 1}.</span>
               <span>{entry.label}</span>
-              {entry.page ? <span className="text-right">{entry.page}</span> : null}
-            </li>
+              {entry.page ? <span className="text-right">{entry.page}</span> : <span />}
+            </div>
           ))}
-        </ol>
+        </div>
       </div>
     </div>
   )
@@ -85,23 +93,23 @@ function MethodologyFooter({ item }: { item: ResourceItemRecord }) {
   const formTargetId = `hubspot-form-methodology-${modalId}`
 
   return (
-    <div className="bg-brand-red">
+    <div className="bg-earn-work">
       <div className="py-[60px] px-4 sm:px-16">
         <div className="non-auth-only-content text-center">
-          <h3 className="font-plex-sans text-[20px] md:text-[26px] font-regular text-[#FFFFFF] leading-[1.2] mb-[10px]">
+          <h3 className="font-plex-sans text-[20px] md:text-[26px] font-regular text-earn-white leading-[1.2] mb-[10px]">
             {item.footerHeading || 'Continue Reading'}
           </h3>
           {item.footerIntro ? (
-            <p className="font-inter text-center text-base text-[#FFFFFF] font-normal mb-6">
+            <p className="font-inter text-center text-base text-earn-white font-normal mb-6">
               {item.footerIntro}
             </p>
           ) : null}
           {item.loginStepLabel ? (
-            <p className="text-white text-center font-inter text-[16px] font-semibold leading-[20px] pb-1 mb-4 opacity-60 border-b border-[#EEA08E] max-w-[200px] mx-auto">
+            <p className="text-earn-gray-400 text-center font-inter text-base font-semibold leading-[20px] pb-1 mb-4 border-b border-earn-gray-800 max-w-[200px] mx-auto">
               {item.loginStepLabel}
             </p>
           ) : null}
-          <p className="non-auth-text font-inter text-center text-base text-[#FFFFFF] font-semibold mb-6">
+          <p className="non-auth-text font-inter text-center text-base text-earn-white font-semibold mb-6">
             {item.loginPrompt ||
               'Create an account or log in to access the full methodology document.'}
           </p>
@@ -110,15 +118,15 @@ function MethodologyFooter({ item }: { item: ResourceItemRecord }) {
               href="#"
               data-id={modalId}
               target="_blank"
-              className="create-account flex items-center justify-center h-9 bg-earn-paper text-earn-work hover:bg-earn-gold hover:text-earn-paper transition-colors duration-200 px-6 py-1 rounded-full"
+              className="create-account flex items-center justify-center h-9 bg-earn-orange text-earn-button-ink px-6 py-1 rounded-full"
             >
-              Create an account
+              Create Account
             </a>
             <a
               href="#"
               data-id={modalId}
               target="_blank"
-              className="login flex items-center justify-center h-9 border border-earn-paper hover:border-earn-gold text-earn-paper px-6 py-1 rounded-full"
+              className="login flex items-center justify-center h-9 border-2 border-earn-paper text-earn-orange px-6 py-1 rounded-full"
             >
               Log In
             </a>
@@ -127,16 +135,16 @@ function MethodologyFooter({ item }: { item: ResourceItemRecord }) {
         <div className="auth-only-content hidden">
           <div className="methodology-auth-form-step flex flex-col lg:flex-row gap-8 lg:gap-10 lg:items-start">
             <div className="w-full lg:max-w-[380px] flex-shrink-0">
-              <h3 className="font-plex-sans text-[20px] md:text-[26px] font-regular text-[#FFFFFF] leading-[1.2] mb-6">
+              <h3 className="font-plex-sans text-[20px] md:text-[26px] font-regular text-earn-white leading-[1.2] mb-6">
                 {item.footerHeading || 'Continue Reading'}
               </h3>
               {item.footerIntro ? (
-                <p className="font-inter text-base text-[#FFFFFF] font-normal mb-4">
+                <p className="font-inter text-base text-earn-white font-normal mb-4">
                   {item.footerIntro}
                 </p>
               ) : null}
               {item.footerFormPrompt ? (
-                <p className="font-inter text-base text-[#FFFFFF] font-normal">
+                <p className="font-inter text-base text-earn-white font-normal">
                   {item.footerFormPrompt}
                 </p>
               ) : null}
@@ -166,17 +174,17 @@ function StandardFormFooter({ item }: { item: ResourceItemRecord }) {
         : ''
 
   return (
-    <div className="bg-brand-red py-[60px]">
+    <div className="bg-earn-work py-[60px]">
       <div className="px-4 sm:px-16 flex flex-col lg:flex-row gap-3 md:gap-10">
         <div className="w-full h-full md:max-w-[380px] flex-shrink-0">
-          <h3 className="font-plex-sans text-[20px] md:text-[26px] font-regular text-[#FFFFFF] leading-[1.2] mb-6">
+          <h3 className="font-plex-sans text-[20px] md:text-[26px] font-regular text-earn-white leading-[1.2] mb-6">
             {item.footerHeading || 'Continue Reading'}
           </h3>
           {item.footerIntro ? (
-            <p className="font-inter text-base text-[#FFFFFF] font-normal mb-4">{item.footerIntro}</p>
+            <p className="font-inter text-base text-earn-white font-normal mb-4">{item.footerIntro}</p>
           ) : null}
           {item.footerFormPrompt ? (
-            <p className="font-inter text-base text-[#FFFFFF] font-normal mb-4">{item.footerFormPrompt}</p>
+            <p className="font-inter text-base text-earn-white font-normal mb-4">{item.footerFormPrompt}</p>
           ) : null}
         </div>
         <div className={formWrapClass || undefined}>
@@ -190,11 +198,24 @@ function StandardFormFooter({ item }: { item: ResourceItemRecord }) {
 function modalHeroIntroOptions(item: ResourceItemRecord) {
   return parseNestedRichTextRow(item as Record<string, unknown>, 'modalHeroIntro', {
     linkColor: 'yellow',
+    textColor: 'lightGrey',
+    textSize: 'sm',
   })
 }
 
+/** Preview body is light gray. A color chosen in Sanity still wins. */
+function modalIntroTone(raw: string | null | undefined) {
+  const chosen = raw?.trim()
+  if (chosen) return { className: '', style: textColorStyle(chosen) }
+  return { className: 'text-earn-gray-100', style: undefined }
+}
+
 function modalSectionIntroOptions(section: Record<string, unknown>) {
-  return parseNestedRichTextRow(section, 'content', { linkColor: 'yellow' })
+  return parseNestedRichTextRow(section, 'content', {
+    linkColor: 'yellow',
+    textColor: 'lightGrey',
+    textSize: 'sm',
+  })
 }
 
 export function ResourceModal({ item }: { item: ResourceItemRecord }) {
@@ -213,7 +234,7 @@ export function ResourceModal({ item }: { item: ResourceItemRecord }) {
   return (
     <dialog
       id={modalId}
-      className="dialog-with-form fixed inset-0 m-auto rounded-lg pt-4 w-[90vw] max-h-[80vh] max-w-[960px] hide-scrollbar backdrop:bg-black/40"
+      className="dialog-with-form fixed inset-0 m-auto w-[90vw] max-h-[80vh] max-w-[960px] overflow-y-auto rounded-lg bg-earn-ink text-earn-white hide-scrollbar backdrop:bg-black/40"
     >
       <ModalDocumentHeader />
 
@@ -221,18 +242,18 @@ export function ResourceModal({ item }: { item: ResourceItemRecord }) {
         <>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-9 px-4 sm:px-16 pt-[60px] pb-8 lg:pb-[60px]">
             <div className="order-2 lg:order-1">
-              <h2 className="text-earn-work font-plex-sans text-[26px] font-medium leading-[32px]">
+              <h2 className="text-earn-white font-plex-sans text-[26px] font-medium leading-[32px]">
                 {item.modalHeroTitle}
               </h2>
               {item.modalHeroSubtitle ? (
-                <p className="text-earn-work font-inter text-[24px] font-bold leading-[28px] mt-2">
+                <p className="text-earn-white font-inter text-[24px] font-bold leading-[28px] mt-2">
                   {item.modalHeroSubtitle}
                 </p>
               ) : null}
               {item.modalHeroIntro?.length ? (
                 <div
-                  className="font-inter text-[20px] font-normal leading-[28px] mt-4"
-                  style={textColorStyle(modalHeroIntroOptions(item).textColor, 'darkSlate')}
+                  className={`font-inter text-[20px] font-normal leading-[28px] mt-4 ${modalIntroTone(item.modalHeroIntroTextColor).className}`}
+                  style={modalIntroTone(item.modalHeroIntroTextColor).style}
                 >
                   <ResourceModalPortableText
                     value={item.modalHeroIntro}
@@ -264,7 +285,7 @@ export function ResourceModal({ item }: { item: ResourceItemRecord }) {
               ) : null}
               {item.caseStudySecondaryBody ? (
                 <div>
-                  <p className="text-[#292929] font-inter text-base md:text-[20px] font-normal md:leading-[28px]">
+                  <p className="text-earn-gray-400 font-inter text-base md:text-[20px] font-normal md:leading-[28px]">
                     {item.caseStudySecondaryBody}
                   </p>
                 </div>
@@ -276,25 +297,21 @@ export function ResourceModal({ item }: { item: ResourceItemRecord }) {
         <>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-y-[60px] md:gap-9 px-4 sm:px-16 py-[60px]">
             <div className="order-2 lg:order-1">
-              <h2
-                className={`font-plex-sans text-[20px] md:text-[26px] text-earn-work leading-[1.2] mb-4 whitespace-pre-line${
-                  isGuides && item.modalHeroEyebrow ? ' font-medium' : ' font-regular'
-                }`}
-              >
+              <h2 className="m-0 mb-4 whitespace-pre-line font-outfit text-resource-title font-medium leading-8 text-earn-white">
                 {item.modalHeroTitle}
               </h2>
               {item.modalHeroEyebrow ? (
-                <p className="text-earn-work font-plex-sans text-[16px] font-medium leading-[20px]">
+                <p className="text-earn-white font-plex-sans text-[16px] font-medium leading-[20px]">
                   {item.modalHeroEyebrow}
                 </p>
               ) : null}
               {item.modalHeroSubtitle ? (
-                <p className="font-inter mt-2 text-[#292929]">{item.modalHeroSubtitle}</p>
+                <p className="font-inter mt-2 text-earn-gray-400">{item.modalHeroSubtitle}</p>
               ) : null}
               {item.modalHeroIntro?.length ? (
                 <div
-                  className="font-inter mt-6"
-                  style={textColorStyle(modalHeroIntroOptions(item).textColor, 'darkSlate')}
+                  className={`font-inter mt-6 ${modalIntroTone(item.modalHeroIntroTextColor).className}`}
+                  style={modalIntroTone(item.modalHeroIntroTextColor).style}
                 >
                   <ResourceModalPortableText
                     value={item.modalHeroIntro}
@@ -303,15 +320,15 @@ export function ResourceModal({ item }: { item: ResourceItemRecord }) {
                 </div>
               ) : null}
             </div>
-            <div className={`order-1 lg:order-2${heroImageWide ? ' overflow-hidden' : ''}`}>
+            <div className="order-1 lg:order-2">
               {heroImageUrl ? (
                 <img
                   src={heroImageUrl}
                   alt={item.modalHeroTitle}
                   className={
                     heroImageWide
-                      ? 'block w-[110%] -ml-[2%] object-cover'
-                      : 'w-full h-full object-cover'
+                      ? 'block h-auto w-full object-contain'
+                      : 'h-full w-full object-cover'
                   }
                 />
               ) : null}
@@ -320,9 +337,9 @@ export function ResourceModal({ item }: { item: ResourceItemRecord }) {
 
           {item.modalSections?.map((section, i) =>
             section.heading || section.content?.length ? (
-              <div key={i} className="px-4 sm:px-16 pb-[60px]">
+              <div key={i} className="px-4 pb-[60px] text-earn-gray-100 sm:px-16">
                 {section.heading ? (
-                  <h3 className="font-plex-sans text-[20px] md:text-[26px] font-regular text-earn-work leading-[1.2]">
+                  <h3 className="m-0 font-outfit text-2xl font-normal leading-7 text-earn-white">
                     {section.heading}
                   </h3>
                 ) : null}

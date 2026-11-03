@@ -1,23 +1,21 @@
+import { LinkText } from '@/components/home/LinkText'
 import { urlForImage } from '@/sanity/lib/image'
 import { normalizeResourceModalLayout, useMethodologyCardImage } from '@/lib/resourceModalLayout'
 import type { ResourceItemRecord } from '@/types/resources'
 
 type Props = {
   item: ResourceItemRecord
-  wideCard?: boolean
 }
 
-export function ResourceCard({ item, wideCard }: Props) {
+export function ResourceCard({ item }: Props) {
   const modalId = item.modalIdValue
   const imageUrl = item.cardImage?.asset ? urlForImage(item.cardImage)?.url() : null
   const layout = normalizeResourceModalLayout(item.modalLayout, item.hubspotFormKind)
   const isMethodologyLayout = useMethodologyCardImage(layout)
-
-  return (
-    <div
-      data-modal-hash={modalId}
-      className={`group flex flex-col sm:flex-row gap-6 lg:gap-9 pb-[60px] md:pb-[10px] cursor-pointer${wideCard ? ' lg:min-w-[580px]' : ''}`}
-    >
+  const cardClassName =
+    'group flex min-w-0 flex-col gap-6 border-b border-earn-slate pb-[60px] sm:flex-row lg:gap-9'
+  const cardContent = (
+    <>
       <div
         className={
           isMethodologyLayout
@@ -31,25 +29,55 @@ export function ResourceCard({ item, wideCard }: Props) {
             alt={item.cardImageAlt || item.cardTitle}
             className={
               isMethodologyLayout
-                ? 'block w-[110%] h-full object-cover sm:-ml-0.5'
-                : 'block w-[138px] h-[180px] object-cover'
+                ? 'block h-full w-full object-cover'
+                : 'block h-[180px] w-[138px] object-cover'
             }
           />
         ) : null}
       </div>
-      <div className="flex flex-col">
+      <div className="flex min-w-0 flex-col">
         <div className="flex flex-col gap-4 lg:gap-6 text-left">
-          <h3 className="group-hover:text-earn-gray-700 font-medium text-earn-work font-plex-sans text-base md:text-lg">
+          <h3
+            className={`font-outfit font-medium text-earn-white ${
+              isMethodologyLayout ? 'text-lg leading-6' : 'text-resource-title'
+            }`}
+          >
             {item.cardTitle}
           </h3>
-          <p className="group-hover:text-earn-gray-700 text-sm md:text-[16px] font-normal font-inter">
+          <p className="text-earn-gray-400 text-sm md:text-base font-normal font-inter">
             {item.cardExcerpt}
           </p>
         </div>
-        <div className="text-sm md:text-base group-hover:text-earn-work text-brand-red hover:underline inline-flex items-center pt-4 lg:pt-6 justify-start">
-          {item.cardCtaLabel || 'Preview >'}
+        <div className="mt-4 inline-flex h-9 items-center justify-center self-start rounded-full border border-earn-gray-400 px-5 text-base text-earn-orange lg:mt-6">
+          {isMethodologyLayout ? (
+            <LinkText>{item.cardCtaLabel || 'Preview'}</LinkText>
+          ) : (
+            item.cardCtaLabel || 'Preview >'
+          )}
         </div>
       </div>
+    </>
+  )
+
+  if (item.externalUrl) {
+    return (
+      <a
+        href={item.externalUrl}
+        target="_blank"
+        rel="noreferrer"
+        className={cardClassName}
+      >
+        {cardContent}
+      </a>
+    )
+  }
+
+  return (
+    <div
+      data-modal-hash={modalId}
+      className={`${cardClassName} cursor-pointer`}
+    >
+      {cardContent}
     </div>
   )
 }

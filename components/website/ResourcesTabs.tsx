@@ -153,9 +153,6 @@ export function ResourcesTabs() {
       tabToHash = readTabToHashMap(hashToTab)
       const tabs = tabIdsForPage()
 
-      const lastTabId = tabs[tabs.length - 1]
-      const penultimateTabId = tabs.length >= 2 ? tabs[tabs.length - 2] : null
-
       tabs.forEach((id) => {
         const tab = document.getElementById(`${id}-tab`)
         const span = tab?.querySelector('span') as HTMLElement | null
@@ -165,30 +162,22 @@ export function ResourcesTabs() {
 
         const chrome = getTabChrome(tab)
         const base =
-          'tab-button flex shrink-0 items-center gap-1 h-14 md:h-20 bg-earn-card-line text-[14px] md:text-2xl font-inter font-normal cursor-pointer border-earn-work'
-        let borderClass = isActive ? chrome.activeBorders : 'border-b'
-
-        // When the last tab is selected, the tab before it needs a right edge (legacy case-studies/guides rule).
-        if (!isActive && activeId === lastTabId && penultimateTabId && id === penultimateTabId) {
-          borderClass = 'border-b border-r'
+          'tab-button flex shrink-0 items-center gap-1 h-14 md:h-20 text-base md:text-xl font-inter font-medium cursor-pointer'
+        const surface = isActive ? 'bg-earn-work' : 'bg-transparent'
+        tab.className = `${base} ${surface} ${chrome.padding}`
+        if (span) {
+          span.style.color = ''
+          span.className = isActive
+            ? 'whitespace-nowrap text-earn-white'
+            : 'whitespace-nowrap text-earn-orange hover:text-earn-gold'
         }
-
-        tab.className = `${base} ${chrome.padding} ${borderClass}`
-        if (span) span.style.color = isActive ? 'var(--color-earn-work)' : 'var(--color-earn-gray-600)'
         if (content) content.classList.toggle('hidden', !isActive)
       })
 
-      const activeTabEl = document.getElementById(`${activeId}-tab`)
-      const growActive = getTabChrome(activeTabEl).growWhenActive
-      const growDefault = growDiv.dataset.growDefault ?? 'border-b'
-      growDiv.className = `grow ${isActiveLastTab(activeId, tabs) ? growActive : growDefault} border-earn-work bg-earn-card-line`
+      growDiv.className = 'grow bg-transparent'
 
       const section = resourcesTabsRootEl()
       if (section) section.setAttribute('data-active', activeId)
-    }
-
-    function isActiveLastTab(activeId: TabId, tabs: TabId[]) {
-      return activeId === tabs[tabs.length - 1]
     }
 
     const initialTabFromHash = (): TabId => {

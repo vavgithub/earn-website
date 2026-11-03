@@ -16,16 +16,21 @@ export function ResourcesMergedPage({ resourcesHub, ...blogProps }: Props) {
 
   return (
     <div className="min-h-screen bg-earn-work text-earn-paper">
-      <section className="max-w-content mx-auto w-full px-5 md:px-10 lg:px-[100px] pt-10 md:pt-16 pb-3 md:pb-4">
-        <h1 className="m-0 font-plex-sans text-ecosystem-mobile font-semibold text-earn-paper md:text-ecosystem">
-          Resources
-        </h1>
-      </section>
+      <div className="bg-earn-med-slate">
+        <section className="max-w-content mx-auto w-full px-5 md:px-10 lg:px-4 pt-30 pb-15">
+          <h1 className="m-0 font-outfit text-resource-title font-medium text-earn-paper">
+            Resources
+          </h1>
+        </section>
 
-      <section className="bg-earn-work w-full">
-        <div className="max-w-content mx-auto w-full px-5 pt-10 pb-0 md:px-10 md:pt-14 lg:px-[100px] lg:pt-16">
-          <BlogsIndexFeatured {...blogProps} />
-        </div>
+        <section className="w-full">
+          <div className="max-w-content mx-auto w-full px-5 pb-0 md:px-10 lg:px-4">
+            <BlogsIndexFeatured {...blogProps} />
+          </div>
+        </section>
+      </div>
+
+      <section className="bg-earn-med-slate w-full pt-15">
         {useCmsTabs ? (
           <ResourcesCmsTabs
             tabs={resourcesHub!.tabs}
@@ -33,7 +38,7 @@ export function ResourcesMergedPage({ resourcesHub, ...blogProps }: Props) {
             newsInsightsPanel={<BlogsIndexTabPanel {...blogProps} />}
           />
         ) : (
-          <div className="max-w-content mx-auto w-full px-5 md:px-10 lg:px-[100px]">
+          <div className="max-w-content mx-auto w-full px-5 md:px-10 lg:px-4">
             <BlogsIndexTabPanel {...blogProps} />
           </div>
         )}

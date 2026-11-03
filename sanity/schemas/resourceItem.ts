@@ -164,6 +164,15 @@ export default defineType({
       initialValue: 'Preview this methodology >',
     }),
     defineField({
+      name: 'externalUrl',
+      title: 'External documentation URL',
+      type: 'url',
+      fieldset: 'card',
+      description: 'Optional. When set, this card opens the documentation URL instead of a preview modal.',
+      validation: (Rule) =>
+        Rule.uri({ scheme: ['http', 'https'], allowRelative: false }),
+    }),
+    defineField({
       name: 'modalHeroTitle',
       title: 'Modal title',
       type: 'string',
@@ -317,7 +326,7 @@ export default defineType({
       type: 'string',
       fieldset: 'hubspot',
       description:
-        'Required. Governance & Case study use their own form only (no routing key/title on the card). Methodology & Guide share one form per type and need routing key + title below.',
+        'Required for modals. Governance & Case study use their own form only (no routing key/title on the card). Methodology & Guide share one form per type and need routing key + title below. Set to "none" for external links.',
       options: {
         list: [
           { title: 'Governance', value: 'governance' },

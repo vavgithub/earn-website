@@ -11,6 +11,7 @@ const resourceItemProjection = `
   cardImage,
   cardImageAlt,
   cardCtaLabel,
+  externalUrl,
   modalLayout,
   modalHeroTitle,
   modalHeroSubtitle,

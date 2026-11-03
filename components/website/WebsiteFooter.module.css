@@ -1,7 +1,7 @@
 .inner {
   width: 100%;
-  max-width: var(--width-page);
   margin-inline: auto;
+  padding-inline: var(--spacing-hero-inline);
 }
 
 .row {
@@ -47,6 +47,10 @@
 }
 
 @media (min-width: 768px) {
+  .inner {
+    padding-inline: var(--spacing-hero-pad);
+  }
+
   .columns {
     display: flex;
     gap: 3.75rem;
@@ -81,6 +85,13 @@
     grid-template-columns: 11.4375rem 15rem 12rem 5.4375rem;
     column-gap: 5rem;
     margin-top: 1rem;
+  }
+}
+
+@media (min-width: 1440px) {
+  .inner {
+    max-width: var(--width-page);
+    padding-inline: 0;
   }
 }
 

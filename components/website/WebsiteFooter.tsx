@@ -108,7 +108,7 @@ export function WebsiteFooter({ footer, presentation }: WebsiteFooterProps) {
 
   return (
     <footer className="bg-earn-ink-deep font-plex-mono pt-15 pb-5">
-      <div className={`${styles.inner} px-5 md:px-10 xl:px-0`}>
+      <div className={styles.inner}>
         <div className={styles.row}>
           <div className={styles.brand}>
             <div className={styles.mark}>

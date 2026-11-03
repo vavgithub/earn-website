@@ -30,7 +30,8 @@
   --color-earn-slate: #2c3242;        /* product card surface */
   --color-earn-pill: #f6cea7;         /* selected product filter */
   --color-earn-pill-ink: #141924;     /* selected product filter text */
-  --color-earn-work: #141924;         /* work with earn section */
+  --color-earn-work: #141924;         /* work with earn section, resources cards */
+  --color-earn-med-slate: #171e30;    /* resources featured band */
   --color-earn-button-ink: #1f2942;   /* filled gold button label */
   --color-earn-chip: #808080;         /* product role chip */
   --color-earn-chip-ink: #171e30;     /* product role chip text */
@@ -80,6 +81,10 @@
   --radius-hero: 0.25rem;             /* 4px */
   --blur-hero: 7.5px;
   --blur-card: 8px;
+  --text-resource-title: 1.625rem;        /* 26px — resources titles */
+  --text-resource-title--line-height: 2rem;
+  --text-article-title: 1.375rem;         /* 22px — resources article card title */
+  --text-article-title--line-height: 1.75rem;
   --text-ecosystem: 3rem;                 /* 48px — section heading, 1024 and up */
   --text-ecosystem--line-height: 1.2;
   --text-ecosystem-mobile: 2.25rem;       /* 36px — section heading, below 1024 */
@@ -100,6 +105,10 @@
   --text-card-link: 0.75rem;              /* 12px */
   --spacing-ecosystem-pad: 11.25rem;      /* 180px */
   --spacing-ecosystem-gap: 7.5rem;        /* 120px */
+  --spacing-ecosystem-slide-sm: 6.25rem;  /* 100px — slide top and bottom, 768 to 1024 */
+  --spacing-ecosystem-slide-md: 7.5rem;   /* 120px — slide top and bottom, 1024 to 1280 */
+  --spacing-ecosystem-slide-lg: 10rem;    /* 160px — slide top and bottom, 1280 to 1920 */
+  --spacing-ecosystem-slide-xl: 12.5rem;  /* 200px — slide top and bottom, 1920 and up */
   --width-ecosystem-copy: 33.75rem;       /* 540px */
   --width-ecosystem-header: 53.4375rem;   /* 855px */
   --width-ecosystem-card: 26.25rem;       /* 420px — ecosystem cards below 1920 */

@@ -5,6 +5,7 @@ import {
   buildResourcesIndexHref,
   resourcesArticlePath,
 } from '@/lib/resourcePaths'
+import { LinkText } from '@/components/home/LinkText'
 import { urlForImage } from '@/sanity/lib/image'
 
 /** When no Sanity image is available (post + site default). */
@@ -61,19 +62,8 @@ export type BlogIndexProps = {
   tagSlug: string | null
 }
 
-function ChevronRight() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="shrink-0" aria-hidden>
-      <path
-        d="M9 6l6 6-6 6"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  )
-}
+const resourceCardButtonClass =
+  'inline-flex h-9 items-center justify-center self-start rounded-full border border-earn-gray-400 px-5 font-inter text-base font-normal text-earn-orange no-underline hover:border-earn-gold hover:text-earn-gold'
 
 /** Featured block above main tabs on /resources. */
 export function BlogsIndexFeatured({
@@ -85,14 +75,14 @@ export function BlogsIndexFeatured({
   if (!featured || !clean(featured.slug)) return null
 
   return (
-    <article className="mb-12 md:mb-16 lg:mb-20">
+    <article>
       <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:gap-[60px]">
-        <div className="flex-1 min-w-0 max-w-[640px]">
-          <p className="m-0 mb-2 font-inter text-eyebrow-mobile font-normal uppercase tracking-eyebrow text-earn-white">
+        <div className="flex-1 min-w-0">
+          <p className="m-0 mb-2 font-inter text-xl font-semibold leading-6 text-earn-chip">
             Featured Resource
           </p>
           <h2
-            className={`m-0 font-plex-sans text-hero-mobile font-semibold text-earn-paper ${
+            className={`m-0 font-outfit text-resource-title font-medium text-earn-paper ${
               featured.excerpt ? 'mb-12' : 'mb-6'
             }`}
           >
@@ -105,12 +95,12 @@ export function BlogsIndexFeatured({
           )}
           <Link
             href={resourcesArticlePath(clean(featured.slug))}
-            className="inline-flex h-7 items-center rounded-full border border-earn-gray-400 px-4 font-inter text-card-link font-normal text-earn-orange no-underline hover:border-earn-gold hover:text-earn-gold"
+            className={resourceCardButtonClass}
           >
-            Read Now
+            <LinkText>Read more</LinkText>
           </Link>
         </div>
-        <div className="flex-1 min-w-0 w-full lg:max-w-[592px]">
+        <div className="flex-1 min-w-0 w-full">
           <div className="relative w-full aspect-[592/400] min-h-[220px] rounded-lg overflow-hidden bg-earn-slate">
             <Image
               src={resolveListingImageUrl(featured.thumbnail, defaultListingImage)}
@@ -148,8 +138,8 @@ export function BlogsIndexTabPanel({
   })
 
   const categoryClass = (active: boolean) =>
-    `font-plex-sans text-xl font-normal leading-5 no-underline transition-colors hover:text-earn-gold ${
-      active ? 'text-earn-gold' : 'text-earn-gray-200'
+    `font-inter text-xl font-normal leading-5 no-underline transition-colors ${
+      active ? 'text-earn-white' : 'text-earn-orange hover:text-earn-gold'
     }`
 
   const tagClass = (active: boolean) =>
@@ -160,7 +150,7 @@ export function BlogsIndexTabPanel({
     }`
 
   return (
-    <div className="pt-6 md:pt-8">
+    <div className="pt-12">
       <nav
         className={`flex flex-wrap gap-x-10 gap-y-3 md:gap-x-12 ${tags.length > 0 ? 'mb-11' : 'mb-6'}`}
         aria-label="Blog categories"
@@ -219,7 +209,7 @@ export function BlogsIndexTabPanel({
       {filtered.length === 0 ? (
         <p className="py-16 text-center font-inter text-earn-gray-200">No articles match these filters.</p>
       ) : (
-        <ul className="m-0 grid list-none grid-cols-1 items-start justify-items-start gap-y-10 gap-x-0 p-0 md:grid-cols-2 md:gap-x-[60px] md:gap-y-20 xl:grid-cols-3 xl:gap-y-[140px]">
+        <ul className="m-0 grid list-none grid-cols-1 items-start gap-y-10 gap-x-0 p-0 md:grid-cols-2 md:gap-x-[60px] md:gap-y-20 xl:grid-cols-3 xl:gap-y-[140px]">
           {filtered.map((post) => {
             const slug = clean(post.slug)
             const title = clean(post.title)
@@ -227,12 +217,12 @@ export function BlogsIndexTabPanel({
             const catTitle = clean(post.category?.title)
             const src = resolveListingImageUrl(post.thumbnail, defaultListingImage)
             return (
-              <li key={post._id} className="min-w-0 w-full max-w-[362px]">
+              <li key={post._id} className="min-w-0 w-full">
                 <Link
                   href={resourcesArticlePath(slug)}
-                  className="group block w-full max-w-[362px] no-underline text-inherit"
+                  className="group block w-full no-underline text-inherit"
                 >
-                  <article className="flex w-full max-w-[362px] flex-col gap-9">
+                  <article className="flex w-full flex-col gap-9">
                     <div className="relative aspect-[362/241] w-full overflow-hidden rounded-lg bg-earn-slate">
                       <Image
                         src={src}
@@ -242,27 +232,26 @@ export function BlogsIndexTabPanel({
                         sizes="(max-width: 768px) min(100vw, 362px), (max-width: 1280px) 50vw, 362px"
                       />
                     </div>
-                    <div className="flex flex-col">
-                      {catTitle ? (
-                        <p className="m-0 mb-2 font-plex-mono text-eyebrow font-normal uppercase text-earn-white">
-                          {catTitle}
-                        </p>
-                      ) : null}
-                      <h3
-                        className={`m-0 font-inter text-products-lead font-normal text-earn-white transition-colors overflow-hidden [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] group-hover:text-earn-gold ${
-                          excerpt ? 'mb-6' : 'mb-5'
-                        }`}
-                      >
-                        {title}
-                      </h3>
-                      {excerpt ? (
-                        <p className="m-0 mb-5 font-inter text-slide-body-compact font-normal text-earn-paper overflow-hidden [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:7]">
-                          {excerpt}
-                        </p>
-                      ) : null}
-                      <span className="inline-flex items-center gap-1 font-inter text-card-link font-normal text-earn-orange group-hover:text-earn-gold">
-                        Read more
-                        <ChevronRight />
+                    <div className="flex flex-col gap-5">
+                      <div className="flex flex-col gap-6">
+                        <div className="flex flex-col gap-2.5">
+                          {catTitle ? (
+                            <p className="m-0 font-inter text-sm font-bold leading-4 text-earn-gray-600">
+                              {catTitle}
+                            </p>
+                          ) : null}
+                          <h3 className="m-0 font-outfit text-article-title font-medium text-earn-gray-100 transition-colors overflow-hidden [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2] group-hover:text-earn-gold">
+                            {title}
+                          </h3>
+                        </div>
+                        {excerpt ? (
+                          <p className="m-0 font-inter text-slide-body-compact font-normal text-earn-gray-100 overflow-hidden [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:7]">
+                            {excerpt}
+                          </p>
+                        ) : null}
+                      </div>
+                      <span className={`${resourceCardButtonClass} group-hover:border-earn-gold group-hover:text-earn-gold`}>
+                        <LinkText>Read more</LinkText>
                       </span>
                     </div>
                   </article>
@@ -283,13 +272,13 @@ export function BlogsIndexTabPanel({
 export function BlogsIndex(props: BlogIndexProps) {
   return (
     <div className="min-h-screen bg-earn-work text-earn-paper">
-      <section className="max-w-content mx-auto w-full px-5 md:px-10 lg:px-[100px] pt-10 md:pt-16 pb-3 md:pb-4">
-        <h1 className="m-0 font-plex-sans text-ecosystem-mobile font-semibold text-earn-paper md:text-ecosystem">
+      <section className="max-w-content mx-auto w-full px-5 md:px-10 lg:px-4 pt-10 md:pt-16 pb-3 md:pb-4">
+        <h1 className="m-0 font-outfit text-resource-title font-medium text-earn-paper">
           Resources
         </h1>
       </section>
       <section className="bg-earn-work w-full">
-        <div className="max-w-content mx-auto w-full px-5 pt-10 pb-0 md:px-10 md:pt-14 lg:px-[100px] lg:pt-16">
+        <div className="max-w-content mx-auto w-full px-5 pt-10 pb-0 md:px-10 md:pt-14 lg:px-4 lg:pt-16">
           <BlogsIndexFeatured {...props} />
           <BlogsIndexTabPanel {...props} />
         </div>

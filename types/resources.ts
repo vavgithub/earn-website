@@ -30,6 +30,7 @@ export type ResourceItemRecord = {
   cardImage?: SanityImageRef | null
   cardImageAlt?: string | null
   cardCtaLabel?: string | null
+  externalUrl?: string | null
   modalLayout: ResourceModalLayoutValue
   modalHeroTitle: string
   modalHeroSubtitle?: string | null

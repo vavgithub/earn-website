@@ -3,7 +3,7 @@ import styles from "./LinkText.module.css";
 
 /** Drops a typed arrow so the icon is the only arrow. */
 export function plainLinkLabel(value: string) {
-  return value.replace(/\s*(?:→|->|➜)\s*$/u, "").trim();
+  return value.replace(/\s*(?:→|->|➜|>)\s*$/u, "").trim();
 }
 
 export function newTabProps(open?: boolean) {
