@@ -209,7 +209,7 @@ export function BlogsIndexTabPanel({
       {filtered.length === 0 ? (
         <p className="py-16 text-center font-inter text-earn-gray-200">No articles match these filters.</p>
       ) : (
-        <ul className="m-0 grid list-none grid-cols-1 items-start gap-y-10 gap-x-0 p-0 md:grid-cols-2 md:gap-x-[60px] md:gap-y-20 xl:grid-cols-3 xl:gap-y-[140px]">
+        <ul className="m-0 grid list-none grid-cols-1 items-start gap-y-25 gap-x-0 p-0 md:grid-cols-2 md:gap-x-[60px] md:gap-y-20 xl:grid-cols-3 xl:gap-y-[140px]">
           {filtered.map((post) => {
             const slug = clean(post.slug)
             const title = clean(post.title)

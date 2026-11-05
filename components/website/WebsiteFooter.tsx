@@ -115,34 +115,36 @@ export function WebsiteFooter({ footer, presentation }: WebsiteFooterProps) {
               <Link href="/">
                 <img src="/assets/images/earn-logo.svg" alt="Earn" className="block h-9 w-auto" />
               </Link>
-              {footer.socialLinks.length ? (
-                <div className={styles.social} {...presentationProps(['socialLinks'])}>
-                  {footer.socialLinks.map((social, i) => (
-                    <a
-                      key={social._key ?? i}
-                      href={social.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:opacity-80 transition-opacity"
-                      {...presentationProps(['socialLinks', seg(social._key, i)])}
-                    >
-                      <img
-                        src={SOCIAL_ICONS[social.platform].src}
-                        alt={SOCIAL_ICONS[social.platform].alt}
-                        className="block size-6"
-                      />
-                    </a>
-                  ))}
-                </div>
-              ) : null}
-              {footer.phone ? (
-                <p
-                  className={`${styles.phone} font-inter text-2xs leading-4 whitespace-nowrap text-earn-gray-600`}
-                  {...presentationProps(['phone'])}
-                >
-                  {footer.phone}
-                </p>
-              ) : null}
+              <div className={styles.contact}>
+                {footer.socialLinks.length ? (
+                  <div className={styles.social} {...presentationProps(['socialLinks'])}>
+                    {footer.socialLinks.map((social, i) => (
+                      <a
+                        key={social._key ?? i}
+                        href={social.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:opacity-80 transition-opacity"
+                        {...presentationProps(['socialLinks', seg(social._key, i)])}
+                      >
+                        <img
+                          src={SOCIAL_ICONS[social.platform].src}
+                          alt={SOCIAL_ICONS[social.platform].alt}
+                          className="block size-6"
+                        />
+                      </a>
+                    ))}
+                  </div>
+                ) : null}
+                {footer.phone ? (
+                  <p
+                    className={`${styles.phone} font-inter text-2xs leading-4 whitespace-nowrap text-earn-gray-600`}
+                    {...presentationProps(['phone'])}
+                  >
+                    {footer.phone}
+                  </p>
+                ) : null}
+              </div>
             </div>
           </div>
 

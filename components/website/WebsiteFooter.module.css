@@ -25,6 +25,13 @@
   max-width: 100%;
 }
 
+.contact {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 100%;
+}
+
 .social {
   display: flex;
   align-self: flex-end;
@@ -74,6 +81,71 @@
   }
 }
 
+@media (min-width: 768px) and (max-width: 1280px) {
+  .columns {
+    flex: 1;
+    justify-content: space-between;
+    gap: 3.75rem;
+  }
+}
+
+@media (min-width: 900px) and (max-width: 1024px) {
+  .columns > * {
+    flex-shrink: 0;
+  }
+
+  .columns > :nth-child(n + 3) {
+    margin-inline-start: 2rem;
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+  .columns {
+    flex: 1;
+    justify-content: space-between;
+    width: auto;
+    gap: 2.5rem;
+  }
+
+  .columns > * {
+    flex-shrink: 0;
+    margin-inline-start: 0;
+  }
+}
+
+@media (max-width: 1024px) {
+  .row {
+    flex-direction: column;
+  }
+
+  .brand,
+  .mark {
+    width: 100%;
+  }
+
+  .mark {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  .contact {
+    width: auto;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.125rem;
+  }
+
+  .social,
+  .phone {
+    margin-top: 0;
+  }
+
+  .phone {
+    order: -1;
+  }
+}
+
 @media (min-width: 1280px) {
   .brand {
     width: 12.5rem;
@@ -81,7 +153,9 @@
 
   .columns {
     display: grid;
+    flex: none;
     width: max-content;
+    justify-content: start;
     grid-template-columns: 11.4375rem 15rem 12rem 5.4375rem;
     column-gap: 5rem;
     margin-top: 1rem;

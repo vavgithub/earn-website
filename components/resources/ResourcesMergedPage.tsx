@@ -17,7 +17,7 @@ export function ResourcesMergedPage({ resourcesHub, ...blogProps }: Props) {
   return (
     <div className="min-h-screen bg-earn-work text-earn-paper">
       <div className="bg-earn-med-slate">
-        <section className="max-w-content mx-auto w-full px-5 md:px-10 lg:px-4 pt-30 pb-15">
+        <section className="max-w-content mx-auto w-full px-5 md:px-10 lg:px-4 pt-15 pb-15 md:pt-25 xxl:pt-30">
           <h1 className="m-0 font-outfit text-resource-title font-medium text-earn-paper">
             Resources
           </h1>
@@ -30,7 +30,7 @@ export function ResourcesMergedPage({ resourcesHub, ...blogProps }: Props) {
         </section>
       </div>
 
-      <section className="bg-earn-med-slate w-full pt-15">
+      <section className="bg-earn-med-slate w-full pt-25 xxl:pt-30">
         {useCmsTabs ? (
           <ResourcesCmsTabs
             tabs={resourcesHub!.tabs}

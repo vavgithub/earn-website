@@ -246,6 +246,14 @@
 @media (min-width: 768px) {
   .topo {
     display: block;
+    top: 0;
+    right: 0;
+    bottom: auto;
+    left: 0;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1440 / 2383;
+    object-fit: fill;
   }
 
   .topo,
@@ -256,8 +264,8 @@
     mask-repeat: no-repeat;
     -webkit-mask-position: top center;
     mask-position: top center;
-    -webkit-mask-size: cover;
-    mask-size: cover;
+    -webkit-mask-size: 100% auto;
+    mask-size: 100% auto;
   }
 
   .section {
@@ -444,6 +452,14 @@
   }
 
   .topo {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+    object-fit: cover;
     -webkit-mask-image:
       linear-gradient(to bottom, #000 0%, #000 calc(100% - 14rem), transparent 100%),
       url("/assets/images/ecosystem/wave-mask.svg");
