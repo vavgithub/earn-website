@@ -1,0 +1,24 @@
+.shell {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: var(--spacing-hero-inline);
+}
+
+@media (min-width: 768px) {
+  .shell {
+    padding-inline: var(--spacing-hero-pad);
+  }
+}
+
+@media (min-width: 1440px) {
+  .shell {
+    max-width: var(--width-page);
+    padding-inline: 0;
+  }
+}
+
+@media (min-width: 1920px) {
+  .shell {
+    max-width: var(--max-width-page);
+  }
+}

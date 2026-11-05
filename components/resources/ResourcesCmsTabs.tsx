@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { ResourceCard } from "@/components/resources/ResourceCard";
 import { ResourceModal } from "@/components/resources/ResourceModal";
 import type { ResourceItemRecord, ResourceTabRecord } from "@/types/resources";
+import styles from "@/components/resources/ResourcesShell.module.css";
 
 type TabChrome = {
   padding: string;
@@ -72,10 +73,10 @@ export function ResourcesCmsTabs({
   return (
     <section>
       <div>
-      <div className="max-w-content mx-auto md:px-10 lg:px-4">
+      <div className={styles.shell}>
         <div
           id="resources-tabs"
-          className="max-w-content flex min-w-0 flex-nowrap overflow-x-auto overflow-y-hidden scroll-mt-[calc(var(--navbar-height)+16px)] px-6 md:px-0 hide-scrollbar lg:overflow-visible touch-pan-x"
+          className="flex min-w-0 flex-nowrap overflow-x-auto overflow-y-hidden scroll-mt-[calc(var(--navbar-height)+16px)] hide-scrollbar lg:overflow-visible touch-pan-x"
           data-active={defaultActive}
           data-tab-hashes={JSON.stringify({
             news: hasNews ? "news-insights" : undefined,
@@ -121,11 +122,11 @@ export function ResourcesCmsTabs({
       </div>
 
       <div className="bg-earn-work">
-      <div className="max-w-content mx-auto md:px-10 lg:px-4">
+      <div className={styles.shell}>
         {hasNews ? (
           <div
             id="news-insights-content"
-            className="tab-content px-6 md:px-0 lg:px-4 md:pb-20"
+            className="tab-content md:pb-20"
           >
             {newsInsightsPanel}
           </div>
@@ -143,7 +144,7 @@ export function ResourcesCmsTabs({
             <div
               key={tab._id}
               id={`${tab.tabKey}-content`}
-              className={`tab-content${hidden ? " hidden" : ""} grid gap-y-10 pt-12 px-6 md:px-0 lg:px-4 md:pb-20 ${
+              className={`tab-content${hidden ? " hidden" : ""} grid gap-y-10 pt-12 md:pb-20 ${
                 isSingleWide
                   ? "grid-cols-1"
                   : "grid-cols-1 lg:grid-cols-2 md:gap-x-[60px] md:gap-y-20"

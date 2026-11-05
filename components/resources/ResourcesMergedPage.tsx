@@ -4,6 +4,7 @@ import {
   type BlogIndexProps,
 } from '@/components/blogs/BlogsIndex'
 import { ResourcesCmsTabs } from '@/components/resources/ResourcesCmsTabs'
+import styles from '@/components/resources/ResourcesShell.module.css'
 import type { ResourcesHubData } from '@/types/resources'
 
 type Props = BlogIndexProps & {
@@ -17,14 +18,14 @@ export function ResourcesMergedPage({ resourcesHub, ...blogProps }: Props) {
   return (
     <div className="min-h-screen bg-earn-work text-earn-paper">
       <div className="bg-earn-med-slate">
-        <section className="max-w-content mx-auto w-full px-5 md:px-10 lg:px-4 pt-15 pb-15 md:pt-25 xxl:pt-30">
+        <section className={`${styles.shell} pt-15 pb-15 md:pt-25 xxl:pt-30`}>
           <h1 className="m-0 font-outfit text-resource-title font-medium text-earn-paper">
             Resources
           </h1>
         </section>
 
         <section className="w-full">
-          <div className="max-w-content mx-auto w-full px-5 pb-0 md:px-10 lg:px-4">
+          <div className={styles.shell}>
             <BlogsIndexFeatured {...blogProps} />
           </div>
         </section>
@@ -38,7 +39,7 @@ export function ResourcesMergedPage({ resourcesHub, ...blogProps }: Props) {
             newsInsightsPanel={<BlogsIndexTabPanel {...blogProps} />}
           />
         ) : (
-          <div className="max-w-content mx-auto w-full px-5 md:px-10 lg:px-4">
+          <div className={styles.shell}>
             <BlogsIndexTabPanel {...blogProps} />
           </div>
         )}
