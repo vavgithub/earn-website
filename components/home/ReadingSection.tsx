@@ -13,7 +13,8 @@ export type ReadingSectionProps = {
   moreOpen?: boolean;
   showMore?: boolean;
   imageProportion?: string;
-  linkKind?: "textLink" | "button";
+  linkKind?: "textLink" | "ghost";
+  columnWidth?: "content" | "reading" | "fullBleed";
   appearance?: CSSProperties;
   eyebrowStyle?: CSSProperties;
   headingStyle?: CSSProperties;
@@ -31,6 +32,7 @@ export function ReadingSection({
   showMore = true,
   imageProportion,
   linkKind,
+  columnWidth,
   appearance,
   eyebrowStyle,
   headingStyle,
@@ -40,7 +42,17 @@ export function ReadingSection({
   const HeadingTag = parseSectionHeadingLevel(headingLevel, "h2");
   return (
     <section className={styles.section} aria-labelledby="reading-heading" style={appearance}>
-      <div className={styles.stage}>
+      <div
+        className={
+          columnWidth === "content"
+            ? `${styles.stage} ${styles.widthContent}`
+            : columnWidth === "reading"
+              ? `${styles.stage} ${styles.widthReading}`
+              : columnWidth === "fullBleed"
+                ? `${styles.stage} ${styles.widthFull}`
+                : styles.stage
+        }
+      >
         <header className={styles.header}>
           {eyebrow ? <p className={styles.eyebrow} style={eyebrowStyle}>{eyebrow}</p> : null}
           {heading ? (
@@ -74,10 +86,20 @@ export function ReadingSection({
                   </h3>
                 </div>
                 <div className={styles.foot}>
-                  <p className={styles.body} style={card.bodyStyle}>{card.body}</p>
+                  {card.bodyContent ? (
+                    <div className={`${styles.body} ${styles.bodyRich}`} style={card.bodyStyle}>{card.bodyContent}</div>
+                  ) : (
+                    <p className={styles.body} style={card.bodyStyle}>{card.body}</p>
+                  )}
                   {card.action ? (
                     <a
-                      className={linkKind === "textLink" ? styles.actionText : styles.action}
+                      className={
+                        linkKind === "textLink"
+                          ? styles.actionText
+                          : linkKind === "ghost"
+                            ? styles.actionGhost
+                            : styles.action
+                      }
                       href={card.href || "#"}
                       {...newTabProps(card.openInNewTab)}
                     >

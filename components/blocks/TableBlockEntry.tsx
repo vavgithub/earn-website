@@ -6,8 +6,10 @@ import {
 import { TableBlock } from "@/components/marketing-blocks";
 import PageBlockLayout from "@/components/blocks/PageBlockLayout";
 import PageBlockSection from "@/components/blocks/PageBlockSection";
-import { parseTextColor } from "@/lib/cmsTextColor";
+import { parseTextColor, TEXT_COLOR_HEX } from "@/lib/cmsTextColor";
 import { parseTextSize } from "@/lib/cmsTextSize";
+import { stegaClean } from "next-sanity";
+import { TEXT_COLOR_LEGACY_ALIASES, TEXT_COLOR_VALUES } from "@/sanity/lib/textColorField";
 
 type LegacyRow = { feature?: string; detail?: string };
 type NewRow = { cells?: unknown };
@@ -23,9 +25,36 @@ function isLegacyRowShape(rows: unknown[]): boolean {
   );
 }
 
+function columnHeading(value: unknown) {
+  if (typeof value === "string") return value.trim();
+  if (value && typeof value === "object" && "heading" in value) {
+    return String((value as { heading?: unknown }).heading ?? "").trim();
+  }
+  return "";
+}
+
+function columnWidthCss(value: unknown) {
+  if (!value || typeof value !== "object") return undefined;
+  const unit = stegaClean(String((value as { widthUnit?: unknown }).widthUnit ?? "")).trim();
+  const amount = (value as { widthValue?: unknown }).widthValue;
+  if (typeof amount !== "number" || !Number.isFinite(amount) || amount <= 0) return undefined;
+  if (unit === "percent") return `${amount}%`;
+  if (unit === "pixel") return `${amount}px`;
+  return undefined;
+}
+
+function gridLineColor(value: unknown) {
+  const raw = stegaClean(typeof value === "string" ? value : "").trim();
+  if (!raw) return undefined;
+  if (raw in TEXT_COLOR_LEGACY_ALIASES || (TEXT_COLOR_VALUES as readonly string[]).includes(raw)) {
+    return TEXT_COLOR_HEX[parseTextColor(raw, "lightGrey")];
+  }
+  return undefined;
+}
+
 function normalizeColumns(block: any): string[] | null {
   if (Array.isArray(block?.columns) && block.columns.length >= 2) {
-    return block.columns.map((c: unknown) => String(c ?? "").trim());
+    return block.columns.map((c: unknown) => columnHeading(c));
   }
 
   const rawRows = Array.isArray(block?.rows) ? block.rows : [];
@@ -92,6 +121,12 @@ export default function TableBlockEntry({ block }: { block: any }) {
         <TableBlock
           columns={columns}
           rows={rows}
+          columnWidths={
+            Array.isArray(block.columnWidths)
+              ? columns.map((_, index) => columnWidthCss(block.columnWidths[index]))
+              : undefined
+          }
+          gridLineColor={gridLineColor(block.gridLineColor)}
           columnHeadingTextSize={parseTextSize(block.columnHeadingTextSize, "md")}
           columnHeadingColor={parseTextColor(block.columnHeadingColor, "darkSlate")}
           cellTextSize={parseTextSize(block.cellTextSize, "md")}

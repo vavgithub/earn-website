@@ -1,7 +1,11 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { PortableText, type PortableTextBlock, type PortableTextComponents } from "@portabletext/react";
 import { parseSectionHeadingLevel, type SectionHeadingLevel } from "@/lib/cmsSectionHeadingLevel";
+import { linkMarkProps, parseTextColor, type TextColorValue } from "@/lib/cmsTextColor";
+import { TEXT_COLOR_LEGACY_ALIASES, TEXT_COLOR_VALUES } from "@/sanity/lib/textColorField";
+import { stegaClean } from "next-sanity";
 import { LinkText, newTabProps } from "@/components/home/LinkText";
 import type { Product } from "@/components/home/productsData";
 import styles from "./ProductsSection.module.css";
@@ -39,10 +43,49 @@ export type FilterPaint = {
   label?: string;
 };
 
+function chosenLinkColor(value: unknown): TextColorValue | undefined {
+  const raw = stegaClean(typeof value === "string" ? value : "").trim();
+  if (!raw) return undefined;
+  if (raw in TEXT_COLOR_LEGACY_ALIASES || (TEXT_COLOR_VALUES as readonly string[]).includes(raw)) {
+    return parseTextColor(raw, "offWhite");
+  }
+  return undefined;
+}
+
+function cardPortable(linkColor?: string): PortableTextComponents {
+  const color = chosenLinkColor(linkColor);
+  const linkStyle = color ? linkMarkProps(color).style : undefined;
+  return {
+    block: {
+      normal: ({ children }) => <p>{children}</p>,
+    },
+    list: {
+      bullet: ({ children }) => <ul className="m-0 list-disc pl-5">{children}</ul>,
+      number: ({ children }) => <ol className="m-0 list-decimal pl-5">{children}</ol>,
+    },
+    listItem: {
+      bullet: ({ children }) => <li>{children}</li>,
+      number: ({ children }) => <li>{children}</li>,
+    },
+    marks: {
+      strong: ({ children }) => <strong className="font-semibold">{children}</strong>,
+      em: ({ children }) => <em className="italic">{children}</em>,
+      link: ({ children, value }) => {
+        const href = stegaClean(typeof value?.href === "string" ? value.href : "").trim() || "#";
+        return (
+          <a href={href} className="underline underline-offset-2" style={linkStyle}>
+            {children}
+          </a>
+        );
+      },
+    },
+  };
+}
+
 export type ProductsSectionProps = {
   eyebrow?: string;
   heading?: string;
-  lead?: string;
+  lead?: ReactNode;
   eyebrowStyle?: CSSProperties;
   headingStyle?: CSSProperties;
   headingLevel?: SectionHeadingLevel;
@@ -54,6 +97,7 @@ export type ProductsSectionProps = {
   filterMenuLabel?: string;
   filterPaint?: FilterPaint;
   appearance?: CSSProperties;
+  columnWidth?: "content" | "reading" | "fullBleed";
 };
 
 export function ProductsSection({
@@ -71,6 +115,7 @@ export function ProductsSection({
   filterMenuLabel = "All",
   filterPaint,
   appearance,
+  columnWidth,
 }: ProductsSectionProps = {}) {
   const buttonStyle: CSSProperties = {};
   if (filterPaint?.button) {
@@ -165,7 +210,17 @@ export function ProductsSection({
 
   return (
     <section ref={sectionRef} className={styles.section} aria-labelledby="products-heading" style={sectionStyle}>
-      <div className={styles.stage}>
+      <div
+        className={
+          columnWidth === "content"
+            ? `${styles.stage} ${styles.widthContent}`
+            : columnWidth === "reading"
+              ? `${styles.stage} ${styles.widthReading}`
+              : columnWidth === "fullBleed"
+                ? `${styles.stage} ${styles.widthFull}`
+                : styles.stage
+        }
+      >
         <header className={styles.header}>
           <div className={styles.intro}>
             {eyebrow ? <p className={styles.eyebrow} style={eyebrowStyle}>{eyebrow}</p> : null}
@@ -175,7 +230,11 @@ export function ProductsSection({
               </HeadingTag>
             ) : null}
           </div>
-          {lead ? <p className={styles.lead} style={leadStyle}>{lead}</p> : null}
+          {typeof lead === "string" ? (
+            lead ? <p className={styles.lead} style={leadStyle}>{lead}</p> : null
+          ) : lead ? (
+            <div className={styles.lead} style={leadStyle}>{lead}</div>
+          ) : null}
         </header>
 
         {showFilters && filters.length > 0 ? (
@@ -257,9 +316,13 @@ export function ProductsSection({
                   <h3 className={styles.title}>{product.title}</h3>
                 </div>
                 <div className={styles.body}>
-                  {product.body.map((paragraph, index) => (
-                    <p key={`${index}-${paragraph}`}>{paragraph}</p>
-                  ))}
+                  {product.bodyRich ? (
+                    <PortableText value={product.bodyRich as PortableTextBlock[]} components={cardPortable(product.bodyLinkColor)} />
+                  ) : (
+                    product.body.map((paragraph, index) => (
+                      <p key={`${index}-${paragraph}`}>{paragraph}</p>
+                    ))
+                  )}
                   {product.linkLabel ? (
                     <a
                       className={product.linkKind === "textLink" ? styles.moreText : styles.more}

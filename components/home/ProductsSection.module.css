@@ -195,6 +195,7 @@
 .title {
   font-size: var(--title-size, var(--text-products-lead));
   color: var(--title-color, var(--card-text, var(--color-earn-cream)));
+  white-space: pre-line;
 }
 
 .body {
@@ -458,4 +459,16 @@
   .span2 .body p {
     font-size: var(--card-text-size, var(--text-slide-body-compact));
   }
+}
+
+.stage.widthContent {
+  max-width: 67.5rem;
+}
+
+.stage.widthReading {
+  max-width: 52.5rem;
+}
+
+.stage.widthFull {
+  max-width: none;
 }

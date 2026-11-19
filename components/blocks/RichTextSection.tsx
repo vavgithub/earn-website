@@ -7,7 +7,7 @@ import { getGridCellPortableComponents } from '@/components/blocks/gridCellPorta
 import type { GridCellSurface, LayoutSlotVariant } from '@/components/blocks/layoutSlotVariant'
 import { createColoredPortableComponents } from '@/lib/createColoredPortableText'
 import { parseTextColor, type TextColorValue } from '@/lib/cmsTextColor'
-import { parseTextSize, type TextSizeValue } from '@/lib/cmsTextSize'
+import { optionalTextSizeClass, parseTextSize, type TextSizeValue } from '@/lib/cmsTextSize'
 import { eyebrowTextClassName, eyebrowTextStyle } from '@/lib/eyebrowTypography'
 import { resolveTextWithColor } from '@/lib/textWithColor'
 import { parseLinksOpenInNewTab } from '@/lib/portableTextLink'
@@ -18,6 +18,7 @@ function createRichTextPortableComponents(
   contentSize: TextSizeValue = 'md',
   linkColor: TextColorValue = 'brightYellow',
   linksOpenInNewTab = false,
+  stackBlankLines = false,
 ): PortableTextComponents {
   return {
     ...createColoredPortableComponents({
@@ -26,6 +27,7 @@ function createRichTextPortableComponents(
       bodySize: contentSize,
       linkColor,
       linksOpenInNewTab,
+      stackBlankLines,
     }),
     types: {
       image: ({ value }) => {
@@ -52,7 +54,12 @@ function createRichTextPortableComponents(
 
 /** Legacy `maxWidth` on older rich text blocks → shared layout width. */
 function resolveLayoutWidth(block: Record<string, unknown>): string {
-  if (block.layoutWidth === 'content' || block.layoutWidth === 'reading' || block.layoutWidth === 'fullBleed') {
+  if (
+    block.layoutWidth === 'content' ||
+    block.layoutWidth === 'reading' ||
+    block.layoutWidth === 'fullBleed' ||
+    block.layoutWidth === 'homepage'
+  ) {
     return block.layoutWidth
   }
   const legacy = block.maxWidth
@@ -66,11 +73,14 @@ export default function RichTextSection({
   embedded = false,
   slotVariant = 'default',
   gridCellSurface = 'dark',
+  stackBlankLines = false,
 }: {
   block: any
   embedded?: boolean
   slotVariant?: LayoutSlotVariant
   gridCellSurface?: GridCellSurface
+  /** Keep every saved line break in a two-column text. */
+  stackBlankLines?: boolean
 }) {
   const section = getBlockSectionHeader(block)
   const contentColor = parseTextColor(block.contentTextColor, 'darkSlate')
@@ -103,6 +113,7 @@ export default function RichTextSection({
         contentTextSize,
         contentLinkColor,
         contentLinksOpenInNewTab,
+        stackBlankLines,
       )
 
   const eyebrowEl =
@@ -110,6 +121,7 @@ export default function RichTextSection({
       <p
         className={eyebrowTextClassName(eyebrow.color, {
           extra: onDarkGrid ? undefined : 'mb-10',
+          sizeClass: optionalTextSizeClass(block.eyebrowTextSize),
         })}
         style={eyebrowTextStyle(eyebrow.color).style}
       >
@@ -145,6 +157,7 @@ export default function RichTextSection({
         <BlockSectionHeader
           heading={section.heading}
           headingLevel={section.headingLevel}
+          headingSize={block.sectionHeadingSize}
           intro={section.intro}
           headingColor={section.headingColor}
           introColor={section.introColor}

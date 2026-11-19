@@ -15,9 +15,9 @@ export default defineType({
   icon: StackCompactIcon,
   description: 'Update the words. The layout stays as it is.',
   fields: [
-    defineField({ name: 'eyebrow', title: 'Text above the title', type: 'string' }),
-    defineField({ name: 'heading', title: 'Title', type: 'string' }),
-    defineField({ name: 'lead', title: 'Text under the title', type: 'text', rows: 4 }),
+    defineField({ name: 'eyebrow', title: 'Eyebrow', type: 'string' }),
+    defineField({ name: 'heading', title: 'Heading', type: 'string' }),
+    defineField({ name: 'lead', title: 'Text', type: 'text', rows: 4 }),
     defineField({
       name: 'steps',
       title: 'Steps',
@@ -44,7 +44,7 @@ export default defineType({
               },
             }),
             defineField({ name: 'index', title: 'Number', type: 'string' }),
-            defineField({ name: 'title', title: 'Title', type: 'string' }),
+            defineField({ name: 'title', title: 'Heading', type: 'string' }),
             defineField({ name: 'kicker', title: 'Line under the title', type: 'text', rows: 2 }),
             defineField({ name: 'body', title: 'Text', type: 'text', rows: 5, description: 'Separate paragraphs with a blank line.' }),
           ],

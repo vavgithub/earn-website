@@ -16,7 +16,9 @@ export default function HubSpotFormBlockEntry({ block }: { block: Record<string,
   const region = clean(block.region) || 'na1'
   const eyebrow = clean(block.eyebrow) || undefined
   const heading = clean(block.heading) || undefined
-  const description = clean(block.description) || undefined
+  const descriptionText = typeof block.description === 'string' ? clean(block.description) : undefined
+  const descriptionRich = Array.isArray(block.description) ? block.description : undefined
+  const description = descriptionText || descriptionRich
 
   if (!portalId && !formId && !eyebrow && !heading && !description) {
     return null
@@ -37,11 +39,16 @@ export default function HubSpotFormBlockEntry({ block }: { block: Record<string,
         <HubSpotFormBlock
           eyebrow={eyebrow}
           eyebrowColor={parseTextColor(block.eyebrowColor, 'yellow')}
+          eyebrowTextSize={block.eyebrowTextSize}
           heading={heading}
           headingColor={parseTextColor(block.headingColor, 'offWhite')}
-          description={description}
+          headingLevel={block.headingLevel}
+          headingTextSize={block.headingTextSize}
+          description={descriptionText || descriptionRich}
           descriptionColor={parseTextColor(block.descriptionColor, 'offWhite')}
           descriptionTextSize={parseTextSize(block.descriptionTextSize, 'md')}
+          descriptionLinkColor={block.descriptionLinkColor}
+          descriptionLinksOpenInNewTab={block.descriptionLinksOpenInNewTab === true}
           portalId={portalId}
           formId={formId}
           region={region}

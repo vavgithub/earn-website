@@ -147,11 +147,13 @@ export default defineType({
     },
     prepare({ alt, layoutWidth, aspectRatio, href, media }) {
       const widthLabel =
-        layoutWidth === 'fullBleed'
-          ? 'Full width'
-          : layoutWidth === 'reading'
-            ? 'Reading width'
-            : 'Content width'
+        layoutWidth === 'homepage'
+          ? 'Homepage width'
+          : layoutWidth === 'fullBleed'
+            ? 'Full width'
+            : layoutWidth === 'reading'
+              ? 'Reading width'
+              : 'Content width'
       const ratioLabel = aspectRatio ? String(aspectRatio) : '16:9'
       const linkLabel = href?.trim() ? ' · Linked' : ''
       const preview = pageBuilderBlockPreview(

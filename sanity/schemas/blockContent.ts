@@ -39,17 +39,44 @@ export const blockContent = defineType({
             title: 'URL',
             name: 'link',
             type: 'object',
+            fieldsets: [
+              {
+                name: 'linkDestination',
+                options: { columns: 2 },
+              },
+            ],
             fields: [
+              defineField({
+                name: 'page',
+                title: 'Page',
+                type: 'reference',
+                to: [{ type: 'page' }],
+                weak: true,
+                fieldset: 'linkDestination',
+                description: 'Pick a page on this site. Leave empty to use the URL.',
+              }),
               defineField({
                 title: 'URL',
                 name: 'href',
                 type: 'url',
-                description: 'Full URL (https://…) or internal path (/about, /resources/…).',
+                fieldset: 'linkDestination',
+                description: 'Used when no page is picked. Full URL (https://…) or a path (/about).',
                 validation: (Rule) =>
-                  Rule.uri({
-                    scheme: ['http', 'https', 'mailto', 'tel'],
-                    allowRelative: true,
-                  }).required(),
+                  Rule.custom((value, context) => {
+                    const parent = context.parent as { page?: { _ref?: string } } | undefined
+                    if (parent?.page?._ref) return true
+                    if (typeof value !== 'string' || !value.trim()) return 'Add a page or a URL'
+                    if (
+                      value.startsWith('/') ||
+                      value.startsWith('http://') ||
+                      value.startsWith('https://') ||
+                      value.startsWith('mailto:') ||
+                      value.startsWith('tel:')
+                    ) {
+                      return true
+                    }
+                    return 'Use a full URL or a path that starts with /'
+                  }),
               }),
             ],
           },

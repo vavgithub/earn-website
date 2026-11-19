@@ -10,4 +10,6 @@ export type LayoutSlotBlockProps = {
   slotVariant?: LayoutSlotVariant
   /** Set when `slotVariant` is `gridCell` (dark #141D19 panel vs no panel). */
   gridCellSurface?: GridCellSurface
+  /** Two-column text keeps every saved line break. */
+  stackBlankLines?: boolean
 }

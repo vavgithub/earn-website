@@ -51,6 +51,7 @@ type ButtonBlockProps = {
   gridCellSurface?: GridCellSurface
   /** @deprecated use `embedded` */
   nested?: boolean
+  stackBlankLines?: boolean
 }
 
 const gridCellGhostClass =
@@ -60,9 +61,14 @@ function cn(...parts: Array<string | undefined | false>) {
   return parts.filter(Boolean).join(' ')
 }
 
-function wrapWithTopLine(show: boolean, lineColor: TextColorValue, node: ReactNode) {
+function wrapWithTopLine(
+  show: boolean,
+  lineColor: TextColorValue,
+  node: ReactNode,
+  line?: { thickness?: number; widthPercent?: number },
+) {
   if (!show) return node
-  const { className, style } = linkRuleWrapperProps(lineColor)
+  const { className, style } = linkRuleWrapperProps(lineColor, line)
   return (
     <div className={className} style={style}>
       {node}
@@ -129,6 +135,7 @@ function ButtonInner({
   const onDarkGrid = slotVariant === 'gridCell' && gridCellSurface === 'dark'
 
   const href = isExternalHref(hrefRaw) ? hrefRaw : normalizeInternalPath(hrefRaw)
+  const line = { thickness: config.lineThickness, widthPercent: config.lineWidthPercent }
 
   if (config.buttonType === 'textLink') {
     const linkStyles = textLinkButtonClasses(config)
@@ -144,6 +151,7 @@ function ButtonInner({
             className={linkStyles.className}
             style={linkStyles.style}
           />,
+          line,
         )}
       </div>
     )
@@ -172,7 +180,7 @@ function ButtonInner({
 
   return (
     <div className={align}>
-      {wrapWithTopLine(config.showTopLine, config.lineColor, control)}
+      {wrapWithTopLine(config.showTopLine, config.lineColor, control, line)}
     </div>
   )
 }

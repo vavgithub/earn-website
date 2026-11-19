@@ -31,3 +31,10 @@ export function parseTextSize(raw: unknown, fallback: TextSizeValue = 'md'): Tex
 export function textSizeBodyClass(raw: unknown, fallback: TextSizeValue = 'md'): string {
   return TEXT_SIZE_BODY_CLASS[parseTextSize(raw, fallback)]
 }
+
+/** A chosen size only. An empty value stays unset so the current design size is kept. */
+export function optionalTextSizeClass(raw: unknown): string | undefined {
+  const s = stegaClean(typeof raw === 'string' ? raw : '').trim()
+  if (!(TEXT_SIZE_VALUES as readonly string[]).includes(s)) return undefined
+  return TEXT_SIZE_BODY_CLASS[s as TextSizeValue]
+}

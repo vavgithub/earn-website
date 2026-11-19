@@ -30,6 +30,8 @@ type LayoutSlotBlocksProps = {
   studioBaseUrl?: string
   /** Path prefix before each block _key, e.g. ['pageBuilder', {_key: 'x'}, 'column1'] */
   pathPrefix?: Path
+  /** Two-column text keeps every saved line break. */
+  stackBlankLines?: boolean
 }
 
 export function LayoutSlotBlocks({
@@ -42,6 +44,7 @@ export function LayoutSlotBlocks({
   documentType,
   studioBaseUrl,
   pathPrefix,
+  stackBlankLines = false,
 }: LayoutSlotBlocksProps) {
   const list = Array.isArray(blocks) ? blocks : []
   if (list.length === 0) return null
@@ -74,6 +77,7 @@ export function LayoutSlotBlocks({
               embedded={embedded}
               slotVariant={variant}
               gridCellSurface={variant === 'gridCell' ? gridCellSurface : undefined}
+              stackBlankLines={block._type === 'richTextSection' ? stackBlankLines : undefined}
             />
           </div>
         )

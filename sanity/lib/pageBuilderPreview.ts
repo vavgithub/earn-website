@@ -1,12 +1,11 @@
 import { PAGE_BUILDER_INNER_TYPES, type PageBuilderInnerType } from './pageBuilder'
 
 const BLOCK_LABELS: Record<PageBuilderInnerType, string> = {
-  heroBlog: 'Hero (blog)',
   multiColumnBlock: 'Two columns',
   gridBlock: 'Grid',
   ctaBlock: 'Call to action',
   buttonBlock: 'Button',
-  richTextSection: 'Text & headings',
+  richTextSection: 'Heading & Text',
   accordionBlock: 'Accordion',
   tableBlock: 'Table',
   codeEmbedBlock: 'HTML embed',
@@ -14,14 +13,14 @@ const BLOCK_LABELS: Record<PageBuilderInnerType, string> = {
   howItWorksStepsBlock: 'How it works steps',
   hubspotFormBlock: 'HubSpot form',
   contentPanelBlock: 'Content panel',
-  bannerBlock: 'Banner',
+  bannerBlock: 'Hero',
   ecosystemBlock: 'Ecosystem',
   filterCardsBlock: 'Filter cards',
   statementBlock: 'Statement',
   architectureBlock: 'Architecture',
-  proofListBlock: 'Proof list',
-  calloutBlock: 'Callout',
-  insightCardsBlock: 'Insight cards',
+  proofListBlock: 'Vertical card list',
+  calloutBlock: 'CTA',
+  insightCardsBlock: 'Horizontal card list',
 }
 
 export function pageBuilderBlockLabel(blockType: string): string {

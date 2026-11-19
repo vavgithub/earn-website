@@ -27,8 +27,8 @@
 
 .menuControls {
   display: flex;
-  align-items: flex-end;
-  height: 2.875rem;
+  align-items: center;
+  height: 2rem;
 }
 
 .menuButton {

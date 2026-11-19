@@ -14,7 +14,31 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  align-self: stretch;
   flex-shrink: 0;
+}
+
+.logo {
+  display: block;
+  width: auto;
+  height: 2rem;
+}
+
+.grant {
+  display: block;
+  width: 12.5rem;
+  max-width: 100%;
+  height: auto;
+  margin-top: 1.5rem;
+}
+
+.legal {
+  max-width: 12.5rem;
+  margin: 1.5rem 0 0;
+  font-family: var(--font-inter);
+  font-size: var(--text-2xs);
+  line-height: 1rem;
+  color: var(--color-earn-gray-700);
 }
 
 .mark {
@@ -71,9 +95,22 @@
     justify-content: space-between;
   }
 
+  .logo {
+    height: 2.5rem;
+  }
+
+  .grant {
+    margin-top: 3.75rem;
+  }
+
+  .legal {
+    margin-top: auto;
+    padding-top: 2.5rem;
+  }
+
   .brand {
     align-items: flex-start;
-    width: 9.375rem;
+    width: 12.5rem;
   }
 
   .columns {
@@ -118,15 +155,17 @@
     flex-direction: column;
   }
 
-  .brand,
-  .mark {
+  .brand {
     width: 100%;
   }
 
   .mark {
+    width: 100%;
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: flex-start;
     justify-content: space-between;
+    row-gap: 1rem;
   }
 
   .contact {

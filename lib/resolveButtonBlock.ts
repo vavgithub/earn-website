@@ -13,6 +13,8 @@ export type ResolvedButtonBlock = {
   outlineColor: TextColorValue
   showTopLine: boolean
   lineColor: TextColorValue
+  lineThickness?: number
+  lineWidthPercent?: number
   size: ButtonSize
   shape: ButtonShape
 }
@@ -26,6 +28,10 @@ function clean(s: unknown) {
 function pickSize(v: unknown): ButtonSize {
   const s = clean(v) as ButtonSize
   return SIZES.includes(s) ? s : 'md'
+}
+
+function optionalNumber(value: unknown) {
+  return typeof value === 'number' && Number.isFinite(value) ? value : undefined
 }
 
 function pickButtonType(v: unknown): ButtonBlockType | null {
@@ -157,20 +163,30 @@ export function resolveButtonBlock(block: Record<string, unknown>): ResolvedButt
         ? block.showTopLine
         : base.showTopLine,
     lineColor: parseTextColor(block.lineColor, base.lineColor),
+    lineThickness: optionalNumber(block.lineThickness),
+    lineWidthPercent:
+      clean(block.lineWidth) === 'percent' ? optionalNumber(block.lineWidthPercent) : undefined,
     size: pickSize(block.size),
     shape: normalizeButtonShape(block.shape),
   }
 }
 
-export function linkRuleWrapperProps(lineColor: TextColorValue): {
+export function linkRuleWrapperProps(
+  lineColor: TextColorValue,
+  options?: { thickness?: number; widthPercent?: number },
+): {
   className: string
   style: CSSProperties
 } {
+  const style: CSSProperties = {
+    borderTopColor: TEXT_COLOR_HEX[parseTextColor(lineColor, 'yellow')],
+  }
+  // Editor values. An empty thickness keeps the 3px line. An empty width stays as wide as the button.
+  if (typeof options?.thickness === 'number') style.borderTopWidth = `${options.thickness}px`
+  if (typeof options?.widthPercent === 'number') style.width = `${options.widthPercent}%`
   return {
     className: 'inline-flex flex-col items-start border-t-[3px] pt-6',
-    style: {
-      borderTopColor: TEXT_COLOR_HEX[parseTextColor(lineColor, 'yellow')],
-    },
+    style,
   }
 }
 
@@ -181,11 +197,11 @@ const baseLayout =
   'inline-flex items-center justify-center font-plex-sans font-medium whitespace-nowrap transition-[color,background-color,border-color,transform,opacity,box-shadow] duration-200'
 
 const sizeClasses: Record<ButtonSize, string> = {
-  xs: 'min-h-8 px-3 text-sm gap-1.5',
+  xs: 'min-h-8 px-3 text-xs gap-1.5',
   sm: 'min-h-9 px-4 text-base gap-2',
-  md: 'min-h-10 px-5 text-base gap-2',
-  lg: 'min-h-11 px-6 text-lg gap-2',
-  xl: 'min-h-12 px-8 text-lg gap-2.5',
+  md: 'min-h-10 px-5 text-lg gap-2',
+  lg: 'min-h-11 px-6 text-xl gap-2',
+  xl: 'min-h-12 px-8 text-2xl gap-2.5',
 }
 
 const shapeClasses: Record<ButtonShape, string> = {

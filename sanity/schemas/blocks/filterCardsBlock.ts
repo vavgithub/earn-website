@@ -12,18 +12,34 @@ import {
 } from '../../lib/homeBlockFields'
 import { pageBuilderBlockPreview } from '../../lib/pageBuilderPreview'
 import { sectionHeadingLevelField } from '../../lib/sectionHeadingLevelField'
+import { TEXT_COLOR_OPTIONS } from '../../lib/textColorField'
+import { legacyPlainTextInput } from '../../components/LegacyPlainTextInput'
+import { layoutWidthOptions } from './layoutWidthField'
 
-const space = spaceAroundFields('filterSpace', 'Space around the filters')
-const eyebrowStyle = pairFieldset('eyebrowStyle', 'Text above the title')
+const space = spaceAroundFields('filterSpace', 'Section padding')
+const eyebrowStyle = pairFieldset('eyebrowStyle', 'Eyebrow')
 const headingStyle = headingFieldset('headingStyle')
-const leadStyle = pairFieldset('leadStyle', 'Text under the title')
+const leadStyle = {
+  name: 'leadStyle',
+  title: 'Text',
+  options: { columns: 3 as const },
+}
 const menuStyle = pairFieldset('menuStyle', 'Filter menu label')
 const filterColors = pairFieldset('filterColors', 'Filters')
 const filterNameStyle = pairFieldset('filterNameStyle', 'Filter name')
 const cardTextStyle = pairFieldset('cardTextStyle', 'Card text')
-const brandStyle = pairFieldset('brandStyle', 'Name above the title')
-const titleStyle = pairFieldset('titleStyle', 'Title')
-const cardWords = pairFieldset('cardWords', 'Text')
+const brandStyle = pairFieldset('brandStyle', 'Eyebrow')
+const titleStyle = pairFieldset('titleStyle', 'Heading')
+const cardWords = {
+  name: 'cardWords',
+  title: 'Text',
+  options: { columns: 3 as const },
+}
+const cardLink = {
+  name: 'cardLink',
+  title: 'Link',
+  options: { columns: 2 as const },
+}
 const linkStyle = pairFieldset('linkStyle', 'Link label')
 const tagColors = pairFieldset('tagColors', 'Tags')
 
@@ -43,26 +59,40 @@ export default defineType({
     space.fieldset,
   ],
   fields: [
-    defineField({ name: 'eyebrow', title: 'Text above the title', type: 'string' }),
+    defineField({ name: 'eyebrow', title: 'Eyebrow', type: 'string' }),
     wordsColorField('eyebrowColor', 'Text color', eyebrowStyle.name),
     wordsSizeField('eyebrowSize', 'Text size', eyebrowStyle.name),
     defineField({
       name: 'heading',
-      title: 'Title',
+      title: 'Heading',
       type: 'text',
       rows: 3,
-      description: 'Put each line of the title on its own row.',
     }),
-    sectionHeadingLevelField({
-      name: 'headingLevel',
-      fieldset: headingStyle.name,
-      description: '',
-    }),
+    {
+      ...sectionHeadingLevelField({
+        name: 'headingLevel',
+        fieldset: headingStyle.name,
+        description: '',
+      }),
+      title: 'Heading level',
+    },
     wordsColorField('headingColor', 'Text color', headingStyle.name),
     wordsSizeField('headingSize', 'Text size', headingStyle.name),
-    defineField({ name: 'lead', title: 'Text under the title', type: 'text', rows: 3 }),
+    defineField({
+      name: 'lead',
+      title: 'Text',
+      type: 'blockContent',
+      components: { input: legacyPlainTextInput('flow') },
+    }),
     wordsColorField('leadColor', 'Text color', leadStyle.name),
     wordsSizeField('leadSize', 'Text size', leadStyle.name),
+    defineField({
+      name: 'leadLinkColor',
+      title: 'Link color',
+      type: 'string',
+      fieldset: leadStyle.name,
+      options: { list: [...TEXT_COLOR_OPTIONS], layout: 'dropdown' },
+    }),
     defineField({
       name: 'showFilters',
       title: 'Show the filters',
@@ -78,7 +108,6 @@ export default defineType({
       ...wordsColorField('filterLabelColor', 'Filter label color', filterColors.name),
       description: 'The words on each filter.',
     }),
-    ...space.fields,
     defineField({
       name: 'filterMenuLabel',
       title: 'Filter menu label',
@@ -121,7 +150,7 @@ export default defineType({
         defineArrayMember({
           name: 'filterCard',
           type: 'object',
-          fieldsets: [brandStyle, titleStyle, cardWords, linkStyle, tagColors],
+          fieldsets: [brandStyle, titleStyle, cardWords, cardLink, linkStyle, tagColors],
           fields: [
             defineField({
               name: 'iconMode',
@@ -142,21 +171,27 @@ export default defineType({
               type: 'image',
               hidden: ({ parent }) => parent?.iconMode === 'none',
             }),
-            defineField({ name: 'brand', title: 'Name above the title', type: 'string' }),
+            defineField({ name: 'brand', title: 'Eyebrow', type: 'string' }),
             wordsColorField('brandColor', 'Text color', brandStyle.name),
             wordsSizeField('brandSize', 'Text size', brandStyle.name),
-            defineField({ name: 'title', title: 'Title', type: 'string' }),
+            defineField({ name: 'title', title: 'Heading', type: 'text', rows: 2 }),
             wordsColorField('titleColor', 'Text color', titleStyle.name),
             wordsSizeField('titleSize', 'Text size', titleStyle.name),
             defineField({
               name: 'body',
               title: 'Text',
-              type: 'text',
-              rows: 4,
-              description: 'Separate paragraphs with a blank line.',
+              type: 'blockContent',
+              components: { input: legacyPlainTextInput('flow') },
             }),
             wordsColorField('textColor', 'Text color', cardWords.name),
             wordsSizeField('textSize', 'Text size', cardWords.name),
+            defineField({
+              name: 'bodyLinkColor',
+              title: 'Link color',
+              type: 'string',
+              fieldset: cardWords.name,
+              options: { list: [...TEXT_COLOR_OPTIONS], layout: 'dropdown' },
+            }),
             defineField({
               name: 'linkKind',
               title: 'Link style',
@@ -171,10 +206,20 @@ export default defineType({
             }),
             defineField({ name: 'linkLabel', title: 'Link label', type: 'string' }),
             defineField({
+              name: 'page',
+              title: 'Page',
+              type: 'reference',
+              to: [{ type: 'page' }],
+              weak: true,
+              fieldset: cardLink.name,
+              description: 'Pick a page on this site. Leave empty to use the URL.',
+            }),
+            defineField({
               name: 'linkUrl',
-              title: 'Link',
+              title: 'URL',
               type: 'string',
-              description: 'Where this card’s link goes. Each card has its own link.',
+              fieldset: cardLink.name,
+              description: 'Used when no page is picked. Each card has its own link.',
             }),
             openInNewTabField(),
             wordsColorField('linkColor', 'Link color', linkStyle.name),
@@ -218,6 +263,18 @@ export default defineType({
         }),
       ],
     }),
+    defineField({
+      name: 'layoutWidth',
+      title: 'Column width',
+      type: 'string',
+      description: 'Optional. Content is the default.',
+      initialValue: 'content',
+      options: {
+        list: layoutWidthOptions,
+        layout: 'dropdown',
+      },
+    }),
+    ...space.fields,
   ],
   preview: {
     select: { heading: 'heading' },

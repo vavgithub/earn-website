@@ -4,9 +4,9 @@ import {
   blockLayoutFields,
   blockPaddingRowFieldset,
 } from "./blockLayoutFields";
-import { textColorField } from "../../lib/textColorField";
-import { bodyTextPairFieldset, textColorPairFieldset } from "../../lib/textColorPairFieldset";
-import { textSizeField } from "../../lib/textSizeField";
+import { TEXT_COLOR_OPTIONS, textColorField } from "../../lib/textColorField";
+import { bodyTextPairFieldset, textColorPairFieldset, typographyPairFieldset } from "../../lib/textColorPairFieldset";
+import { TEXT_SIZE_OPTIONS, textSizeField } from "../../lib/textSizeField";
 import { sectionBackgroundField } from "../../lib/sectionBackgroundField";
 import { pageBuilderBlockPreview } from "../../lib/pageBuilderPreview";
 import {
@@ -26,6 +26,7 @@ export default defineType({
   fieldsets: [
     textColorPairFieldset("headingRow", "Panel heading"),
     bodyTextPairFieldset("introRow", "Intro"),
+    typographyPairFieldset("markerRow", "Step number"),
     blockPaddingRowFieldset,
   ],
   fields: [
@@ -95,6 +96,26 @@ export default defineType({
           },
         },
       ],
+    }),
+    defineField({
+      name: "markerColor",
+      title: "Color",
+      type: "string",
+      fieldset: "markerRow",
+      options: {
+        list: [...TEXT_COLOR_OPTIONS],
+        layout: "dropdown",
+      },
+    }),
+    defineField({
+      name: "markerSize",
+      title: "Size",
+      type: "string",
+      fieldset: "markerRow",
+      options: {
+        list: [...TEXT_SIZE_OPTIONS],
+        layout: "dropdown",
+      },
     }),
     defineField({
       name: "footerLink",

@@ -1,9 +1,9 @@
 import type { ReactNode } from 'react'
 
-export type LayoutWidthValue = 'content' | 'reading' | 'fullBleed'
+export type LayoutWidthValue = 'content' | 'reading' | 'fullBleed' | 'homepage'
 
 export function normalizeLayoutWidth(value: unknown): LayoutWidthValue {
-  if (value === 'reading' || value === 'fullBleed') return value
+  if (value === 'reading' || value === 'fullBleed' || value === 'homepage') return value
   return 'content'
 }
 
@@ -20,6 +20,7 @@ type PageBlockLayoutProps = {
 
 /**
  * Width shell for CMS page builder blocks.
+ * - `homepage`: the site column, with no inner 1080px cap
  * - `content`: up to 1080px, left-aligned in the site column (blue-line alignment in designs)
  * - `reading`: up to 840px prose, same left edge as content/nav
  * - `fullBleed`: viewport breakout
@@ -27,6 +28,10 @@ type PageBlockLayoutProps = {
 export default function PageBlockLayout({ layoutWidth, className = '', children }: PageBlockLayoutProps) {
   const w = normalizeLayoutWidth(layoutWidth)
   const extra = className.trim()
+
+  if (w === 'homepage') {
+    return <div className={`${SITE_CONTENT_SHELL} ${extra}`.trim()}>{children}</div>
+  }
 
   if (w === 'fullBleed') {
     return (

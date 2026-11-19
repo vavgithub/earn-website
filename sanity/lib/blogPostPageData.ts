@@ -1,5 +1,6 @@
 import { cache } from 'react'
 
+import { applyInternalPageLinks } from '@/lib/applyInternalPageLinks'
 import { getSanityForRequest } from '@/sanity/lib/liveClient'
 
 /** GROQ fragment: single blog post for /resources/[slug] (page + metadata). */
@@ -47,6 +48,7 @@ export const getCachedBlogPostPageData = cache(async (slug: string) => {
       { slug },
       fetchOpts,
     )
+    if (post) await applyInternalPageLinks(post, sanityClient, fetchOpts)
     return { isDraft, sanityClient, studioBaseUrl, post, fetchError: null as Error | null }
   } catch (fetchError) {
     return {

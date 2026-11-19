@@ -35,8 +35,8 @@ export default function MultiColumnBlock({ block }: { block: any }) {
         <div
           className={`grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 ${columnVerticalAlignClass(block.columnVerticalAlign)}`}
         >
-          <LayoutSlotBlocks blocks={column1} embedded />
-          <LayoutSlotBlocks blocks={column2} embedded />
+          <LayoutSlotBlocks blocks={column1} embedded stackBlankLines />
+          <LayoutSlotBlocks blocks={column2} embedded stackBlankLines />
         </div>
       </PageBlockLayout>
     </PageBlockSection>

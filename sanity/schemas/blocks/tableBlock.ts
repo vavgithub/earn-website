@@ -9,7 +9,8 @@ import {
   blockSectionHeaderFields,
   blockSectionHeaderFieldsets,
 } from '../../lib/blockSectionHeaderFields'
-import { textColorField } from '../../lib/textColorField'
+import { textColorField, TEXT_COLOR_OPTIONS } from '../../lib/textColorField'
+import { TableBlockInput } from '../../components/TableColumnsInput'
 import { typographyPairFieldset } from '../../lib/textColorPairFieldset'
 import { textSizeField } from '../../lib/textSizeField'
 import { sectionBackgroundField } from '../../lib/sectionBackgroundField'
@@ -21,6 +22,7 @@ export default defineType({
   icon: OlistIcon,
   description:
     'Add any number of columns (headings), then each row has one cell per column, in the same order.',
+  components: { input: TableBlockInput },
   fieldsets: [
     ...blockSectionHeaderFieldsets,
     typographyPairFieldset('columnHeadingTypographyRow', 'Column heading typography'),
@@ -33,13 +35,30 @@ export default defineType({
       name: 'columns',
       title: 'Column headings',
       type: 'array',
-      description: 'Order matters: first heading = first cell in each row, and so on.',
+      description:
+        'Order matters: first heading = first cell in each row, and so on. Leave width on Same as now and that column stays as it is.',
       of: [{ type: 'string' }],
       validation: (Rule) =>
         Rule.required()
           .min(2)
           .max(12)
           .error('Add between 2 and 12 columns.'),
+    }),
+    defineField({
+      name: 'columnWidths',
+      title: 'Column widths',
+      type: 'array',
+      hidden: true,
+      of: [
+        {
+          type: 'object',
+          name: 'tableColumnWidth',
+          fields: [
+            defineField({ name: 'widthUnit', title: 'Width', type: 'string' }),
+            defineField({ name: 'widthValue', title: 'Number', type: 'number' }),
+          ],
+        },
+      ],
     }),
     textSizeField({
       name: 'columnHeadingTextSize',
@@ -117,6 +136,16 @@ export default defineType({
       initialValue: 'darkSlate',
       fieldset: 'cellTypographyRow',
     }),
+    defineField({
+      name: 'gridLineColor',
+      title: 'Grid line color',
+      type: 'string',
+      description: 'Color of the table lines. Leave empty to keep the current color.',
+      options: {
+        list: [...TEXT_COLOR_OPTIONS],
+        layout: 'dropdown',
+      },
+    }),
     sectionBackgroundField(),
     ...blockLayoutFields(),
   ],
@@ -127,7 +156,13 @@ export default defineType({
       const c = Array.isArray(columns) ? columns.length : 0
       const head = Array.isArray(columns)
         ? columns
-            .map((x: unknown) => String(x ?? '').trim())
+            .map((x: unknown) => {
+              if (typeof x === 'string') return x.trim()
+              if (x && typeof x === 'object' && 'heading' in x) {
+                return String((x as { heading?: unknown }).heading ?? '').trim()
+              }
+              return ''
+            })
             .filter(Boolean)
             .slice(0, 3)
             .join(' · ')

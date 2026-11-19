@@ -4,12 +4,21 @@ import PageBlockLayout from '@/components/blocks/PageBlockLayout'
 import PageBlockSection from '@/components/blocks/PageBlockSection'
 import { LayoutSlotBlocks } from '@/components/blocks/layoutSlotBlocks'
 import { resolveGridCell } from '@/components/blocks/legacyLayoutSlots'
+import { clean } from '@/components/blocks/homeBlockValue'
 
 export default function GridBlock({ block }: { block: any }) {
   const rawItems = Array.isArray(block.items) ? block.items : []
   const section = getBlockSectionHeader(block)
 
   if (rawItems.length === 0) return null
+
+  const columns = clean(block.columnsPerRow)
+  const gridClass =
+    columns === '2'
+      ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 lg:gap-[60px] items-stretch w-full'
+      : columns === '3'
+        ? 'grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-8 lg:gap-[60px] items-stretch w-full'
+        : 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-[60px] items-stretch w-full'
 
   return (
     <PageBlockSection block={block} blockType="gridBlock">
@@ -24,7 +33,7 @@ export default function GridBlock({ block }: { block: any }) {
           introLinkColor={section.introLinkColor}
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-[60px] items-stretch w-full">
+        <div className={gridClass}>
           {rawItems.map((item: unknown, index: number) => {
             const row = item as { _key?: string; background?: string }
             const key = row._key || `grid-${index}`

@@ -1,4 +1,4 @@
-import type { CSSProperties, ReactNode } from 'react'
+import { isValidElement, type CSSProperties, type ReactNode } from 'react'
 import { type PortableTextComponents } from '@portabletext/react'
 import { linkMarkProps, textColorStyle, type TextColorValue } from '@/lib/cmsTextColor'
 import { portableTextLinkTargetAttrs } from '@/lib/portableTextLink'
@@ -30,6 +30,18 @@ function portableTextEmMark(bodyStyle: CSSProperties) {
 
 export { portableTextStrongMark, portableTextEmMark }
 
+function isBlankLine(children: ReactNode): boolean {
+  if (children == null || children === false) return true
+  if (typeof children === 'string') return children.replace(/\u00a0/g, '').trim() === ''
+  if (typeof children === 'number') return false
+  if (Array.isArray(children)) return children.every(isBlankLine)
+  if (isValidElement(children)) {
+    if (children.type === 'br') return false
+    return isBlankLine((children.props as { children?: ReactNode }).children)
+  }
+  return false
+}
+
 type ColoredPortableOptions = {
   bodyColor?: TextColorValue
   /** Heading blocks inside intro/body copy */
@@ -41,6 +53,11 @@ type ColoredPortableOptions = {
   linkClassName?: string
   /** From Studio “Open links in new tab” on the rich text row. */
   linksOpenInNewTab?: boolean
+  /**
+   * Each saved line break keeps its own line, including a break at the end of a line.
+   * Used by the two-column text. Off everywhere else.
+   */
+  stackBlankLines?: boolean
 }
 
 /** Portable Text for section intros and rich text blocks with a shared body color. */
@@ -51,6 +68,7 @@ export function createColoredPortableComponents({
   linkColor = 'brightYellow',
   linkClassName,
   linksOpenInNewTab = false,
+  stackBlankLines = false,
 }: ColoredPortableOptions): PortableTextComponents {
   const linkFromColor = linkMarkProps(linkColor)
   const resolvedLink = linkClassName
@@ -63,13 +81,33 @@ export function createColoredPortableComponents({
   const StrongMark = portableTextStrongMark(bodyStyle)
   const EmMark = portableTextEmMark(bodyStyle)
 
+  const renderBlankLine = () => (
+    <p className={`m-0 ${bodyBase}`} style={bodyStyle}>
+      <br />
+      {'\u200B'}
+    </p>
+  )
+
   return {
+    ...(stackBlankLines
+      ? {
+          hardBreak: () => (
+            <>
+              <br />
+              {'\u200B'}
+            </>
+          ),
+        }
+      : {}),
     block: {
-      normal: ({ children }) => (
-        <p className={`m-0 mb-4 last:mb-0 ${bodyBase}`} style={bodyStyle}>
-          {children}
-        </p>
-      ),
+      normal: ({ children }) =>
+        stackBlankLines && isBlankLine(children) ? (
+          renderBlankLine()
+        ) : (
+          <p className={`m-0 mb-4 last:mb-0 ${bodyBase}`} style={bodyStyle}>
+            {children}
+          </p>
+        ),
       h1: ({ children }) => (
         <h1
           className={`m-0 mb-4 font-plex-sans text-4xl font-medium leading-tight md:text-5xl ${bodyBase}`}

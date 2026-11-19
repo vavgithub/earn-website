@@ -1,5 +1,6 @@
 import { cache } from 'react'
 
+import { applyInternalPageLinks } from '@/lib/applyInternalPageLinks'
 import { getSanityForRequest } from '@/sanity/lib/liveClient'
 
 /** GROQ fragment: single CMS page for /[slug] (page + metadata). */
@@ -52,6 +53,7 @@ export const getCachedHomepage = cache(async () => {
 
   try {
     const page = await sanityClient.fetch<CmsPageData | null>(homepageQuery, {}, fetchOpts)
+    if (page) await applyInternalPageLinks(page, sanityClient, fetchOpts)
     return { isDraft, sanityClient, studioBaseUrl, page, fetchError: null as Error | null }
   } catch (fetchError) {
     return {
@@ -74,6 +76,7 @@ export const getCachedCmsPageData = cache(async (slug: string) => {
       { slug },
       fetchOpts,
     )
+    if (page) await applyInternalPageLinks(page, sanityClient, fetchOpts)
     return { isDraft, sanityClient, studioBaseUrl, page, fetchError: null as Error | null }
   } catch (fetchError) {
     return {

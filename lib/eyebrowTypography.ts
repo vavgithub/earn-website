@@ -5,9 +5,12 @@ export const EYEBROW_TYPOGRAPHY_CLASS = 'font-plex-sans text-[24px] font-normal 
 
 export function eyebrowTextClassName(
   color: TextColorValue,
-  options?: { extra?: string },
+  options?: { extra?: string; sizeClass?: string },
 ): string {
-  return ['m-0', EYEBROW_TYPOGRAPHY_CLASS, options?.extra].filter(Boolean).join(' ')
+  if (!options?.sizeClass) {
+    return ['m-0', EYEBROW_TYPOGRAPHY_CLASS, options?.extra].filter(Boolean).join(' ')
+  }
+  return ['m-0', 'font-plex-sans font-normal', options.sizeClass, options.extra].filter(Boolean).join(' ')
 }
 
 export function eyebrowTextStyle(color: TextColorValue): { style: ReturnType<typeof textColorStyle> } {

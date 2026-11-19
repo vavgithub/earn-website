@@ -1,6 +1,5 @@
 /** Block types available in `pageBuilder` on blog posts and CMS pages. */
 export const PAGE_BUILDER_INNER_TYPES = [
-  'heroBlog',
   'multiColumnBlock',
   'gridBlock',
   'ctaBlock',

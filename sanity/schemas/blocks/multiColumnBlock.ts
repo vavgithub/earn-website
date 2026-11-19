@@ -18,7 +18,7 @@ export default defineType({
   type: 'object',
   icon: SplitVerticalIcon,
   description:
-    'Side-by-side columns. Add Image, Text & headings, or Button blocks to each column (drag to reorder).',
+    'Side-by-side columns. Add Image, Heading & Text, or Button blocks to each column (drag to reorder).',
   fieldsets: [...blockSectionHeaderFieldsets, blockPaddingRowFieldset],
   fields: [
     ...blockSectionHeaderFields,

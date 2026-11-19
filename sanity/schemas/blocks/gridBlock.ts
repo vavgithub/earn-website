@@ -17,7 +17,7 @@ export default defineType({
   type: 'object',
   icon: ThListIcon,
   description:
-    'Responsive grid of cells. Each cell can contain Image, Text & headings, and Button blocks. Optional heading and intro above the grid.',
+    'Responsive grid of cells. Each cell can contain Image, Heading & Text, and Button blocks. Optional heading and intro above the grid.',
   fieldsets: [...gridAccordionHeaderFieldsets, blockPaddingRowFieldset],
   fields: [
     ...gridAccordionHeaderFields('darkSlate'),
@@ -28,6 +28,19 @@ export default defineType({
       of: [{ type: 'gridCell' }],
       options: { layout: 'grid' },
       validation: (Rule) => Rule.min(1).error('Add at least one grid cell.'),
+    }),
+    defineField({
+      name: 'columnsPerRow',
+      title: 'Cells per row',
+      type: 'string',
+      description: 'Optional. Empty keeps the current rows.',
+      options: {
+        list: [
+          { title: '2 per row', value: '2' },
+          { title: '3 per row', value: '3' },
+        ],
+        layout: 'dropdown',
+      },
     }),
     sectionBackgroundField(),
     ...blockLayoutFields(),

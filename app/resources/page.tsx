@@ -6,6 +6,7 @@ import { ResourcesTabs } from '@/components/website/ResourcesTabs'
 import { WebsiteChrome } from '@/components/website/WebsiteChrome'
 import { getSanityForRequest } from '@/sanity/lib/liveClient'
 import { blogIndexQuery } from '@/sanity/lib/blogListingQuery'
+import { applyInternalPageLinks } from '@/lib/applyInternalPageLinks'
 import { resourcesHubQuery } from '@/sanity/lib/resourcesQuery'
 import type { ResourcesHubData } from '@/types/resources'
 import { RESOURCES_INDEX_PATH } from '@/lib/resourcePaths'
@@ -102,6 +103,7 @@ export default async function ResourcesPage({
     ])
     bundle = blogBundle
     resourcesHub = hub
+    if (hub) await applyInternalPageLinks(hub, sanityClient, fetchOpts)
   } catch (err) {
     fetchError = err
   }

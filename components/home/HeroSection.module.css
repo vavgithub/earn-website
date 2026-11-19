@@ -71,6 +71,27 @@
   margin: 0;
 }
 
+.rich ul,
+.rich ol {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.rich a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.actionGhost {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0.5rem 1.25rem;
+  background: transparent;
+  color: var(--banner-button-fill, var(--color-earn-gold));
+  border: 0.125rem solid var(--banner-button-fill, var(--color-earn-gold));
+}
+
 .action {
   align-self: flex-start;
   font-family: var(--font-plex-sans);
@@ -133,7 +154,7 @@
     padding: var(--spacing-hero-pad);
     padding-top: var(--banner-copy-pad-top, var(--spacing-hero-pad));
     padding-bottom: var(--banner-copy-pad-bottom, var(--spacing-hero-pad));
-    background: rgb(31 41 66 / var(--banner-copy-opacity, 0.4));
+    background: var(--banner-copy-fill, rgb(31 41 66 / var(--banner-copy-opacity, 0.4)));
     border-radius: 0 var(--radius-hero) var(--radius-hero) 0;
     backdrop-filter: blur(var(--blur-hero));
   }
@@ -144,6 +165,26 @@
 
   .headingLine + .headingLine::before {
     content: none;
+  }
+
+  .stageCenter {
+    justify-content: center;
+  }
+
+  .stageRight {
+    justify-content: flex-end;
+  }
+
+  .copyCenter {
+    border-radius: var(--radius-hero);
+  }
+
+  .copyRight {
+    border-radius: var(--radius-hero) 0 0 var(--radius-hero);
+  }
+
+  .hero.heroContent {
+    height: auto;
   }
 }
 
@@ -186,9 +227,18 @@
     padding-bottom: 0;
   }
 
+  .hero.heroContent {
+    aspect-ratio: auto;
+  }
+
   .copy {
     width: calc(50% - 11.25rem);
     margin-left: 11.25rem;
+  }
+
+  .copyCenter,
+  .copyRight {
+    margin-left: 0;
   }
 }
 
@@ -196,5 +246,10 @@
   .copy {
     width: calc(50% - 22.5rem);
     margin-left: 22.5rem;
+  }
+
+  .copyCenter,
+  .copyRight {
+    margin-left: 0;
   }
 }

@@ -7,6 +7,10 @@ export type TableBlockProps = {
   columns: string[]
   /** Each row: cell strings in the same order as `columns` */
   rows: string[][]
+  /** CSS width for a column that has a number. Empty keeps the current width. */
+  columnWidths?: Array<string | undefined>
+  /** Line color from the editor. Empty keeps the current gray. */
+  gridLineColor?: string
   columnHeadingTextSize?: TextSizeValue
   columnHeadingColor?: TextColorValue
   cellTextSize?: TextSizeValue
@@ -42,6 +46,8 @@ function bodyPadding(columnIndex: number) {
 export function TableBlock({
   columns,
   rows,
+  columnWidths,
+  gridLineColor,
   columnHeadingTextSize = 'md',
   columnHeadingColor = 'darkSlate',
   cellTextSize = 'md',
@@ -51,6 +57,7 @@ export function TableBlock({
   if (!columns.length || !rows.length) return null
 
   const twoCols = columns.length === 2
+  const hasExplicitWidth = columnWidths?.some(Boolean)
 
   const thSizeClass = textSizeBodyClass(columnHeadingTextSize, 'md')
   const thStyle: CSSProperties = {
@@ -61,40 +68,48 @@ export function TableBlock({
   const tdStyle = textColorStyle(cellTextColor, 'darkSlate')
   const thType = `font-inter font-bold ${thSizeClass}`
   const tdType = `font-inter font-normal ${tdSizeClass}`
+  const lineStyle: CSSProperties | undefined = gridLineColor ? { borderColor: gridLineColor } : undefined
 
   return (
     <div className={`overflow-x-auto bg-transparent font-inter ${className}`}>
       <table
-        className={`w-full min-w-[320px] border-collapse text-left ${twoCols ? 'table-fixed' : ''}`}
+        className={`w-full min-w-[320px] border-collapse text-left ${twoCols || hasExplicitWidth ? 'table-fixed' : ''}`}
       >
         <thead>
           <tr>
-            {columns.map((heading, ci) => (
-              <th
-                key={ci}
-                scope="col"
-                className={`${headerCellBorderClasses()} ${headerPadding(ci)} ${thType} ${
-                  twoCols && ci === 0 ? 'w-[34%] md:w-[32%]' : ''
-                }`}
-                style={thStyle}
-              >
-                {heading}
-              </th>
-            ))}
+            {columns.map((heading, ci) => {
+              const width = columnWidths?.[ci]
+              const keepDefaultFirstWidth = twoCols && ci === 0 && !width
+              return (
+                <th
+                  key={ci}
+                  scope="col"
+                  className={`${headerCellBorderClasses()} ${headerPadding(ci)} ${thType} ${
+                    keepDefaultFirstWidth ? 'w-[34%] md:w-[32%]' : ''
+                  }`}
+                  style={{ ...thStyle, ...lineStyle, ...(width ? { width } : {}) }}
+                >
+                  {heading}
+                </th>
+              )
+            })}
           </tr>
         </thead>
         <tbody>
           {rows.map((cells, ri) => (
             <tr key={ri}>
-              {columns.map((_, ci) => (
-                <td
-                  key={ci}
-                  className={`align-top ${bodyCellBorderClasses(ci)} ${bodyPadding(ci)} ${tdType}`}
-                  style={tdStyle}
-                >
-                  {cells[ci] ?? ''}
-                </td>
-              ))}
+              {columns.map((_, ci) => {
+                const width = columnWidths?.[ci]
+                return (
+                  <td
+                    key={ci}
+                    className={`align-top ${bodyCellBorderClasses(ci)} ${bodyPadding(ci)} ${tdType}`}
+                    style={{ ...tdStyle, ...lineStyle, ...(width ? { width } : {}) }}
+                  >
+                    {cells[ci] ?? ''}
+                  </td>
+                )
+              })}
             </tr>
           ))}
         </tbody>

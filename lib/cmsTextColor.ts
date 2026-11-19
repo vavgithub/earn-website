@@ -22,6 +22,7 @@ export const TEXT_COLOR_CLASS: Record<TextColorValue, string> = {
   medCoolGrey: 'text-[#252930]',
   grey: 'text-[#606060]',
   lightGrey: 'text-[#B3B3B3]',
+  faintGray: 'text-[#E2E2E2]',
   offWhite: 'text-[#FCFCFA]',
   brightYellow: 'text-[#EDA51C]',
   yellow: 'text-[#F6BF8A]',

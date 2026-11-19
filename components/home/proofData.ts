@@ -1,4 +1,4 @@
-import type { CSSProperties } from "react";
+import type { CSSProperties, ReactNode } from "react";
 
 export const PROOF_EYEBROW = "Proof";
 
@@ -12,6 +12,7 @@ export type ProofItem = {
   logoAlt: string;
   title: string;
   body: string;
+  bodyContent?: ReactNode;
   action: string;
   href?: string;
   openInNewTab?: boolean;

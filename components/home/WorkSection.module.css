@@ -52,6 +52,7 @@
   font-size: var(--heading-size, var(--text-hero-mobile));
   line-height: var(--text-ecosystem--line-height);
   color: var(--heading-color, var(--cms-text, var(--color-earn-paper)));
+  white-space: pre-line;
 }
 
 .intro {
@@ -215,4 +216,16 @@
   .stage {
     gap: 6.25rem;
   }
+}
+
+.stage.widthContent {
+  max-width: 67.5rem;
+}
+
+.stage.widthReading {
+  max-width: 52.5rem;
+}
+
+.stage.widthFull {
+  max-width: none;
 }

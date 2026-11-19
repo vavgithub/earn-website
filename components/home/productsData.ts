@@ -1,3 +1,5 @@
+import type { PortableTextBlock } from "@portabletext/react"
+
 export type ProductLogo = "greentruth" | "earn" | "e10" | "eig"
 
 export type Product = {
@@ -6,6 +8,9 @@ export type Product = {
   brand: string
   title: string
   body: string[]
+  /** Set only when the card text was edited in the rich text editor. */
+  bodyRich?: PortableTextBlock[]
+  bodyLinkColor?: string
   feature?: boolean
   span?: boolean
   iconUrl?: string

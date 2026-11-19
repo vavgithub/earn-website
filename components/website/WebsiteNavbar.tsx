@@ -151,7 +151,7 @@ export function WebsiteNavbar({
       >
         <div className={styles.bar}>
           <Link href="/" className={styles.logoLink}>
-            <img src="/assets/images/earn-logo.svg" alt="Earn" className={styles.logo} />
+            <img src="/assets/images/earn-dlt-logo.svg" alt="EarnDLT" className={styles.logo} />
           </Link>
 
           <div className={styles.desktop}>

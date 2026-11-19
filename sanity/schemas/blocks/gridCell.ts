@@ -7,7 +7,7 @@ export default defineType({
   title: 'Grid cell',
   type: 'object',
   icon: ComponentIcon,
-  description: 'One column in the grid. Add Image, Text & headings, and/or Button blocks inside.',
+  description: 'One column in the grid. Add Image, Heading & Text, and/or Button blocks inside.',
   fields: [
     defineField({
       name: 'background',

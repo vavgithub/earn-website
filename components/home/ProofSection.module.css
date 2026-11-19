@@ -40,6 +40,7 @@
   font-size: var(--heading-size, var(--text-hero-mobile));
   line-height: var(--text-ecosystem--line-height);
   color: var(--heading-color, var(--cms-text, var(--color-earn-paper)));
+  white-space: pre-line;
 }
 
 .break {
@@ -93,6 +94,7 @@
   font-size: var(--title-size, var(--text-products-lead));
   line-height: normal;
   color: var(--title-color, var(--cms-text, var(--color-earn-white)));
+  white-space: pre-line;
 }
 
 .body {
@@ -208,6 +210,41 @@
   .break {
     display: initial;
   }
+}
+
+.stage.widthContent {
+  max-width: 67.5rem;
+}
+
+.stage.widthReading {
+  max-width: 52.5rem;
+}
+
+.stage.widthFull {
+  max-width: none;
+}
+
+.logoWrap.logoScaled {
+  width: auto;
+  height: auto;
+}
+
+.logo.logoScaled {
+  width: auto;
+  max-width: none;
+  height: auto;
+}
+
+.bodyRich {
+  white-space: normal;
+}
+
+.bodyRich p {
+  margin: 0;
+}
+
+.bodyRich p + p {
+  margin-top: 0.75rem;
 }
 
 @media (min-width: 1920px) {

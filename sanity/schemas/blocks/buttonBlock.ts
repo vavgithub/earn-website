@@ -16,11 +16,11 @@ const BUTTON_TYPES = [
 ] as const
 
 const SIZES = [
-  { title: 'Extra small', value: 'xs' },
-  { title: 'Small', value: 'sm' },
-  { title: 'Medium', value: 'md' },
-  { title: 'Large', value: 'lg' },
-  { title: 'Extra large', value: 'xl' },
+  { title: 'Extra small (12px)', value: 'xs' },
+  { title: 'Small (16px)', value: 'sm' },
+  { title: 'Medium (18px)', value: 'md' },
+  { title: 'Large (20px)', value: 'lg' },
+  { title: 'Extra large (24px)', value: 'xl' },
 ] as const
 
 const SHAPES = [
@@ -28,7 +28,7 @@ const SHAPES = [
   { title: 'Rounded', value: 'rounded' },
 ] as const
 
-type ButtonParent = { buttonType?: string; showTopLine?: boolean }
+type ButtonParent = { buttonType?: string; showTopLine?: boolean; lineWidth?: string }
 
 function isFill({ parent }: { parent?: ButtonParent }) {
   return parent?.buttonType === 'fill'
@@ -58,14 +58,26 @@ function hideTopLevelButtonOptions(path: unknown): boolean {
   return hideButtonLayoutWidth(path)
 }
 
+const linkFieldset = {
+  name: 'buttonLink',
+  title: 'Link',
+  options: { columns: 2 as const },
+} as const
+
+const lineFieldset = {
+  name: 'buttonLine',
+  title: 'Line',
+  options: { columns: 3 as const },
+} as const
+
 export default defineType({
   name: 'buttonBlock',
   title: 'Button',
   type: 'object',
   icon: BoltIcon,
   description:
-    'Call-to-action only (label, URL, button type, colors, optional top line). Use Text & headings for copy above.',
-  fieldsets: [blockPaddingRowFieldset],
+    'Call-to-action only (label, URL, button type, colors, optional top line). Use Heading & Text for copy above.',
+  fieldsets: [linkFieldset, lineFieldset, blockPaddingRowFieldset],
   fields: [
     defineField({
       name: 'label',
@@ -74,12 +86,27 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'page',
+      title: 'Page',
+      type: 'reference',
+      fieldset: linkFieldset.name,
+      to: [{ type: 'page' }],
+      weak: true,
+      description: 'Pick a page on this site. Leave empty to use the URL.',
+    }),
+    defineField({
       name: 'href',
       title: 'URL',
       type: 'string',
-      description:
-        'Internal path (e.g. /contact, /resources) or full URL (https://…).',
-      validation: (Rule) => Rule.required(),
+      fieldset: linkFieldset.name,
+      description: 'Used when no page is picked. Internal path (e.g. /contact) or a full URL (https://…).',
+      validation: (Rule) =>
+        Rule.custom((value, context) => {
+          const parent = context.parent as { page?: { _ref?: string } } | undefined
+          if (parent?.page?._ref) return true
+          if (typeof value === 'string' && value.trim()) return true
+          return 'Add a page or a URL'
+        }),
     }),
     defineField({
       name: 'openInNewTab',
@@ -129,6 +156,39 @@ export default defineType({
       description: 'Color of the line above the control.',
       initialValue: 'yellow',
       hidden: ({ parent }) => !showLineColor({ parent }),
+    }),
+    defineField({
+      name: 'lineThickness',
+      title: 'Line thickness',
+      type: 'number',
+      fieldset: lineFieldset.name,
+      description: 'Thickness of the line, in pixels. Leave empty to keep the current line.',
+      hidden: ({ parent }) => !showLineColor({ parent }),
+      validation: (Rule) => Rule.min(0).max(24),
+    }),
+    defineField({
+      name: 'lineWidth',
+      title: 'Top line width',
+      type: 'string',
+      fieldset: lineFieldset.name,
+      description: 'Leave empty to keep the line as wide as the button.',
+      options: {
+        list: [
+          { title: 'Button width', value: 'button' },
+          { title: 'Percent of the row', value: 'percent' },
+        ],
+        layout: 'radio',
+      },
+      hidden: ({ parent }) => !showLineColor({ parent }),
+    }),
+    defineField({
+      name: 'lineWidthPercent',
+      title: 'Percent of the row',
+      type: 'number',
+      fieldset: lineFieldset.name,
+      description: 'Type 1 to 100. 100 is the full row. 50 is half the row.',
+      hidden: ({ parent }) => !showLineColor({ parent }) || parent?.lineWidth !== 'percent',
+      validation: (Rule) => Rule.min(1).max(100),
     }),
     defineField({
       name: 'size',

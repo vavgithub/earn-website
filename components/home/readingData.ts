@@ -1,4 +1,4 @@
-import type { CSSProperties } from "react";
+import type { CSSProperties, ReactNode } from "react";
 
 export const READING_EYEBROW = "Further Reading";
 export const READING_HEADING =
@@ -13,6 +13,7 @@ export type ReadingCard = {
   titleLead: string;
   titleTail?: string;
   body: string;
+  bodyContent?: ReactNode;
   action: string;
   href?: string;
   openInNewTab?: boolean;

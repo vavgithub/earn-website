@@ -123,6 +123,7 @@ export default function ImageBlockEntry({
   block: any
   embedded?: boolean
   slotVariant?: LayoutSlotVariant
+  stackBlankLines?: boolean
 }) {
   const isGridCell = slotVariant === 'gridCell'
   const isHero = slotVariant === 'hero'

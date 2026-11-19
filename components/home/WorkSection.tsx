@@ -1,4 +1,4 @@
-import type { CSSProperties } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { parseSectionHeadingLevel, type SectionHeadingLevel } from "@/lib/cmsSectionHeadingLevel";
 import { LinkText, newTabProps } from "@/components/home/LinkText";
 import { WORK_ARROWS } from "@/components/home/workData";
@@ -7,9 +7,9 @@ import styles from "./WorkSection.module.css";
 export type WorkSectionProps = {
   eyebrow?: string;
   heading?: string;
-  intro?: string;
+  intro?: ReactNode;
   panelTitle?: string;
-  bodyLead?: string;
+  bodyLead?: ReactNode;
   bodyTail?: string;
   action?: string;
   actionHref?: string;
@@ -22,6 +22,7 @@ export type WorkSectionProps = {
   introStyle?: CSSProperties;
   panelTitleStyle?: CSSProperties;
   bodyStyle?: CSSProperties;
+  columnWidth?: "content" | "reading" | "fullBleed";
 };
 
 export function WorkSection({
@@ -42,11 +43,22 @@ export function WorkSection({
   introStyle,
   panelTitleStyle,
   bodyStyle,
+  columnWidth,
 }: WorkSectionProps = {}) {
   const HeadingTag = parseSectionHeadingLevel(headingLevel, "h2");
   return (
     <section className={styles.section} aria-labelledby="work-heading" style={appearance}>
-      <div className={styles.stage}>
+      <div
+        className={
+          columnWidth === "content"
+            ? `${styles.stage} ${styles.widthContent}`
+            : columnWidth === "reading"
+              ? `${styles.stage} ${styles.widthReading}`
+              : columnWidth === "fullBleed"
+                ? `${styles.stage} ${styles.widthFull}`
+                : styles.stage
+        }
+      >
         <header className={styles.header}>
           <div className={styles.titleGroup}>
             {eyebrow ? <p className={styles.eyebrow} style={eyebrowStyle}>{eyebrow}</p> : null}
@@ -56,20 +68,28 @@ export function WorkSection({
               </HeadingTag>
             ) : null}
           </div>
-          <p className={styles.intro} style={introStyle}>{intro}</p>
+          {typeof intro === "string" ? (
+            <p className={styles.intro} style={introStyle}>{intro}</p>
+          ) : (
+            <div className={styles.intro} style={introStyle}>{intro}</div>
+          )}
         </header>
 
         <div className={styles.panel}>
           <h3 className={styles.panelTitle} style={panelTitleStyle}>{panelTitle}</h3>
-          <p className={styles.body} style={bodyStyle}>
-            {bodyLead}
-            {bodyTail ? (
-              <>
-                <br />
-                {bodyTail}
-              </>
-            ) : null}
-          </p>
+          {typeof bodyLead === "string" ? (
+            <p className={styles.body} style={bodyStyle}>
+              {bodyLead}
+              {bodyTail ? (
+                <>
+                  <br />
+                  {bodyTail}
+                </>
+              ) : null}
+            </p>
+          ) : (
+            <div className={styles.body} style={bodyStyle}>{bodyLead}</div>
+          )}
           <div className={styles.actionRow}>
             {action ? (
               <a className={styles.action} href={actionHref} {...newTabProps(actionOpen)}>

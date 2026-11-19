@@ -84,3 +84,27 @@
     max-width: 90rem;
   }
 }
+
+.stage.widthContent {
+  max-width: 67.5rem;
+}
+
+.stage.widthReading {
+  max-width: 52.5rem;
+}
+
+.stage.widthFull {
+  max-width: none;
+}
+
+.lineRich {
+  white-space: normal;
+}
+
+.lineRich p {
+  margin: 0;
+}
+
+.lineRich p + p {
+  margin-top: 0.75rem;
+}

@@ -113,7 +113,7 @@ export function WebsiteFooter({ footer, presentation }: WebsiteFooterProps) {
           <div className={styles.brand}>
             <div className={styles.mark}>
               <Link href="/">
-                <img src="/assets/images/earn-logo.svg" alt="Earn" className="block h-9 w-auto" />
+                <img src="/assets/images/earn-dlt-logo.svg" alt="EarnDLT" className={styles.logo} />
               </Link>
               <div className={styles.contact}>
                 {footer.socialLinks.length ? (
@@ -146,6 +146,14 @@ export function WebsiteFooter({ footer, presentation }: WebsiteFooterProps) {
                 ) : null}
               </div>
             </div>
+            <img
+              src="/assets/images/elevenlabs-grants.png"
+              alt="ElevenLabs Grants"
+              className={styles.grant}
+            />
+            <p className={styles.legal}>
+              EarnDLT®, Greentruth® and Quantified Emissions Token® are registered trademarks, and QET™ and GasTrace™ are trademarks, of Earn DLT, Inc.
+            </p>
           </div>
 
           <div className={styles.columns}>

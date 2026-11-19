@@ -20,7 +20,7 @@ function isProducers(parent: unknown) {
 }
 
 const cardFields = [
-  defineField({ name: 'title', title: 'Title', type: 'string' }),
+  defineField({ name: 'title', title: 'Heading', type: 'string' }),
   defineField({ name: 'body', title: 'Text', type: 'text', rows: 3 }),
   defineField({
     name: 'linkLabel',
@@ -46,12 +46,12 @@ export default defineType({
   fields: [
     defineField({
       name: 'eyebrow',
-      title: 'Text above the title',
+      title: 'Eyebrow',
       type: 'string',
     }),
     defineField({
       name: 'heading',
-      title: 'Title',
+      title: 'Heading',
       type: 'string',
       description: 'The main title.',
     }),
@@ -99,7 +99,7 @@ export default defineType({
               },
               initialValue: 'soft',
             }),
-            defineField({ name: 'title', title: 'Title', type: 'string' }),
+            defineField({ name: 'title', title: 'Heading', type: 'string' }),
             defineField({ name: 'body', title: 'Text', type: 'text', rows: 4 }),
             defineField({
               name: 'linkLabel',

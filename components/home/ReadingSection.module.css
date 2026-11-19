@@ -202,7 +202,8 @@
     line-height: normal;
   }
 
-  .action {
+  .action,
+  .actionGhost {
     height: 2.75rem;
     padding-inline: 1.25rem;
     font-size: var(--link-size, var(--cms-link-size, var(--text-slide-body)));
@@ -288,4 +289,56 @@
   .content {
     gap: 6.25rem;
   }
+}
+
+.actionGhost {
+  align-self: flex-start;
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  height: 1.75rem;
+  padding: 0 1rem;
+  border: 0.125rem solid var(--link-color, var(--cms-link, var(--color-earn-gray-400)));
+  border-radius: 1.25rem;
+  background: transparent;
+  font-family: var(--font-inter);
+  font-size: var(--link-size, var(--cms-link-size, var(--text-card-link)));
+  font-weight: 400;
+  line-height: normal;
+  text-decoration: none;
+  color: var(--link-color, var(--cms-link, var(--color-earn-orange)));
+}
+
+.actionGhost:hover {
+  border-color: var(--link-color, var(--cms-link, var(--color-earn-gold)));
+  color: var(--link-color, var(--cms-link, var(--color-earn-gold)));
+}
+
+.actionGhost:focus-visible {
+  outline: 1px solid var(--color-earn-gold);
+  outline-offset: 2px;
+}
+
+.stage.widthContent {
+  max-width: 67.5rem;
+}
+
+.stage.widthReading {
+  max-width: 52.5rem;
+}
+
+.stage.widthFull {
+  max-width: none;
+}
+
+.bodyRich {
+  white-space: normal;
+}
+
+.bodyRich p {
+  margin: 0;
+}
+
+.bodyRich p + p {
+  margin-top: 0.75rem;
 }

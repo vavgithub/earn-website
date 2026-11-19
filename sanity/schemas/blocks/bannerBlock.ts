@@ -1,11 +1,21 @@
 import { defineField, defineType } from 'sanity'
 import { ImageIcon } from '@sanity/icons'
 import { BLOCK_PADDING_OPTIONS } from '../../lib/blockPaddingFields'
+import { BannerBodyInput } from '../../components/BannerBodyInput'
 import { pageBuilderBlockPreview } from '../../lib/pageBuilderPreview'
+import { SECTION_BACKGROUND_STUDIO_OPTIONS } from '../../../lib/sectionBackgroundTokens'
 import { sectionBackgroundField } from '../../lib/sectionBackgroundField'
 import { textColorField } from '../../lib/textColorField'
 import { sectionHeadingLevelField } from '../../lib/sectionHeadingLevelField'
 import { textSizeOptions } from '../../lib/textSizeField'
+
+const BUTTON_SIZES = [
+  { title: 'Extra small (12px)', value: 'xs' },
+  { title: 'Small (16px)', value: 'sm' },
+  { title: 'Medium (18px)', value: 'button-md' },
+  { title: 'Large (20px)', value: 'button-lg' },
+  { title: 'Extra large (24px)', value: 'button-xl' },
+]
 
 const IMAGE_POSITIONS = [
   { title: 'Top', value: 'top' },
@@ -18,6 +28,12 @@ const IMAGE_POSITIONS = [
   { title: 'Top right', value: 'top right' },
   { title: 'Bottom right', value: 'bottom right' },
 ] as const
+
+const textBoxFieldset = {
+  name: 'textBox',
+  title: 'Text box',
+  options: { columns: 3 as const },
+} as const
 
 const textBoxSpacingFieldset = {
   name: 'copyPadding',
@@ -39,7 +55,7 @@ const fontStyleFieldset = {
 
 const bodyStyleFieldset = {
   name: 'bodyStyle',
-  title: 'Body',
+  title: 'Text',
   options: { columns: 2 as const },
 } as const
 
@@ -58,14 +74,22 @@ function isColorBackground(parent: { backgroundMode?: string } | undefined) {
   return parent?.backgroundMode === 'color'
 }
 
+function isVideoBackground(parent: { backgroundMode?: string } | undefined) {
+  return parent?.backgroundMode === 'video'
+}
+
+function hidesImage(parent: { backgroundMode?: string } | undefined) {
+  return isColorBackground(parent) || isVideoBackground(parent)
+}
+
 export default defineType({
   name: 'bannerBlock',
-  title: 'Banner',
+  title: 'Hero',
   type: 'object',
   icon: ImageIcon,
   description:
-    'Full-width banner. Leave the spacing empty to match the homepage. Add a button only when this banner needs one.',
-  fieldsets: [fontStyleFieldset, bodyStyleFieldset, buttonStyleFieldset, textBoxSpacingFieldset, bannerSpacingFieldset],
+    'Full-width area at the top of a page. Leave the spacing empty to match the homepage. Add a button only when this one needs one.',
+  fieldsets: [fontStyleFieldset, bodyStyleFieldset, textBoxFieldset, buttonStyleFieldset, textBoxSpacingFieldset, bannerSpacingFieldset],
   fields: [
     defineField({
       name: 'heading',
@@ -100,10 +124,10 @@ export default defineType({
     }),
     defineField({
       name: 'body',
-      title: 'Body',
-      type: 'text',
-      rows: 6,
-      description: 'Separate paragraphs with a blank line.',
+      title: 'Text',
+      type: 'blockContent',
+      components: { input: BannerBodyInput },
+      description: 'Bold, italics, lists, and links. Text already on the page stays as it is until this is edited.',
     }),
     textColorField({
       name: 'bodyColor',
@@ -126,9 +150,51 @@ export default defineType({
       name: 'copyOpacity',
       title: 'Text box opacity',
       type: 'number',
+      fieldset: textBoxFieldset.name,
       description: 'How solid the text box is, from 0 to 100. 40 matches the homepage.',
       initialValue: 40,
       validation: (Rule) => Rule.min(0).max(100),
+    }),
+    defineField({
+      name: 'copyBackground',
+      title: 'Text box color',
+      type: 'string',
+      fieldset: textBoxFieldset.name,
+      description: 'Color behind the text. Leave empty to keep the current color.',
+      options: {
+        list: SECTION_BACKGROUND_STUDIO_OPTIONS,
+        layout: 'dropdown',
+      },
+    }),
+    defineField({
+      name: 'copyAlign',
+      title: 'Text box position',
+      type: 'string',
+      fieldset: textBoxFieldset.name,
+      description: 'Where the text box sits across the banner. Left matches the homepage.',
+      options: {
+        list: [
+          { title: 'Left', value: 'left' },
+          { title: 'Center', value: 'center' },
+          { title: 'Right', value: 'right' },
+        ],
+        layout: 'radio',
+      },
+      initialValue: 'left',
+    }),
+    defineField({
+      name: 'heightMode',
+      title: 'Banner height',
+      type: 'string',
+      description: 'Current height matches the homepage. The other choice sizes the banner from the text box and the space above and below it.',
+      options: {
+        list: [
+          { title: 'Current height', value: 'current' },
+          { title: 'Text box plus the space above and below', value: 'content' },
+        ],
+        layout: 'radio',
+      },
+      initialValue: 'current',
     }),
     defineField({
       name: 'buttonKind',
@@ -138,6 +204,7 @@ export default defineType({
         list: [
           { title: 'None', value: 'none' },
           { title: 'Button', value: 'button' },
+          { title: 'Ghost button', value: 'ghost' },
           { title: 'Text link', value: 'textLink' },
         ],
         layout: 'radio',
@@ -167,7 +234,7 @@ export default defineType({
     textColorField({
       name: 'buttonColor',
       title: 'Text color',
-      description: 'Fill color for a button. Text color for a text link.',
+      description: 'Fill color for a button. Border and text color for a ghost button. Text color for a text link.',
       initialValue: 'brightYellow',
       fieldset: buttonStyleFieldset.name,
       hidden: ({ parent }) => hideWithoutButton(parent),
@@ -178,7 +245,7 @@ export default defineType({
       type: 'string',
       fieldset: buttonStyleFieldset.name,
       options: {
-        list: textSizeOptions(),
+        list: BUTTON_SIZES,
         layout: 'dropdown',
       },
       hidden: ({ parent }) => hideWithoutButton(parent),
@@ -190,6 +257,7 @@ export default defineType({
       options: {
         list: [
           { title: 'Background image', value: 'image' },
+          { title: 'Background video', value: 'video' },
           { title: 'Background color', value: 'color' },
         ],
         layout: 'radio',
@@ -201,14 +269,21 @@ export default defineType({
       title: 'Background image',
       type: 'image',
       options: { hotspot: true },
-      hidden: ({ parent }) => isColorBackground(parent),
+      hidden: ({ parent }) => hidesImage(parent),
+    }),
+    defineField({
+      name: 'video',
+      title: 'Background video',
+      type: 'file',
+      options: { accept: 'video/*' },
+      hidden: ({ parent }) => !isVideoBackground(parent),
     }),
     defineField({
       name: 'imageAlt',
       title: 'Image alt text',
       type: 'string',
       description: 'Leave empty when the image is decorative.',
-      hidden: ({ parent }) => isColorBackground(parent),
+      hidden: ({ parent }) => hidesImage(parent),
     }),
     defineField({
       name: 'imageFit',
@@ -222,7 +297,7 @@ export default defineType({
         layout: 'radio',
       },
       initialValue: 'fillFit',
-      hidden: ({ parent }) => isColorBackground(parent),
+      hidden: ({ parent }) => hidesImage(parent),
     }),
     defineField({
       name: 'imagePosition',
@@ -233,7 +308,7 @@ export default defineType({
         layout: 'dropdown',
       },
       initialValue: 'center',
-      hidden: ({ parent }) => isColorBackground(parent),
+      hidden: ({ parent }) => hidesImage(parent),
     }),
     {
       ...sectionBackgroundField({ initialValue: 'medCoolGrey' }),
@@ -277,7 +352,7 @@ export default defineType({
     select: { heading: 'heading' },
     prepare({ heading }) {
       const firstLine = typeof heading === 'string' ? heading.split('\n')[0] : ''
-      return pageBuilderBlockPreview('bannerBlock', firstLine, 'Banner')
+      return pageBuilderBlockPreview('bannerBlock', firstLine, 'Hero')
     },
   },
 })

@@ -4,8 +4,10 @@ import {
   type HowItWorksFooterLink,
   type HowItWorksStep,
 } from "@/components/marketing-blocks/HowItWorksStepsBlock";
-import { parseTextColor } from "@/lib/cmsTextColor";
-import { parseTextSize } from "@/lib/cmsTextSize";
+import { parseTextColor, type TextColorValue } from "@/lib/cmsTextColor";
+import { parseTextSize, type TextSizeValue } from "@/lib/cmsTextSize";
+import { TEXT_COLOR_LEGACY_ALIASES, TEXT_COLOR_VALUES } from "@/sanity/lib/textColorField";
+import { TEXT_SIZE_VALUES } from "@/sanity/lib/textSizeField";
 import { parseNestedRichTextRow } from "@/lib/nestedRichTextRow";
 import PageBlockLayout from "@/components/blocks/PageBlockLayout";
 import PageBlockSection from "@/components/blocks/PageBlockSection";
@@ -19,6 +21,20 @@ type StepDoc = Record<string, unknown> & {
   title?: string;
   content?: PortableTextBlock[];
 };
+
+function chosenMarkerColor(raw: unknown): TextColorValue | undefined {
+  const value = stegaClean(typeof raw === "string" ? raw : "").trim();
+  if (!value) return undefined;
+  if (value in TEXT_COLOR_LEGACY_ALIASES) return TEXT_COLOR_LEGACY_ALIASES[value];
+  if ((TEXT_COLOR_VALUES as readonly string[]).includes(value)) return value as TextColorValue;
+  return undefined;
+}
+
+function chosenMarkerSize(raw: unknown): TextSizeValue | undefined {
+  const value = stegaClean(typeof raw === "string" ? raw : "").trim();
+  if ((TEXT_SIZE_VALUES as readonly string[]).includes(value)) return value as TextSizeValue;
+  return undefined;
+}
 
 export default function HowItWorksStepsBlockEntry({ block }: { block: any }) {
   const heading =
@@ -77,6 +93,8 @@ export default function HowItWorksStepsBlockEntry({ block }: { block: any }) {
           introTextSize={parseTextSize(block.introTextSize, "md")}
           steps={steps}
           footerLink={footerLink}
+          markerColor={chosenMarkerColor(block.markerColor)}
+          markerSize={chosenMarkerSize(block.markerSize)}
         />
       </PageBlockLayout>
     </PageBlockSection>

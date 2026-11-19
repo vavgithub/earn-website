@@ -1,5 +1,6 @@
-import type { CSSProperties } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import Link from "next/link";
+import { PortableText, type PortableTextBlock } from "@portabletext/react";
 import { parseSectionHeadingLevel, type SectionHeadingLevel } from "@/lib/cmsSectionHeadingLevel";
 import { LinkText, newTabProps } from "@/components/home/LinkText";
 import styles from "./HeroSection.module.css";
@@ -7,7 +8,7 @@ import styles from "./HeroSection.module.css";
 export type HeroBannerButton = {
   label: string;
   href: string;
-  kind: "button" | "textLink";
+  kind: "button" | "textLink" | "ghost";
   fill?: string;
   ink?: string;
   size?: string;
@@ -19,13 +20,18 @@ export type HeroSectionProps = {
   heading?: string;
   headingLevel?: SectionHeadingLevel;
   body?: string;
+  richBody?: PortableTextBlock[] | null;
   imageSrc?: string;
+  videoSrc?: string;
   imageAlt?: string;
   showImage?: boolean;
   backgroundColor?: string;
   imageFit?: "cover" | "none";
   imagePosition?: string;
   copyOpacity?: number;
+  copyFill?: string;
+  copyAlign?: "left" | "center" | "right";
+  fitContent?: boolean;
   textColor?: string;
   headingSize?: string;
   bodyColor?: string;
@@ -57,6 +63,23 @@ function isExternalHref(href: string) {
   return /^https?:\/\//i.test(href) || href.startsWith("mailto:") || href.startsWith("tel:");
 }
 
+const richBodyComponents = {
+  marks: {
+    link: ({ value, children }: { value?: { href?: string }; children?: React.ReactNode }) => {
+      const href = value?.href || "#";
+      if (href === "#" || isExternalHref(href)) {
+        return (
+          <a href={href} {...newTabProps(isExternalHref(href))}>
+            {children}
+          </a>
+        );
+      }
+      const path = href.startsWith("/") ? href : `/${href}`;
+      return <Link href={path}>{children}</Link>;
+    },
+  },
+};
+
 function bannerStyle(props: HeroSectionProps): CSSProperties | undefined {
   const style: CSSProperties & Record<string, string> = {};
   if (props.backgroundColor) style["--banner-background"] = props.backgroundColor;
@@ -64,6 +87,7 @@ function bannerStyle(props: HeroSectionProps): CSSProperties | undefined {
   if (props.imageFit) style["--banner-image-fit"] = props.imageFit;
   if (props.imagePosition) style["--banner-image-position"] = props.imagePosition;
   if (props.copyOpacity !== undefined) style["--banner-copy-opacity"] = String(props.copyOpacity);
+  if (props.copyFill) style["--banner-copy-fill"] = props.copyFill;
   if (props.headingSize) style["--banner-heading-size"] = props.headingSize;
   if (props.bodyColor) style["--banner-body-color"] = props.bodyColor;
   if (props.bodySize) style["--banner-body-size"] = props.bodySize;
@@ -80,26 +104,40 @@ function bannerStyle(props: HeroSectionProps): CSSProperties | undefined {
 export function HeroSection(props: HeroSectionProps = {}) {
   const headingLines = linesFrom(props.heading);
   const paragraphs = paragraphsFrom(props.body);
+  const richBody = Array.isArray(props.richBody) && props.richBody.length > 0 ? props.richBody : null;
   const imageSrc = props.imageSrc;
-  const showImage = props.showImage !== false && Boolean(imageSrc);
+  const showImage = props.showImage !== false && Boolean(imageSrc || props.videoSrc);
   const headingId = props.headingId ?? "home-hero-heading";
   const HeadingTag = parseSectionHeadingLevel(props.headingLevel, "h1");
   const button = props.button?.label && props.button.href ? props.button : null;
+  const align = props.copyAlign === "center" || props.copyAlign === "right" ? props.copyAlign : "left";
 
   return (
     <section
-      className={styles.hero}
+      className={props.fitContent ? `${styles.hero} ${styles.heroContent}` : styles.hero}
       aria-labelledby={headingLines.length > 0 ? headingId : undefined}
       style={bannerStyle(props)}
     >
       {showImage ? (
         <div className={styles.mediaWrap}>
-          <img className={styles.media} src={imageSrc} alt={props.imageAlt ?? ""} />
+          {props.videoSrc ? (
+            <video className={styles.media} src={props.videoSrc} autoPlay muted loop playsInline />
+          ) : (
+            <img className={styles.media} src={imageSrc} alt={props.imageAlt ?? ""} />
+          )}
           <div className={styles.scrim} />
         </div>
       ) : null}
-      <div className={styles.stage}>
-        <div className={styles.copy}>
+      <div
+        className={
+          align === "center" ? `${styles.stage} ${styles.stageCenter}` : align === "right" ? `${styles.stage} ${styles.stageRight}` : styles.stage
+        }
+      >
+        <div
+          className={
+            align === "center" ? `${styles.copy} ${styles.copyCenter}` : align === "right" ? `${styles.copy} ${styles.copyRight}` : styles.copy
+          }
+        >
           {headingLines.length > 0 ? (
             <HeadingTag id={headingId} className={styles.heading}>
               {headingLines.map((line, index) => (
@@ -109,7 +147,11 @@ export function HeroSection(props: HeroSectionProps = {}) {
               ))}
             </HeadingTag>
           ) : null}
-          {paragraphs.length > 0 ? (
+          {richBody ? (
+            <div className={`${styles.body} ${styles.rich}`}>
+              <PortableText value={richBody} components={richBodyComponents} />
+            </div>
+          ) : paragraphs.length > 0 ? (
             <div className={styles.body}>
               {paragraphs.map((paragraph, index) => (
                 <p key={`${index}-${paragraph}`}>{paragraph}</p>
@@ -124,7 +166,9 @@ export function HeroSection(props: HeroSectionProps = {}) {
 }
 
 function BannerAction({ button }: { button: HeroBannerButton }) {
-  const className = `${styles.action} ${button.kind === "textLink" ? styles.actionLink : styles.actionButton}`;
+  const kindClass =
+    button.kind === "textLink" ? styles.actionLink : button.kind === "ghost" ? styles.actionGhost : styles.actionButton;
+  const className = `${styles.action} ${kindClass}`;
   const label = <LinkText>{button.label}</LinkText>;
   if (button.href === "#" || isExternalHref(button.href) || button.openInNewTab) {
     return (

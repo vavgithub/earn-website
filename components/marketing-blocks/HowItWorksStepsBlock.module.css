@@ -1,0 +1,58 @@
+.sized {
+  width: var(--step-marker);
+  height: var(--step-marker);
+}
+
+.size48 {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.size40 {
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+.size36 {
+  font-size: 2.25rem;
+  line-height: 1;
+}
+
+.size32 {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.size28 {
+  font-size: 1.75rem;
+  line-height: 1;
+}
+
+.sizeLg {
+  font-size: 1.5rem;
+  line-height: 1.625rem;
+}
+
+.sizeMd {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.sizeSm {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.size14 {
+  font-size: 0.875rem;
+  line-height: 1;
+}
+
+.sizeXs {
+  font-size: 0.75rem;
+  line-height: 1;
+}
+
+.aligned {
+  padding-left: calc(var(--step-marker) + 1rem);
+}

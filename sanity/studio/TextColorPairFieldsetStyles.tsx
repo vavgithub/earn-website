@@ -77,6 +77,54 @@ ${SECTION_HEADING_ROW_SELECTOR} [data-testid^='field-'] [data-ui='Grid'] {
   align-items: revert !important;
 }
 
+/* Heading & Text only. Other modules keep the 50/50 heading row and the 75/25 eyebrow row. */
+fieldset[data-testid='fieldset-richTextHeadingRow'] > [class*='Content-'] > [data-ui='Grid'] {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  width: 100% !important;
+  align-items: start !important;
+}
+fieldset[data-testid='fieldset-richTextHeadingRow'] > [class*='Content-'] > [data-ui='Grid'] > * {
+  min-width: 0 !important;
+  max-width: 100% !important;
+}
+fieldset[data-testid='fieldset-richTextHeadingRow'] > [class*='Content-'] > [data-ui='Grid'] > *:nth-child(1) {
+  grid-column: 1 / -1;
+}
+fieldset[data-testid='fieldset-richTextHeadingRow'] > [class*='Content-'] > [data-ui='Grid'] > *:nth-child(2) {
+  grid-column: 1;
+}
+fieldset[data-testid='fieldset-richTextHeadingRow'] > [class*='Content-'] > [data-ui='Grid'] > *:nth-child(3) {
+  grid-column: 2;
+}
+fieldset[data-testid='fieldset-richTextHeadingRow'] > [class*='Content-'] > [data-ui='Grid'] > *:nth-child(4) {
+  grid-column: 3;
+}
+fieldset[data-testid='fieldset-richTextHeadingRow'] [data-testid^='field-'] [class*='Content-'] > [data-ui='Grid'],
+fieldset[data-testid='fieldset-richTextHeadingRow'] [data-testid^='field-'] [data-ui='Grid'] {
+  display: revert !important;
+  grid-template-columns: revert !important;
+  width: revert !important;
+  align-items: revert !important;
+}
+fieldset[data-testid='fieldset-richTextEyebrowRow'] > [class*='Content-'] > [data-ui='Grid'] {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  width: 100% !important;
+  align-items: start !important;
+}
+fieldset[data-testid='fieldset-richTextEyebrowRow'] > [class*='Content-'] > [data-ui='Grid'] > * {
+  min-width: 0 !important;
+  max-width: 100% !important;
+}
+fieldset[data-testid='fieldset-richTextEyebrowRow'] [data-testid^='field-'] [class*='Content-'] > [data-ui='Grid'],
+fieldset[data-testid='fieldset-richTextEyebrowRow'] [data-testid^='field-'] [data-ui='Grid'] {
+  display: revert !important;
+  grid-template-columns: revert !important;
+  width: revert !important;
+  align-items: revert !important;
+}
+
 /* Short text + color rows — 75% / 25% */
 ${TEXT_COLOR_FIELDSET_SELECTOR},
 fieldset[data-testid='fieldset-descriptionRow'] > [class*='Content-'] > [data-ui='Grid'] {

@@ -17,27 +17,33 @@ export function sectionHeadingRowFieldset(name = 'sectionHeadingRow', title = 'S
 
 type SectionHeadingRowFieldsOptions = {
   hidden?: SectionHeadingRowFieldsHidden
+  fieldset?: string
+  headingDescription?: string
 }
 
 /** Section heading row: textarea heading, H1–H3 tag, color. */
-export function sectionHeadingRowFields({ hidden }: SectionHeadingRowFieldsOptions = {}) {
+export function sectionHeadingRowFields({
+  hidden,
+  fieldset = 'sectionHeadingRow',
+  headingDescription = 'Section title',
+}: SectionHeadingRowFieldsOptions = {}) {
   return [
     defineField({
       name: 'sectionHeading',
       title: 'Heading',
       type: 'text',
       rows: 3,
-      description: 'Section title',
-      fieldset: 'sectionHeadingRow',
+      description: headingDescription,
+      fieldset,
       hidden,
     }),
-    sectionHeadingLevelField({ fieldset: 'sectionHeadingRow', hidden }),
+    sectionHeadingLevelField({ fieldset, hidden }),
     textColorField({
       name: 'sectionHeadingColor',
       title: 'Color',
       description: 'Text color',
       initialValue: 'yellow',
-      fieldset: 'sectionHeadingRow',
+      fieldset,
       hidden,
     }),
   ]

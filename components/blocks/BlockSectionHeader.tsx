@@ -4,7 +4,7 @@ import { getBlockSectionIntroPortableComponents } from '@/components/blocks/bloc
 import { getAccordionIntroPortableComponents } from '@/components/blocks/accordionPortableText'
 import { parseSectionHeadingLevel, type SectionHeadingLevel } from '@/lib/cmsSectionHeadingLevel'
 import { parseTextColor, type TextColorValue } from '@/lib/cmsTextColor'
-import { parseTextSize, type TextSizeValue } from '@/lib/cmsTextSize'
+import { optionalTextSizeClass, parseTextSize, type TextSizeValue } from '@/lib/cmsTextSize'
 import { parseLinksOpenInNewTab } from '@/lib/portableTextLink'
 import {
   sectionHeadingClassName,
@@ -112,6 +112,7 @@ export function BlockSectionHeaderFromBlock({
 type BlockSectionHeaderProps = {
   heading?: string | null
   headingLevel?: SectionHeadingLevel
+  headingSize?: unknown
   intro?: PortableTextBlock[] | null
   headingColor?: TextColorValue
   introColor?: TextColorValue
@@ -128,6 +129,7 @@ type BlockSectionHeaderProps = {
 export function BlockSectionHeader({
   heading,
   headingLevel = 'h2',
+  headingSize,
   intro,
   headingColor = 'yellow',
   introColor = 'darkSlate',
@@ -158,7 +160,10 @@ export function BlockSectionHeader({
 
   const level = parseSectionHeadingLevel(headingLevel, 'h2')
   const HeadingTag = sectionHeadingTag(level)
-  const headingClass = sectionHeadingClassName(level)
+  const chosenSize = optionalTextSizeClass(headingSize)
+  const headingClass = chosenSize
+    ? `m-0 pb-12 text-left font-plex-sans font-normal whitespace-pre-line ${chosenSize}`
+    : sectionHeadingClassName(level)
   const headingStyle = sectionHeadingStyle(headingColor, 'yellow')
 
   return (

@@ -17,7 +17,7 @@ export default defineType({
   title: 'Hero',
   type: 'object',
   icon: ImageIcon,
-  description: 'Two columns. Add Image, Text & headings, or Button blocks to each side.',
+  description: 'Two columns. Add Image, Heading & Text, or Button blocks to each side.',
   fieldsets: [...blockSectionHeaderFieldsets, blockPaddingRowFieldset],
   fields: [
     ...blockSectionHeaderFields,
