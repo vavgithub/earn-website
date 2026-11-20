@@ -126,13 +126,17 @@ export default function FilterCardsBlock({ block }: { block: Record<string, unkn
       ? docs.flatMap((card, index): Product[] => {
           const title = clean(card.title)
           if (!title) return []
+          const bodyIsRich = Array.isArray(card.body)
           const product: Product = {
             id: card._key || `card-${index}`,
             logo: 'earn',
             brand: clean(card.brand),
             title,
-            body: paragraphs(clean(card.body)),
+            body: bodyIsRich ? [] : paragraphs(clean(card.body)),
           }
+          if (Array.isArray(card.body)) product.bodyRich = card.body
+          const bodyLinkColor = clean(card.bodyLinkColor)
+          if (bodyLinkColor) product.bodyLinkColor = bodyLinkColor
           const iconMode = clean(card.iconMode)
           const icon = iconMode === 'none' ? undefined : imageUrl(card.icon, iconMode === 'image' ? 1000 : 240)
           if (icon) product.iconUrl = icon
