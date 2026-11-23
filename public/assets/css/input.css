@@ -85,6 +85,12 @@
   --text-resource-title--line-height: 2rem;
   --text-article-title: 1.375rem;         /* 22px — resources article card title */
   --text-article-title--line-height: 1.75rem;
+  --text-cms-60: 3.75rem;                /* 60px — editor font size */
+  --text-cms-60--line-height: 1.2;
+  --text-cms-52: 3.25rem;                /* 52px — editor font size */
+  --text-cms-52--line-height: 1.2;
+  --text-cms-18: 1.125rem;               /* 18px — editor font size */
+  --text-cms-18--line-height: 1.625rem;
   --text-ecosystem: 3rem;                 /* 48px — section heading, 1024 and up */
   --text-ecosystem--line-height: 1.2;
   --text-ecosystem-mobile: 2.25rem;       /* 36px — section heading, below 1024 */

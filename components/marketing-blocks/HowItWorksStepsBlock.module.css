@@ -3,6 +3,16 @@
   height: var(--step-marker);
 }
 
+.size60 {
+  font-size: 3.75rem;
+  line-height: 1;
+}
+
+.size52 {
+  font-size: 3.25rem;
+  line-height: 1;
+}
+
 .size48 {
   font-size: 3rem;
   line-height: 1;
@@ -40,6 +50,11 @@
 
 .sizeSm {
   font-size: 1rem;
+  line-height: 1;
+}
+
+.size18 {
+  font-size: 1.125rem;
   line-height: 1;
 }
 

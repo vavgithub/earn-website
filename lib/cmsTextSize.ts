@@ -8,6 +8,8 @@ export type { TextSizeValue }
 
 /** Body paragraph / list size — headings use separate typography. */
 export const TEXT_SIZE_BODY_CLASS: Record<TextSizeValue, string> = {
+  '60': 'text-cms-60',
+  '52': 'text-cms-52',
   '48': 'text-ecosystem',
   '40': 'text-hero',
   '36': 'text-ecosystem-mobile',
@@ -15,6 +17,7 @@ export const TEXT_SIZE_BODY_CLASS: Record<TextSizeValue, string> = {
   '28': 'text-title',
   lg: 'text-[24px] leading-[32px]',
   md: 'text-[20px] leading-[28px]',
+  '18': 'text-cms-18',
   sm: 'text-[16px] leading-[24px]',
   '14': 'text-card-body',
   xs: 'text-[12px] leading-[12px]',

@@ -37,6 +37,8 @@ type HowItWorksStepsBlockProps = {
 }
 
 const MARKER_SIZE_CLASS: Record<TextSizeValue, string> = {
+  '60': styles.size60,
+  '52': styles.size52,
   '48': styles.size48,
   '40': styles.size40,
   '36': styles.size36,
@@ -45,11 +47,14 @@ const MARKER_SIZE_CLASS: Record<TextSizeValue, string> = {
   lg: styles.sizeLg,
   md: styles.sizeMd,
   sm: styles.sizeSm,
+  '18': styles.size18,
   '14': styles.size14,
   xs: styles.sizeXs,
 }
 
 const MARKER_DIAMETER: Record<TextSizeValue, string> = {
+  '60': '9.375rem',
+  '52': '8.125rem',
   '48': '7.5rem',
   '40': '6.25rem',
   '36': '5.625rem',
@@ -58,6 +63,7 @@ const MARKER_DIAMETER: Record<TextSizeValue, string> = {
   lg: '3.75rem',
   md: '3.125rem',
   sm: '2.5rem',
+  '18': '2.8125rem',
   '14': '2.1875rem',
   xs: '1.875rem',
 }

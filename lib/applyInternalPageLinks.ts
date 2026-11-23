@@ -46,7 +46,7 @@ function apply(value: unknown, paths: Map<string, string>) {
     const path = id ? paths.get(id) : undefined
     if (path) record.buttonUrl = path
   }
-  if (record._type === 'insightCard') {
+  if (record._type === 'insightCard' || record._type === 'filterCard') {
     const id = pageRef(record.page)
     const path = id ? paths.get(id) : undefined
     if (path) record.linkUrl = path

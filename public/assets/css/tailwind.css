@@ -127,6 +127,12 @@
     --text-resource-title--line-height: 2rem;
     --text-article-title: 1.375rem;
     --text-article-title--line-height: 1.75rem;
+    --text-cms-60: 3.75rem;
+    --text-cms-60--line-height: 1.2;
+    --text-cms-52: 3.25rem;
+    --text-cms-52--line-height: 1.2;
+    --text-cms-18: 1.125rem;
+    --text-cms-18--line-height: 1.625rem;
     --text-ecosystem: 3rem;
     --text-ecosystem--line-height: 1.2;
     --text-ecosystem-mobile: 2.25rem;
@@ -1374,6 +1380,18 @@
   .text-card-body {
     font-size: var(--text-card-body);
     line-height: var(--tw-leading, var(--text-card-body--line-height));
+  }
+  .text-cms-18 {
+    font-size: var(--text-cms-18);
+    line-height: var(--tw-leading, var(--text-cms-18--line-height));
+  }
+  .text-cms-52 {
+    font-size: var(--text-cms-52);
+    line-height: var(--tw-leading, var(--text-cms-52--line-height));
+  }
+  .text-cms-60 {
+    font-size: var(--text-cms-60);
+    line-height: var(--tw-leading, var(--text-cms-60--line-height));
   }
   .text-ecosystem {
     font-size: var(--text-ecosystem);

@@ -16,6 +16,8 @@ const SPACE: Record<string, string> = {
 }
 
 const TEXT_SIZE: Record<string, string> = {
+  '60': 'var(--text-cms-60)',
+  '52': 'var(--text-cms-52)',
   '48': 'var(--text-ecosystem)',
   '40': 'var(--text-hero)',
   '36': 'var(--text-ecosystem-mobile)',
@@ -23,6 +25,7 @@ const TEXT_SIZE: Record<string, string> = {
   '28': 'var(--text-title)',
   lg: '1.5rem',
   md: '1.25rem',
+  '18': 'var(--text-cms-18)',
   sm: '1rem',
   '14': 'var(--text-card-body)',
   xs: '0.75rem',

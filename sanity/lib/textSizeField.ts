@@ -1,10 +1,12 @@
 import { defineField } from 'sanity'
 
-export const TEXT_SIZE_VALUES = ['48', '40', '36', '32', '28', 'lg', 'md', 'sm', '14', 'xs'] as const
+export const TEXT_SIZE_VALUES = ['60', '52', '48', '40', '36', '32', '28', 'lg', 'md', '18', 'sm', '14', 'xs'] as const
 
 export type TextSizeValue = (typeof TEXT_SIZE_VALUES)[number]
 
 export const TEXT_SIZE_OPTIONS = [
+  { title: '60px', value: '60' },
+  { title: '52px', value: '52' },
   { title: '48px', value: '48' },
   { title: '40px', value: '40' },
   { title: '36px', value: '36' },
@@ -12,6 +14,7 @@ export const TEXT_SIZE_OPTIONS = [
   { title: '28px', value: '28' },
   { title: '24px', value: 'lg' },
   { title: '20px', value: 'md' },
+  { title: '18px', value: '18' },
   { title: '16px', value: 'sm' },
   { title: '14px', value: '14' },
   { title: '12px', value: 'xs' },
